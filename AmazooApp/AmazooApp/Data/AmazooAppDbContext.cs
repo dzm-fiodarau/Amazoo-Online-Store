@@ -14,5 +14,7 @@ namespace AmazooApp.Data
 
         }
 
+        public DbSet<User> Users { get; set; }
+
     }
 }
