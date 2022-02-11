@@ -4,7 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
-
+<PropertyGroup>
+  <RollForward>Major</RollForward>
+</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
@@ -14,5 +16,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  
+  
 
 </Project>
