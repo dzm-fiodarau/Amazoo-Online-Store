@@ -4,42 +4,49 @@
 @{
     ViewBag.Title = "Log in";
 }
+ 
+@model AmazooApp.Models.UserProfile
 
 <div class="p-5 text-center bg-light">
     <h1 class="mb-3">Welcome To Amazoo</h1>
 </div>
-<section class="vh-100">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-center">
 
-                        <h3 class="mb-5">Sign in</h3>
+<form method="post" asp-action="Check" asp-controller="Login">
 
-                        <div class="form-outline mb-4">
-                            <input type="email" id="typeEmailX-2" class="form-control form-control-lg" />
-                            <label class="form-label" for="typeEmailX-2">Email</label>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <h3 class="mb-5">Sign in</h3>
+
+                            <div class="form-outline mb-4">
+                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" asp-for="email" />
+                                <label class="form-label"  for="typeEmailX-2">Email</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="password"  id="typePasswordX-2" class="form-control form-control-lg" asp-for="Password" />
+                                <label class="form-label" for="typePasswordX-2">Password</label>
+                            </div>
+
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+
                         </div>
-
-                        <div class="form-outline mb-4">
-                            <input type="password" id="typePasswordX-2" class="form-control form-control-lg" />
-                            <label class="form-label" for="typePasswordX-2">Password</label>
+                        <div>
+                            <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a></p>
                         </div>
-
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-
                     </div>
-                    <div>
-                        <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a></p>
-                    </div>
+
                 </div>
 
             </div>
 
         </div>
 
-    </div>
 
+    </section>
 
-</section>
+</form>

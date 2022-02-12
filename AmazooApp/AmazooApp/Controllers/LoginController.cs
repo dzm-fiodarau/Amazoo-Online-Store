@@ -1,4 +1,5 @@
 ﻿using AmazooApp.Data;
+using AmazooApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmazooApp.Controllers
@@ -16,9 +17,14 @@ namespace AmazooApp.Controllers
         {
             _db = db;
         }
-        public IActionResult Check()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Check(UserProfile obj)
         {
-            return Ok("WELCOME Jane Doe");
+            
+            
+            return Ok("Welcome " + obj.email);
         }
     }
 }
