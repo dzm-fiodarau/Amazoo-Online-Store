@@ -1591,3 +1591,4 @@ C:\Users\KEVIN\source\repos\SOEN341-Project\AmazooApp\AmazooApp\bin\Debug\net5.0
 C:\Users\KEVIN\source\repos\SOEN341-Project\AmazooApp\AmazooApp\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\KEVIN\source\repos\SOEN341-Project\AmazooApp\AmazooApp\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\KEVIN\source\repos\SOEN341-Project\AmazooApp\AmazooApp\obj\Debug\net5.0\AmazooApp.csproj.AssemblyReference.cache
+C:\Users\KEVIN\source\repos\SOEN341-Project\AmazooApp\AmazooApp\obj\Debug\net5.0\Razor\Views\Register\Register.cshtml.g.cs
