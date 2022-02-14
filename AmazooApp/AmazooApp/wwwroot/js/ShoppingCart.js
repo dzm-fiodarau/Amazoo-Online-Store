@@ -312,7 +312,7 @@ function setItems(products) {
 }
 
 
-/*
+
 //SUBTRACTS SELECT ITEM TO THE LOCAL STORAGE//
 function subItem(itemName){
     console.log("In Sub Item");
@@ -330,7 +330,7 @@ function subItem(itemName){
     }
     onAction();
 }
-*/
+
 
 /*
 //CALCULATES QST TAX//
