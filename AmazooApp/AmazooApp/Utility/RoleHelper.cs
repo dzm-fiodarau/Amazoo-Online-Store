@@ -12,8 +12,8 @@ namespace AmazooApp.Utility
         {
             return new List<SelectListItem>
             {
-                new SelectListItem{Value = Admin , Text=RoleHelper.Admin},
-                new SelectListItem{Value=Customer , Text=RoleHelper.Customer}
+                new SelectListItem{Value=Customer , Text=RoleHelper.Customer},
+                new SelectListItem{Value = Admin , Text=RoleHelper.Admin}
             };
         }
     }

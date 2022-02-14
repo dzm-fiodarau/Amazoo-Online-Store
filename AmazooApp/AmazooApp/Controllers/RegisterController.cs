@@ -48,15 +48,20 @@ namespace AmazooApp.Controllers
                     UserName= model.FirstName,
                 };
 
-                var result = await _userManager.CreateAsync(user);
+                var result = await _userManager.CreateAsync(user,model.Password);
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.Role);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
+
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
             }
-            return View();
+            return View(model);
         }
     }
 

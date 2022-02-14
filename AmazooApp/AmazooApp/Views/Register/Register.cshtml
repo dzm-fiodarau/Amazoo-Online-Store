@@ -10,31 +10,32 @@
                         <div class="card-body p-5 text-center">
 
                             <h3 class="mb-5">Sign UP</h3>
-                                       <div class="form-outline mb-4 row">
+                            <div class="form-outline mb-4 row">
+                                <label class="form-label" asp-for=FirstName></label>
                                 <input type="text" id="typeEmailX-2" class="form-control form-control-lg" asp-for="FirstName" />
-                                <label class="form-label"  asp-for=FirstName></label>
                                 <span asp-validation-for="FirstName" class="text-danger"></span>
                             </div>
-                                       <div class="form-outline mb-4 row">
+                            <div class="form-outline mb-4 row">
+                                <label class="form-label" for="typeEmailX-2" asp-for="LastName"></label>
                                 <input type="text" id="typeEmailX-2" class="form-control form-control-lg" asp-for="LastName" />
-                                <label class="form-label"  for="typeEmailX-2" asp-for = "LastName"></label>
                                 <span asp-validation-for="LastName" class="text-danger"></span>
                             </div>
 
                             <div class="form-outline mb-4 row">
+                                <label class="form-label" for="typeEmailX-2" asp-for="Email"></label>
                                 <input type="email" id="typeEmailX-2" class="form-control form-control-lg" asp-for="Email" />
-                                <label class="form-label"  for="typeEmailX-2" asp-for="Email"></label>
                                 <span asp-validation-for=Email class="text-danger"></span>
                             </div>
 
-                            <div class="form-outline mb-4">
-                                <input type="password"  id="typePasswordX-2" class="form-control form-control-lg" asp-for="Password" />
+                            <div class="form-outline mb-4 row">
                                 <label class="form-label" for="typePasswordX-2" asp-for=Password></label>
+                                <input type="password" id="typePasswordX-2" class="form-control form-control-lg" asp-for="Password" />
+
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
-                                       <div class="form-outline mb-4 row">
+                            <div class="form-outline mb-4 row">
+                                <label class="form-label" for="typeEmailX-2" asp-for="ConfirmPassword"></label>
                                 <input type="password" id="typeEmailX-2" class="form-control form-control-lg" asp-for="ConfirmPassword" />
-                                <label class="form-label"  for="typeEmailX-2" asp-for="ConfirmPassword"></label>
                                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                             </div>
                             <div class="form-outline mb-4 row">
@@ -55,3 +56,7 @@
 
     </section>
 </form>
+
+@section scripts{ 
+<partial name="_ValidationScriptsPartial" />
+}
