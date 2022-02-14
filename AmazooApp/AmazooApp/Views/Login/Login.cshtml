@@ -1,11 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
     ViewBag.Title = "Log in";
 }
  
-@model AmazooApp.Models.UserProfile
+@model AmazooApp.Models.ViewModels.LoginViewModel
 
 <form method="post" asp-action="Check" asp-controller="Login">
 
@@ -19,7 +17,7 @@
                             <h3 class="mb-5">Sign in</h3>
 
                             <div class="form-outline mb-4 row">
-                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" asp-for="email" />
+                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" asp-for="Email" />
                                 <label class="form-label"  for="typeEmailX-2">Email</label>
                             </div>
 
@@ -27,12 +25,15 @@
                                 <input type="password"  id="typePasswordX-2" class="form-control form-control-lg" asp-for="Password" />
                                 <label class="form-label" for="typePasswordX-2">Password</label>
                             </div>
-
+                                   <div class="form-outline mb-4 row">
+                                <input type="checkbox" id="rememberMe" class="form-control form-control-lg" asp-for="RememberMe" />
+                                <label class="form-label"  for="typeEmailX-2">Remember Me</label>
+                            </div>
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
 
                         </div>
                         <div>
-                            <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a></p>
+                            <p class="mb-0">Don't have an account? <a href="Login/login" class="text-white-50 fw-bold">Sign Up</a></p>
                         </div>
                     </div>
 

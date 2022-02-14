@@ -1,5 +1,6 @@
 ﻿using AmazooApp.Data;
 using AmazooApp.Models;
+using AmazooApp.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -10,11 +11,11 @@ namespace AmazooApp.Controllers
     {
 
         private readonly AmazooAppDbContext _db;
-        UserManager<UserProfile> _userManager;
-        SignInManager<UserProfile> _signInManager;
+        UserManager<ApplicationUser> _userManager;
+        SignInManager<ApplicationUser> _signInManager;
 
-        public LoginController(AmazooAppDbContext db, UserManager<UserProfile> userManager,
-        SignInManager<UserProfile> signInManager)
+        public LoginController(AmazooAppDbContext db, UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager)
         {
             _db = db;
             _userManager = userManager; ;
@@ -26,10 +27,16 @@ namespace AmazooApp.Controllers
             return View();
         }
 
+        public IActionResult Check()
+        {
+            return View();
+        }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Check(UserProfile userProfileModel)
+        public async Task<IActionResult> Check(LoginViewModel userProfileModel)
         {
 
             if (ModelState.IsValid)
@@ -40,7 +47,7 @@ namespace AmazooApp.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Invalid Login Attempt");
+                ModelState.AddModelError("Login", "Invalid Login Attempt");
             }
             return View(userProfileModel);
         }
@@ -48,6 +55,18 @@ namespace AmazooApp.Controllers
         public IActionResult Register()
         {
             return View();
+        }
+
+        private ApplicationUser createUser()
+        {
+            return new ApplicationUser
+            {
+                UserName = "John",
+                Email = "a@a",
+                FirstName = "John",
+                LastName = "Doe",
+                PasswordHash = "123"
+            };
         }
     }
 }

@@ -34,8 +34,7 @@ namespace AmazooApp
 
             services.AddControllersWithViews();
 
-           // services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AmazooAppDbContext>();
-            services.AddIdentity<UserProfile, IdentityRole>().AddEntityFrameworkStores<AmazooAppDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AmazooAppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
