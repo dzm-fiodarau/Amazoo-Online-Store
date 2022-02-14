@@ -41,6 +41,13 @@
     font-size: calc(18px + 1.5vw);
     text-decoration: none;
 }
+
+.menu_account_item {
+    display: block;
+    color: lightgray;
+    font-size: calc(18px + 0.5vw);
+    text-decoration: none;
+}
 /*NAVIGATION BAR STYLE END*/
 
 #content_wrap {
