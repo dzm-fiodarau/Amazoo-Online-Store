@@ -26,7 +26,8 @@ namespace AmazooApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AmazooAppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConneciton"))
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConneciton"))
+                options.UseSqlServer(Configuration.GetConnectionString("TestConnection"))
             );
 
             services.AddControllersWithViews();
