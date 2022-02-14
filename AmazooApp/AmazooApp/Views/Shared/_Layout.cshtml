@@ -4,14 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AmazooApp</title>
+    <link href="~/css/site.css" rel="stylesheet" type="text/css"/>
 </head>
-<body>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+<body style="margin: 0px;">
+
+    <div style="position: relative; min-height: 100vh;">
+
+        <header>
+            <nav class="navbar">
+                <a class="app_title">
+                    <i>Amazoo</i>
+                </a>
+            </nav>
+        </header>
+
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
     </div>
 
 </body>
+
 </html>
