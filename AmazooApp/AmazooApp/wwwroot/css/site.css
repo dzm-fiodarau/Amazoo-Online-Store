@@ -13,3 +13,35 @@
 }
 
 /*NAVIGATION BAR STYLE END*/
+
+#content_wrap {
+    padding-bottom: 100vh;
+}
+
+/*FOOTER STYLE*/
+.footer_whole {
+    height: 200px;
+    width: 100%;
+    background-color: black;
+    margin-top: 100px;
+    position: absolute;
+    bottom: 0;
+}
+
+.footer_whole .footer_row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.footer_whole .footer_column {
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    height: inherit;
+    display: inline-block;
+    color: white;
+    font-size: calc(5px + 1vw);
+}
+/*FOOTER STYLE END*/
