@@ -271,7 +271,7 @@ function deleteItem(itemName){
 }
 
 
-/*
+
 //ADDS SELECT ITEM TO THE LOCAL STORAGE//
 function addItem(itemName){
     let cartItems=localStorage.getItem("productsInCart");
@@ -310,7 +310,7 @@ function setItems(products) {
     }
     localStorage.setItem('productsInCart', JSON.stringify(cartItems));
 }
-*/
+
 
 /*
 //SUBTRACTS SELECT ITEM TO THE LOCAL STORAGE//
