@@ -12,6 +12,29 @@
     padding: 10px 0 10px 0;
 }
 
+.nav_elem {
+    text-decoration: none;
+    border: none;
+    background-color: black;
+    display: inline-block;
+    float: right;
+    height: fit-content;
+    width: fit-content;
+    font-size: 3vw;
+    margin: 5px;
+}
+
+.nav_elem img {
+    width: calc(45px + 2vw);
+    height: calc(45px + 2vw);
+}
+
+.nav_elem img:hover {
+    width: calc(45px + 1.5vw);
+    height: calc(45px + 1.5vw);
+    margin: 0.5vw 0 0 0;
+}
+
 /*NAVIGATION BAR STYLE END*/
 
 #content_wrap {
