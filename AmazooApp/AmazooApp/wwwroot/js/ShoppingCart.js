@@ -248,7 +248,7 @@ function displayCart2(){
     }   
 }
 
-/*
+
 //DELETES SELECT ITEM FROM THE LOCAL STORAGE//
 function deleteItem(itemName){
     let cartItems=localStorage.getItem("productsInCart");
@@ -269,7 +269,7 @@ function deleteItem(itemName){
     }
     onAction();
 }
-*/
+
 
 /*
 //ADDS SELECT ITEM TO THE LOCAL STORAGE//
