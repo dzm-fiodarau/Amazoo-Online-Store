@@ -248,6 +248,7 @@ function displayCart2(){
     }   
 }
 
+/*
 //DELETES SELECT ITEM FROM THE LOCAL STORAGE//
 function deleteItem(itemName){
     let cartItems=localStorage.getItem("productsInCart");
@@ -268,7 +269,9 @@ function deleteItem(itemName){
     }
     onAction();
 }
+*/
 
+/*
 //ADDS SELECT ITEM TO THE LOCAL STORAGE//
 function addItem(itemName){
     let cartItems=localStorage.getItem("productsInCart");
@@ -283,6 +286,8 @@ function addItem(itemName){
     }
     onAction();
 }
+
+
 //ADDS LOCAL STORAGE OF CORRESPONDING PRODUCT//
 function setItems(products) {
     let cartItems = localStorage.getItem('productsInCart');
@@ -305,6 +310,9 @@ function setItems(products) {
     }
     localStorage.setItem('productsInCart', JSON.stringify(cartItems));
 }
+*/
+
+/*
 //SUBTRACTS SELECT ITEM TO THE LOCAL STORAGE//
 function subItem(itemName){
     console.log("In Sub Item");
@@ -322,7 +330,9 @@ function subItem(itemName){
     }
     onAction();
 }
+*/
 
+/*
 //CALCULATES QST TAX//
 function qstTax() {
     let totalCost=localStorage.getItem("totalCost2");
@@ -347,7 +357,7 @@ function placeOrder(){
     localStorage.clear();
     location.reload();
 }
-
+*/
 
   //LIST OF FUNCTIONS TO RUN ON PAGE ACTION//
 function onAction(){
