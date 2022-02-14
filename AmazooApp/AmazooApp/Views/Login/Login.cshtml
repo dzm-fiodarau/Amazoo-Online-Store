@@ -7,10 +7,6 @@
  
 @model AmazooApp.Models.UserProfile
 
-<div class="p-5 text-center bg-light">
-    <h1 class="mb-3">Welcome To Amazoo</h1>
-</div>
-
 <form method="post" asp-action="Check" asp-controller="Login">
 
     <section class="vh-100">
@@ -22,7 +18,7 @@
 
                             <h3 class="mb-5">Sign in</h3>
 
-                            <div class="form-outline mb-4">
+                            <div class="form-outline mb-4 row">
                                 <input type="email" id="typeEmailX-2" class="form-control form-control-lg" asp-for="email" />
                                 <label class="form-label"  for="typeEmailX-2">Email</label>
                             </div>

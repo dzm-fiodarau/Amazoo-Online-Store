@@ -1,7 +1,9 @@
 using AmazooApp.Data;
+using AmazooApp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +33,9 @@ namespace AmazooApp
             );
 
             services.AddControllersWithViews();
+
+           // services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AmazooAppDbContext>();
+            services.AddIdentity<UserProfile, IdentityRole>().AddEntityFrameworkStores<AmazooAppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +55,8 @@ namespace AmazooApp
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

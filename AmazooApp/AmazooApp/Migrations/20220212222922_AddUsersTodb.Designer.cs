@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmazooApp.Migrations
 {
     [DbContext(typeof(AmazooAppDbContext))]
-    [Migration("20220212002737_AddedUserFK")]
-    partial class AddedUserFK
+    [Migration("20220212222922_AddUsersTodb")]
+    partial class AddUsersTodb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
