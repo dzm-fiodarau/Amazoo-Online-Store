@@ -332,7 +332,7 @@ function subItem(itemName){
 }
 
 
-/*
+
 //CALCULATES QST TAX//
 function qstTax() {
     let totalCost=localStorage.getItem("totalCost2");
@@ -357,7 +357,7 @@ function placeOrder(){
     localStorage.clear();
     location.reload();
 }
-*/
+
 
   //LIST OF FUNCTIONS TO RUN ON PAGE ACTION//
 function onAction(){
