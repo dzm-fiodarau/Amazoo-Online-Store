@@ -29,7 +29,7 @@ namespace AmazooApp.Controllers
 
         public IActionResult Check()
         {
-            return Ok("WE can Login YAY!");
+            return View();
         }
 
 
@@ -38,10 +38,10 @@ namespace AmazooApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Check(LoginViewModel model)
         {
-            //TODO ADD [Compare("Password",ErrorMessage ="Password and confirmation password not match.")]
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,false);
+                ApplicationUser user  =  _userManager.FindByEmailAsync(model.Email).GetAwaiter().GetResult();
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
@@ -57,6 +57,7 @@ namespace AmazooApp.Controllers
             return RedirectToAction("Login");
         }
 
+     
 
     }
 }
