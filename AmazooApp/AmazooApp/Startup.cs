@@ -1,7 +1,9 @@
 using AmazooApp.Data;
+using AmazooApp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,10 +29,12 @@ namespace AmazooApp
         {
             services.AddDbContext<AmazooAppDbContext>(options =>
                 //options.UseSqlServer(Configuration.GetConnectionString("DefaultConneciton"))
-                options.UseSqlServer(Configuration.GetConnectionString("TestConnection"))
+                 options.UseSqlServer(Configuration.GetConnectionString("TestConnection"))
             );
 
             services.AddControllersWithViews();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AmazooAppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +54,8 @@ namespace AmazooApp
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

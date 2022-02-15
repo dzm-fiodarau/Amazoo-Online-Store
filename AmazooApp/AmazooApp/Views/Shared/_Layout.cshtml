@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - AmazooApp</title>
     <link href="~/css/site.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="~/js/site.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 
 <body style="margin: 0px;">
@@ -87,7 +88,7 @@
             </div>
         </footer>
     </div>
-
+   @RenderSection("scripts", required: false)
 </body>
 
 </html>
