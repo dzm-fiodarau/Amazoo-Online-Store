@@ -109,7 +109,6 @@ function showAccount() {
     var myOrders = document.createElement("a");
 
     hiUser.style.display = "block";
-    hiUser.style.color = "white";
     hiUser.style.fontSize = "calc(18px + 0.5vw)";
     hiUser.textContent = "Hi, " + "<User's Name>"; //Implement user's name detection
 

@@ -1,12 +1,19 @@
-﻿/*NAVIGATION BAR STYLE*/
-.navbar {
-    background-color: black;
+﻿#my_body {
+    font-size: medium;
+    line-height: 1;
+    color: none;
+    margin: 0;
+}
+
+/*NAVIGATION BAR STYLE*/
+.navig_bar {
     height: fit-content;
 }
 
 .app_title {
     text-decoration: none;
     color: white;
+    font-style: italic;
     font-size: calc(45px + 2.5vw);
     margin: 10px;
     padding: 10px 0 10px 0;
@@ -51,7 +58,7 @@
 /*NAVIGATION BAR STYLE END*/
 
 #content_wrap {
-    padding-bottom: 100vh;
+    padding-bottom: 70vh;
 }
 
 #products_container {
