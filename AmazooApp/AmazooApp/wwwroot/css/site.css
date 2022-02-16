@@ -1,11 +1,4 @@
-﻿#my_body {
-    font-size: medium;
-    line-height: 1;
-    color: none;
-    margin: 0;
-}
-
-/*NAVIGATION BAR STYLE*/
+﻿/*NAVIGATION BAR STYLE*/
 .navig_bar {
     height: fit-content;
 }
@@ -44,9 +37,8 @@
 
 .menu_item {
     display: block;
-    color: white;
     font-size: calc(18px + 1.5vw);
-    text-decoration: none;
+    color: white;
 }
 
 .menu_account_item {
@@ -55,10 +47,14 @@
     font-size: calc(18px + 0.5vw);
     text-decoration: none;
 }
+
+#container {
+    text-align: center;
+}
 /*NAVIGATION BAR STYLE END*/
 
 #content_wrap {
-    padding-bottom: 70vh;
+    padding-bottom: 100vh;
 }
 
 #products_container {
