@@ -1,62 +1,49 @@
 ﻿//NAVIGATION BAR FUNCTIONS
 function showMenu() {
     var menu_img = document.getElementById("menu_img");
-    menu_img.src = "media/close_logo.png";
+    menu_img.src = "/media/close_logo.png";
 
     var menu_but = document.getElementById("menu_but")
     menu_but.onclick = hideMenu;
 
-    var parent = document.getElementById("container");
+    var login = document.getElementById("menu_item_1");
+    var signUp = document.getElementById("menu_item_2");
 
-    var container = document.createElement("div");
-    var login = document.createElement("a");
-    var signUp = document.createElement("a");
-
-    container.style.textAlign = "center";
-    container.id = "menu";
-
-    login.className = "menu_item";
     login.textContent = "Login";
-    login.style.margin = "10px 0 0 0";
+    login.className = "menu_item";
 
     signUp.className = "menu_item";
     signUp.textContent = "Sign Up";
 
-    container.appendChild(login);
-    container.appendChild(signUp);
-    parent.appendChild(container);
 }
 
 function hideMenu() {
     var menu_img = document.getElementById("menu_img");
-    menu_img.src = "media/menu_logo.png";
+    menu_img.src = "/media/menu_logo.png";
 
     var menu_but = document.getElementById("menu_but")
     menu_but.onclick = showMenu;
 
-    var container = document.getElementById("menu");
-    container.parentNode.removeChild(container);
+    var login = document.getElementById("menu_item_1");
+    var signUp = document.getElementById("menu_item_2");
+    login.textContent = "";
+    signUp.textContent = "";
 }
 
 function showMenuAdmin() {
-    if (document.getElementById("acc_menu")) {
+    if (document.getElementById("menu_item_7").textContent != "") {
         hideAccount();
     }
     var menu_img = document.getElementById("menu_img");
-    menu_img.src = "media/close_logo.png";
+    menu_img.src = "/media/close_logo.png";
 
     var menu_but = document.getElementById("menu_but")
     menu_but.onclick = hideMenuAdmin;
 
-    var parent = document.getElementById("container");
+    var products = document.getElementById("menu_item_3");
+    var users = document.getElementById("menu_item_4");
+    var orders = document.getElementById("menu_item_5");
 
-    var container = document.createElement("div");
-    var products = document.createElement("a");
-    var users = document.createElement("a");
-    var orders = document.createElement("a");
-
-    container.style.textAlign = "center";
-    container.id = "menu";
 
     products.className = "menu_item";
     products.textContent = "Products";
@@ -67,50 +54,35 @@ function showMenuAdmin() {
 
     orders.className = "menu_item";
     orders.textContent = "Orders";
-
-    container.appendChild(products);
-    container.appendChild(users);
-    container.appendChild(orders);
-    parent.appendChild(container);
-
 }
 
 function hideMenuAdmin() {
     var menu_img = document.getElementById("menu_img");
-    menu_img.src = "media/menu_logo.png";
+    menu_img.src = "/media/menu_logo.png";
 
     var menu_but = document.getElementById("menu_but")
     menu_but.onclick = showMenuAdmin;
 
-    var container = document.getElementById("menu");
-    container.parentNode.removeChild(container);
+    var products = document.getElementById("menu_item_3");
+    var users = document.getElementById("menu_item_4");
+    var orders = document.getElementById("menu_item_5");
+
+    products.textContent = "";
+    users.textContent = "";
+    orders.textContent = "";
 }
 
 function showAccount() {
-    if (document.getElementById("menu")) {
+    if (document.getElementById("menu_item_3").textContent != "") {
         hideMenuAdmin();
     }
+
     var account_but = document.getElementById("account_but")
     account_but.onclick = hideAccount;
 
-    var parent = document.getElementById("container");
-
-    var container = document.createElement("div");
-    container.id = "acc_menu";
-    container.style.width = "fit-content";
-    container.style.height = "fit-content";
-    container.style.position = "absolute";
-    container.style.right = "0px";
-    container.style.backgroundColor = "black";
-
-    var hiUser = document.createElement("p");
-    var logout = document.createElement("a");
-    var myAccount = document.createElement("a");
-    var myOrders = document.createElement("a");
-
-    hiUser.style.display = "block";
-    hiUser.style.fontSize = "calc(18px + 0.5vw)";
-    hiUser.textContent = "Hi, " + "<User's Name>"; //Implement user's name detection
+    var logout = document.getElementById("menu_item_9");
+    var myAccount = document.getElementById("menu_item_7");
+    var myOrders = document.getElementById("menu_item_8");
 
     myAccount.className = "menu_account_item";
     myAccount.textContent = "My Account";
@@ -122,19 +94,18 @@ function showAccount() {
     logout.className = "menu_account_item";
     logout.textContent = "Logout";
 
-    container.appendChild(hiUser);
-    container.appendChild(myAccount);
-    container.appendChild(myOrders);
-    container.appendChild(logout);
-
-    parent.appendChild(container);
 }
 
 function hideAccount() {
     var account_but = document.getElementById("account_but")
     account_but.onclick = showAccount;
 
-    var container = document.getElementById("acc_menu");
-    container.parentNode.removeChild(container);
+    var logout = document.getElementById("menu_item_9");
+    var myAccount = document.getElementById("menu_item_7");
+    var myOrders = document.getElementById("menu_item_8");
+
+    logout.textContent = "";
+    myAccount.textContent = "";
+    myOrders.textContent = "";
 }
 //NAVIGATION BAR FUNCTIONS END
