@@ -23,11 +23,11 @@
 
                 @{
 
-                    bool loggedIn = signInManager.IsSignedIn(User); //IMPLEMENT TO DETECT IF LOGGED IN
+                    bool loggedIn = signInManager.IsSignedIn(User);
                     if (loggedIn)
                     {
-                        bool isAdmin = true; //IMPLEMENT TO DETECT IF ADMIN
-                            <p style="color:lightblue;font-size: calc(8px + 1.2vw); width:fit-content;position:relative;display:inline;">  Hi, @User.Identity.Name</p>
+                        bool isAdmin = User.IsInRole("Admin");
+                        <p style="color:lightblue;font-size: calc(8px + 1.2vw); width:fit-content;position:relative;display:inline;">  Hi, @User.Identity.Name</p>
                         <button id="account_but" class="nav_elem" onclick="showAccount()">
                             <img src="~/media/blank_profile.jpg" alt="blank_profile_img" />
                         </button>
