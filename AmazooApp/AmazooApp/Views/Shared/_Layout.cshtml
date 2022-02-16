@@ -19,14 +19,15 @@
                    asp-area="" asp-controller="Home" asp-action="Index">
                     Amazoo
                 </a>
+                @inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
 
                 @{
 
-                    bool loggedIn = false; //IMPLEMENT TO DETECT IF LOGGED IN
+                    bool loggedIn = signInManager.IsSignedIn(User); //IMPLEMENT TO DETECT IF LOGGED IN
                     if (loggedIn)
                     {
                         bool isAdmin = true; //IMPLEMENT TO DETECT IF ADMIN
-
+                            <p style="color:lightblue;font-size: calc(8px + 1.2vw); width:fit-content;position:relative;display:inline;">  Hi, @User.Identity.Name</p>
                         <button id="account_but" class="nav_elem" onclick="showAccount()">
                             <img src="~/media/blank_profile.jpg" alt="blank_profile_img" />
                         </button>
@@ -58,10 +59,11 @@
                     <a style="text-decoration:none;" id="menu_item_4" asp-area="" asp-controller="" asp-action=""></a>
                     <a style="text-decoration:none;" id="menu_item_5" asp-area="" asp-controller="" asp-action=""></a>
                     <div style="width:fit-content;height:fit-content;background-color:black;position:absolute;right:0;">
-                        <p style="text-decoration:none;" id="menu_item_6"></p>
-                        <a style="text-decoration:none;" id="menu_item_7" asp-area="" asp-controller="" asp-action=""></a>
-                        <a style="text-decoration:none;" id="menu_item_8" asp-area="" asp-controller="" asp-action=""></a>
-                        <a style="text-decoration:none;" id="menu_item_9" asp-area="" asp-controller="" asp-action=""></a>
+                        <form method="post" id="logoutForm" asp-action="Logout" asp-controller="Login">
+                            <a style="text-decoration:none;" id="menu_item_7" asp-area="" asp-controller="" asp-action=""></a>
+                            <a style="text-decoration:none;" id="menu_item_8" asp-area="" asp-controller="" asp-action=""></a>
+                            <a style="text-decoration:none;" id="menu_item_9" href="javascript:document.getElementById('logoutForm').submit()"></a>
+                        </form>
                     </div>
                 </div>
             </nav>

@@ -25,8 +25,8 @@
 }
 
 .nav_elem img {
-    width: calc(45px + 2vw);
-    height: calc(45px + 2vw);
+    width: calc(10px + 5vw);
+    height: calc(10px + 5vw);
 }
 
 .nav_elem img:hover {

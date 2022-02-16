@@ -80,14 +80,9 @@ function showAccount() {
     var account_but = document.getElementById("account_but")
     account_but.onclick = hideAccount;
 
-    var hiUser = document.getElementById("menu_item_6");
     var logout = document.getElementById("menu_item_9");
     var myAccount = document.getElementById("menu_item_7");
     var myOrders = document.getElementById("menu_item_8");
-
-    hiUser.style.display = "block";
-    hiUser.style.fontSize = "calc(18px + 0.5vw)";
-    hiUser.textContent = "Hi, " + "<User's Name>"; //Implement user's name detection
 
     myAccount.className = "menu_account_item";
     myAccount.textContent = "My Account";
@@ -105,12 +100,10 @@ function hideAccount() {
     var account_but = document.getElementById("account_but")
     account_but.onclick = showAccount;
 
-    var hiUser = document.getElementById("menu_item_6");
     var logout = document.getElementById("menu_item_9");
     var myAccount = document.getElementById("menu_item_7");
     var myOrders = document.getElementById("menu_item_8");
 
-    hiUser.textContent = "";
     logout.textContent = "";
     myAccount.textContent = "";
     myOrders.textContent = "";
