@@ -1,71 +1,137 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿/*NAVIGATION BAR STYLE*/
+.navig_bar {
+    height: fit-content;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.app_title {
+    text-decoration: none;
+    color: white;
+    font-style: italic;
+    font-size: calc(45px + 2.5vw);
+    margin: 10px;
+    padding: 10px 0 10px 0;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.nav_elem {
+    text-decoration: none;
+    border: none;
+    background-color: black;
+    display: inline-block;
+    float: right;
+    height: fit-content;
+    width: fit-content;
+    font-size: 3vw;
+    margin: 5px;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.nav_elem img {
+    width: calc(10px + 5vw);
+    height: calc(10px + 5vw);
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.nav_elem img:hover {
+    width: calc(45px + 1.5vw);
+    height: calc(45px + 1.5vw);
+    margin: 0.5vw 0 0 0;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.menu_item {
+    display: block;
+    font-size: calc(18px + 1.5vw);
+    color: white;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+.menu_account_item {
+    display: block;
+    color: lightgray;
+    font-size: calc(18px + 0.5vw);
+    text-decoration: none;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+#container {
+    text-align: center;
+}
+/*NAVIGATION BAR STYLE END*/
+
+#search_bar {
+    width: 50vw;
+    height: 40px;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+#content_wrap {
+    padding-bottom: 100vh;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+#products_container {
+    margin-top: 15px;
+    margin-left: 0.5vw;
+    height: fit-content;
+    width: 98vw;
+    border: dashed;
+    border-color: black;
+    border-width: 2px;
+    text-align: center;
+    padding-bottom: 30px;
 }
+
+.product_elem {
+    width: 25vw;
+    height: fit-content;
+    display: inline-block;
+    margin-left: 6.25%;
+    font-size: calc(8px + 0.6vw);
+    text-align: center;
+    margin-top: 30px;
+    background-color: lightgray;
+}
+
+.product_elem .but {
+    text-decoration: none;
+    border: solid;
+    border-color: lightgray;
+    border-width: 4px;
+    background-color: white;
+    display: block;
+    height: 22vw;
+    width: 25vw;
+    margin: 0;
+    padding: 0;
+    justify-items: center;
+}
+
+.product_elem .but img {
+    max-width: 25vw;
+    height: 17vw;
+}
+
+.product_elem .but img:hover {
+    height: 19vw;
+}
+
+/*FOOTER STYLE*/
+.footer_whole {
+    height: fit-content;
+    width: 100%;
+    background-color: black;
+    margin-top: 100px;
+    position: absolute;
+    bottom: 0;
+}
+
+.footer_whole .footer_row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.footer_whole .footer_column {
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    height: inherit;
+    display: inline-block;
+    color: white;
+    font-size: calc(5px + 1vw);
+}
+/*FOOTER STYLE END*/
