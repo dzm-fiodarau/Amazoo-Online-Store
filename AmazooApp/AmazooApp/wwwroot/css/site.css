@@ -53,6 +53,11 @@
 }
 /*NAVIGATION BAR STYLE END*/
 
+#search_bar {
+    width: 50vw;
+    height: 40px;
+}
+
 #content_wrap {
     padding-bottom: 100vh;
 }

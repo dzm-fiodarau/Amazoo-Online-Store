@@ -5,6 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div style="text-align:center; margin:30px 0 30px 0">
+    <form method="post" asp-action="Search" asp-controller="Home">
+        <input type="search" id="search_bar" placeholder="Enter what you are looking for..." />
+        <button style="height:40px;">Search</button>
+    </form>
+</div>
 <div id="products_container">
     @{
         bool hasSearchEntry = false; //IMPLEMENT LATER
