@@ -22,5 +22,10 @@ namespace AmazooApp.Controllers
             IEnumerable<Product> productList = _db.Products;
             return View(productList);
         }
+
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
     }
 }
