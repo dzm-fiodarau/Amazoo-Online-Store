@@ -1,7 +1,9 @@
 using AmazooApp.Data;
+using AmazooApp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,10 +28,13 @@ namespace AmazooApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AmazooAppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConneciton"))
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConneciton"))
+                 options.UseSqlServer(Configuration.GetConnectionString("TestConnection"))
             );
 
             services.AddControllersWithViews();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AmazooAppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +55,8 @@ namespace AmazooApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -57,6 +64,9 @@ namespace AmazooApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                   name: "Login",
+                   pattern: "{controller=Login}/{action=Login}/{id?}");
             });
         }
     }
