@@ -864,3 +864,5 @@ C:\Users\Dzmitry\SOEN341\SOEN341-Project\AmazooApp\AmazooApp\obj\Debug\net5.0\Am
 C:\Users\Dzmitry\SOEN341\SOEN341-Project\AmazooApp\AmazooApp\obj\Debug\net5.0\ref\AmazooApp.dll
 C:\Users\Dzmitry\SOEN341\SOEN341-Project\AmazooApp\AmazooApp\obj\Debug\net5.0\AmazooApp.pdb
 C:\Users\Dzmitry\SOEN341\SOEN341-Project\AmazooApp\AmazooApp\obj\Debug\net5.0\AmazooApp.genruntimeconfig.cache
+C:\Users\Dzmitry\SOEN341\SOEN341-Project\AmazooApp\AmazooApp\obj\Debug\net5.0\Razor\Views\Product\Index.cshtml.g.cs
+C:\Users\Dzmitry\SOEN341\SOEN341-Project\AmazooApp\AmazooApp\obj\Debug\net5.0\Razor\Views\Product\AddProduct.cshtml.g.cs
