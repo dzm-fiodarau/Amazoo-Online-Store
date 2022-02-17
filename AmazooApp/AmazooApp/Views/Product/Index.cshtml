@@ -1,0 +1,35 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    if (signInManager.IsSignedIn(User))
+    {
+        if (User.IsInRole("Admin"))
+        {
+            <div style="text-align: center; margin-top: 30px;">
+
+                <h1>Products</h1>
+
+            </div>
+        }
+        else
+        {
+            <div style="text-align: center; margin-top: 30px;">
+
+                <h1>You do not seem to have the authorization to access this page.</h1>
+
+            </div>
+        }
+    }
+    else
+    {
+        <div style="text-align: center; margin-top: 30px;">
+
+            <h1>Please log in before accessing this page.</h1>
+
+        </div>
+    }
+}
