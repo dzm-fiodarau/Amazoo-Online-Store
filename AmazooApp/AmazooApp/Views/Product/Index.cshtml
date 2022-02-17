@@ -1,4 +1,5 @@
 ﻿@inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
+@model IEnumerable<AmazooApp.Models.Product>;
 
 @{
     ViewData["Title"] = "Products";
@@ -9,18 +10,57 @@
     {
         if (User.IsInRole("Admin"))
         {
-            <div style="text-align: center; margin-top: 30px;">
+            <div style="text-align: center; margin: 30px 0 30px 0;">
 
                 <h1>Products</h1>
 
             </div>
+
+            @if (Model.Count() >= 0)
+            {
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>In Stock</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Image</th>
+                            <th>Brand</th>
+                            <th>Controls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var product in Model)
+                        {
+                            <tr>
+                                <td style="width:12.5%;">@product.ProductName</td>
+                                <td style="width:12.5%;">@product.Description</td>
+                                <td style="width:12.5%;">@product.QuantityInStock</td>
+                                <td style="width:12.5%;">@product.Price $</td>
+                                <td style="width:12.5%;">@product.Category</td>
+                                <td style="width:12.5%; text-align: center;">
+                                    <img src="@product.Image" style="max-width: 10vw; height: 5vw;"/>
+                                </td>
+                                <td style="width:12.5%;">@product.Brand</td>
+                                <td style="width:12.5%;">
+                                    <button>Edit</button>
+                                    <button style="background-color:red">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+            }
         }
         else
         {
             <div style="text-align: center; margin-top: 30px;">
-
                 <h1>You do not seem to have the authorization to access this page.</h1>
-
             </div>
         }
     }
