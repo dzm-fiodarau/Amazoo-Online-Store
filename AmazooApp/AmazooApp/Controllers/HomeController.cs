@@ -1,6 +1,7 @@
 ﻿using AmazooApp.Data;
 using AmazooApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -21,21 +22,16 @@ namespace AmazooApp.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(String searchEntry)
         {
-            IEnumerable<Product> objList = _db.Products;
-            return View(objList);
-        }
+            var products = from p in _db.Products
+                           select p;
+            if (!String.IsNullOrEmpty(searchEntry))
+            {
+                products = products.Where(p => p.ProductName.Contains(searchEntry) || p.Brand.Contains(searchEntry));
+            }
 
-        public IActionResult Search()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Search(String entry)
-        {
-            return View("Index");
+            return View(await products.ToListAsync());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
