@@ -4,28 +4,30 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AmazooApp</title>
-    <link href="~/css/site.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="~/js/site.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="~/js/site.js"></script>
 </head>
 
-<body style="margin: 0px;">
+<body style="line-height: normal; ">
 
     <div style="position: relative; min-height: 100vh;">
 
         <header>
-            <nav class="navbar">
-                <a class="app_title">
-                    <i>Amazoo</i>
+            <nav class="navig_bar" style="background-color:black; color: white;">
+                <a style="font-size: calc(45px + 2.5vw); margin: 10px; padding: 10px 0 10px 0; font-style: italic; text-decoration: none; color:white;"
+                   asp-area="" asp-controller="Home" asp-action="Index">
+                    Amazoo
                 </a>
+                @inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
 
                 @{
 
-                    bool loggedIn = false; //IMPLEMENT TO DETECT IF LOGGED IN
+                    bool loggedIn = signInManager.IsSignedIn(User);
                     if (loggedIn)
                     {
-                        bool isAdmin = true; //IMPLEMENT TO DETECT IF ADMIN
-
+                        bool isAdmin = User.IsInRole("Admin");
+                        <p style="color:lightblue;font-size: calc(8px + 1.2vw); width:fit-content;position:relative;display:inline;">  Hi, @User.Identity.Name</p>
                         <button id="account_but" class="nav_elem" onclick="showAccount()">
                             <img src="~/media/blank_profile.jpg" alt="blank_profile_img" />
                         </button>
@@ -50,16 +52,27 @@
                     <img src="~/media/cart_logo.png" alt="cart_img" id="cart_img" />
                 </button>
 
-                <div id="container"></div>
+                <div id="container">
+                    <a style="text-decoration:none;" id="menu_item_1" asp-area="" asp-controller="Login" asp-action="Login"></a>
+                    <a style="text-decoration:none;" id="menu_item_2" asp-area="" asp-controller="Register" asp-action="Register"></a>
+                    <a style="text-decoration:none;" id="menu_item_3" asp-area="" asp-controller="" asp-action=""></a>
+                    <a style="text-decoration:none;" id="menu_item_4" asp-area="" asp-controller="" asp-action=""></a>
+                    <a style="text-decoration:none;" id="menu_item_5" asp-area="" asp-controller="" asp-action=""></a>
+                    <div style="width:fit-content;height:fit-content;background-color:black;position:absolute;right:0;">
+                        <form method="post" id="logoutForm" asp-action="Logout" asp-controller="Login">
+                            <a style="text-decoration:none;" id="menu_item_7" asp-area="" asp-controller="" asp-action=""></a>
+                            <a style="text-decoration:none;" id="menu_item_8" asp-area="" asp-controller="" asp-action=""></a>
+                            <a style="text-decoration:none;" id="menu_item_9" href="javascript:document.getElementById('logoutForm').submit()"></a>
+                        </form>
+                    </div>
+                </div>
             </nav>
         </header>
 
-        <div id="content_wrap">
-            <div class="container">
+        <div style="padding-bottom:100vh;">
                 <main role="main" class="pb-3">
                     @RenderBody()
                 </main>
-            </div>
         </div>
 
         <footer class="footer_whole">
