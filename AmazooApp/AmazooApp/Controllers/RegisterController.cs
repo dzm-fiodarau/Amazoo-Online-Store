@@ -25,6 +25,12 @@ namespace AmazooApp.Controllers
         }
         public async Task<IActionResult> Register()
         {
+            //in case the user is already logged in 
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (!_roleManager.RoleExistsAsync(Utility.RoleHelper.Customer).GetAwaiter().GetResult())
             {
                await  _roleManager.CreateAsync(new IdentityRole(Utility.RoleHelper.Customer));

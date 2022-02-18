@@ -67,6 +67,9 @@ namespace AmazooApp
                 endpoints.MapControllerRoute(
                    name: "Login",
                    pattern: "{controller=Login}/{action=Login}/{id?}");
+                endpoints.MapControllerRoute(
+                name: "Login",
+                pattern: "{controller=Register}/{action=Register}/{id?}");
             });
         }
     }
