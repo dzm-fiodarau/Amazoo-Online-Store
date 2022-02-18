@@ -30,27 +30,30 @@
                             <th>Category</th>
                             <th>Image</th>
                             <th>Brand</th>
-                            <th>Controls</th>
+                            <th>Edit</th>
+                            <th>Delete</th> 
                         </tr>
                     </thead>
                     <tbody>
                         @foreach(var product in Model)
                         {
-                            <tr>
-                                <td style="width:12.5%;">@product.ProductName</td>
-                                <td style="width:12.5%;">@product.Description</td>
-                                <td style="width:12.5%;">@product.QuantityInStock</td>
-                                <td style="width:12.5%;">@product.Price $</td>
-                                <td style="width:12.5%;">@product.Category</td>
-                                <td style="width:12.5%; text-align: center;">
-                                    <img src="@product.Image" style="max-width: 10vw; height: 5vw;"/>
-                                </td>
-                                <td style="width:12.5%;">@product.Brand</td>
-                                <td style="width:12.5%;">
-                                    <button>Edit</button>
-                                    <button style="background-color:red">Delete</button>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td style="width:12.5%;">@product.ProductName</td>
+                            <td style="width:12.5%;">@product.Description</td>
+                            <td style="width:12.5%;">@product.QuantityInStock</td>
+                            <td style="width:12.5%;">@product.Price $</td>
+                            <td style="width:12.5%;">@product.Category</td>
+                            <td style="width:12.5%; text-align: center;">
+                                <img src="@product.Image" style="max-width: 10vw; height: 5vw;" />
+                            </td>
+                            <td style="width:12.5%;">@product.Brand</td>
+                            <td style="width: 6.25%;">
+                                <button>Edit</button>
+                            </td>
+                            <td style="width:6.25%;">
+                            <a asp-controller="Product" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
