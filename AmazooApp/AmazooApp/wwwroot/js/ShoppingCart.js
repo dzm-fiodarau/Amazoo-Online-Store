@@ -36,8 +36,8 @@ function openNav() {
     displayCart2();
     document.getElementById("mySidenav").style.width = "420px";
   }
-  
-  
+
+
 
 //STORES ALL CLASS=".add-cart" TO carts VARIABLE FROM DOCUMENT//
 let carts = document.querySelectorAll('.add-cart');
@@ -45,9 +45,63 @@ let carts = document.querySelectorAll('.add-cart');
 //LIST OF ALL PRODUCTS START//
 let products = [
     {
-        name: 'add product name',
-        tag: 'add product tag',
-        price: 0,
+        name: 'Jeans',
+        tag: 'Jeans',
+        price: 24.99,
+        inCart: 0
+    },
+    {
+        name: 'Joggings',
+        tag: 'Joggings',
+        price: 18.99,
+        inCart: 0
+    },
+    {
+        name: 'TShirt Set',
+        tag: 'Tshirt Set',
+        price: 30,
+        inCart: 0
+    },
+    {
+        name: 'Liquid Hand Soap',
+        tag: 'Liquid Hand Soap',
+        price: 5,
+        inCart: 0
+    },
+    {
+        name: 'Moisture Shampoo',
+        tag: 'Moisture Shampoo',
+        price: 3.99,
+        inCart: 0
+    },
+    {
+        name: 'Shampoo',
+        tag: 'Shampoo',
+        price: 2.66,
+        inCart: 0
+    },
+    {
+        name: 'Toothbrush',
+        tag: 'Toothbrush',
+        price: 8.97,
+        inCart: 0
+    },
+    {
+        name: 'Toothbrush Set',
+        tag: 'Toothbrush Set',
+        price: 13.13,
+        inCart: 0
+    },
+    {
+        name: 'Mario',
+        tag: 'Mario',
+        price: 89.99,
+        inCart: 0
+    },
+    {
+        name: 'Spiderman',
+        tag: 'Spiderman',
+        price: 77.99,
         inCart: 0
     }
 ];
@@ -273,10 +327,10 @@ function deleteItem(itemName){
 
 
 //ADDS SELECT ITEM TO THE LOCAL STORAGE//
-function addItem(itemName){
+function addItem(itemName) {
+    console.log("In Add Item");
     let cartItems=localStorage.getItem("productsInCart");
     cartItems = JSON.parse(cartItems);
-    console.log("In Add Item");
     for(i=0; i<Object.values(cartItems).length; i++) { 
         if (itemName.id==Object.values(cartItems)[i].name)  {
             Object.values(cartItems)[i].inCart += 1
