@@ -20,5 +20,8 @@ namespace AmazooApp.Models
 
         [Display(Name = "Creation Date")]
         public string CreationDate { get; set; }
+
+        [Display(Name = "Total Paid")]
+        public float TotalPaid { get; set; }
     }
 }
