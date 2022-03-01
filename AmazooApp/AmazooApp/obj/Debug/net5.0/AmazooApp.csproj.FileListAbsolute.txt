@@ -1302,3 +1302,4 @@ C:\Users\cosmi\Source\Repos\SOEN341-Project-\AmazooApp\AmazooApp\obj\Debug\net5.
 C:\Users\cosmi\Source\Repos\SOEN341-Project-\AmazooApp\AmazooApp\obj\Debug\net5.0\AmazooApp.pdb
 C:\Users\cosmi\Source\Repos\SOEN341-Project-\AmazooApp\AmazooApp\obj\Debug\net5.0\AmazooApp.genruntimeconfig.cache
 C:\Users\cosmi\Source\Repos\SOEN341-Project-\AmazooApp\AmazooApp\obj\Debug\net5.0\Razor\Views\Product\Delete.cshtml.g.cs
+C:\Users\Dzmitry\SOEN341\SOEN341-Project\AmazooApp\AmazooApp\obj\Debug\net5.0\Razor\Views\Product\Delete.cshtml.g.cs
