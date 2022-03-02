@@ -24,11 +24,13 @@ namespace AmazooApp.Controllers
 
         public async Task<IActionResult> Index(String searchEntry, String b1, String b2, String b3, String b4)
         {
-            Console.WriteLine("HELLO");
+            //Console.WriteLine("HELLO");
             //Console.WriteLine(b1==null);
             //Console.WriteLine(b2 == null);
             //Console.WriteLine(b3 == null);
             //Console.WriteLine(b4 == null);
+
+            ViewBag.SearchEntry = searchEntry;
 
             var products = from p in _db.Products
                            select p;
@@ -55,6 +57,7 @@ namespace AmazooApp.Controllers
                 Console.WriteLine(b4);
                 products = products.Where(p => p.QuantityInStock>0);
             }
+
             return View(await products.ToListAsync());
         }
 

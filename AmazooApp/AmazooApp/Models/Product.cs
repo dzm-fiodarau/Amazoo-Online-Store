@@ -8,6 +8,7 @@ namespace AmazooApp.Models
 {
     public class Product
     {
+
         [Key]
         public int Id { get; set; }
 
@@ -26,5 +27,6 @@ namespace AmazooApp.Models
         public string Image { get; set; }
 
         public string Brand { get; set; }
+
     }
 }
