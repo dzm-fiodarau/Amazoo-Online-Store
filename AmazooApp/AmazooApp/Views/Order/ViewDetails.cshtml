@@ -1,4 +1,132 @@
-﻿@{
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
+@model IEnumerable<AmazooApp.Models.Product>;
+@using System.Collections;
+
+@{
     ViewData["Title"] = "View Order Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@{
+    if (signInManager.IsSignedIn(User))
+    {
+        if (User.IsInRole("Admin"))
+        {
+            <br />
+            <div class="border p-3">
+                <div class="form-group row">
+                    <h2 class="text-black pl-3 font-weight-bold">Details for Order @ViewBag.Order.Id</h2>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label class="font-weight-bold">Order Id</label>
+                            </div>
+                            <div class="col-2">
+                                <label class="font-weight-bold">Customer</label>
+                            </div>
+                            <div class="col-2">
+                                <label class="font-weight-bold">Status</label>
+                            </div>
+                            <div class="col-2">
+                                <label class="font-weight-bold">Creation Date</label>
+                            </div>
+                            <div class="col-2">
+                                <label class="font-weight-bold">Delivery Date</label>
+                            </div>
+                            <div class="col-2">
+                                <label class="font-weight-bold">Total Paid</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <input disabled class="form-control" value="@ViewBag.Order.Id" />
+                            </div>
+                            <div class="col-2">
+                                <input disabled class="form-control" value="@ViewBag.CustomerName" />
+                            </div>
+                            <div class="col-2">
+                                <input disabled class="form-control" value="@ViewBag.Order.Status" />
+                            </div>
+                            <div class="col-2">
+                                <input disabled class="form-control" value="@ViewBag.Order.CreationDate" />
+                            </div>
+                            <div class="col-2">
+                                <input disabled class="form-control" value="@ViewBag.Order.DeliveryDate" />
+                            </div>
+                            <div class="col-2">
+                                <input disabled class="form-control" value="@ViewBag.Order.TotalPaid $" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div style="text-align: center; margin: 30px 0 30px 0;">
+
+                <h1>Products Ordered</h1>
+                <br />
+
+            </div>
+
+            @if (ViewBag.ProductQuantity.Count > 0)
+            {
+                <table class="table table-bordered" style="margin-top: 20px">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{List<Product> products = Model.ToList<Product>();
+                        }
+                        @foreach (DictionaryEntry order in ViewBag.ProductQuantity)
+                        {
+                            var product = products.Find(x => x.Id == ((int)order.Key));
+                            if (product == null)
+                                continue;
+                            <tr>
+                                <td style="width: 14.2%; text-align: center;">
+                                    <img src="@product.Image" style="max-width: 10vw; height: 5vw;" />
+                                </td>
+                                <td style="width: 14.2%;">@product.ProductName</td>
+                                <td style="width: 14.2%;">@product.Category</td>
+                                <td style="width: 14.2%;">@product.Brand</td>
+                                <td style="width: 14.2%;">@product.Description</td>
+                                <td style="width: 14.2%;">@product.Price $</td>
+                                <td style="width: 14.2%;">@order.Value</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+            }
+        }
+        else
+        {
+            <div style="text-align: center; margin-top: 30px;">
+                <h1>You do not seem to have the authorization to access this page.</h1>
+            </div>
+        }
+    }
+    else
+    {
+        <div style="text-align: center; margin-top: 30px;">
+
+            <h1>Please log in before accessing this page.</h1>
+
+        </div>
+    }
+}
+
+

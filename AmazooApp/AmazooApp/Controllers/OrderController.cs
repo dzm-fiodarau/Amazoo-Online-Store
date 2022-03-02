@@ -22,7 +22,7 @@ namespace AmazooApp.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult AdminOrderListAsync()
+        public IActionResult AdminOrderList()
         {
             Hashtable idName = new Hashtable();
             var allUsers = _db.Users;
@@ -74,13 +74,29 @@ namespace AmazooApp.Controllers
             {
                 return NotFound();
             }
-            var obj = _db.Orders.Find(id);
-            if (obj == null)
+            var order = _db.Orders.Find(id);
+            if (order == null)
             {
                 return NotFound();
             }
+            ViewBag.Order = order;
 
-            return View(obj);
+            string customerName = _db.Users.Find(order.Customer).FirstName +" "+ _db.Users.Find(order.Customer).LastName;
+            ViewBag.CustomerName = customerName;
+
+            Hashtable productQuantity = new Hashtable();
+            var orderProducts = from oP in _db.OrderProducts
+                                where oP.OrderId == order.Id
+                                select oP;
+            foreach(var oP in orderProducts)
+            {
+                productQuantity.Add(oP.ProductId, oP.Quantity);
+            }
+            ViewBag.ProductQuantity = productQuantity;
+            
+            var products = _db.Products;
+
+            return View(products);
         }
     }
 }
