@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AmazooApp.Models
@@ -13,5 +14,9 @@ namespace AmazooApp.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public static implicit operator ApplicationUser(ClaimsPrincipal v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

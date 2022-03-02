@@ -8,10 +8,11 @@ namespace AmazooApp.Models
 {
     public class Order
     {
+
         [Key]
         public int Id { get; set; }
 
-        public int Customer { get; set; }
+        public string Customer { get; set; }
 
         public string Status { get; set; }
 
@@ -23,5 +24,6 @@ namespace AmazooApp.Models
 
         [Display(Name = "Total Paid")]
         public float TotalPaid { get; set; }
+
     }
 }

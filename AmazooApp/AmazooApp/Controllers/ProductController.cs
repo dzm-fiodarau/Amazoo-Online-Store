@@ -72,7 +72,6 @@ namespace AmazooApp.Controllers
             _db.Products.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
-        
         }
 
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,10 +11,10 @@ namespace AmazooApp.Models
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("FK_Order")]
+        [Display(Name = "Order Id")]
         public int OrderId { get; set; }
 
-        [ForeignKey("FK_Product")]
+        [Display(Name = "Product Id")]
         public int ProductId { get; set; }
 
         public int Quantity { get; set; }

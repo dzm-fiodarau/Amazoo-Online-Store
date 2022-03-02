@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmazooApp.Migrations
 {
     [DbContext(typeof(AmazooAppDbContext))]
-    [Migration("20220301202600_OrderProductTable")]
+    [Migration("20220302135834_OrderProductTable")]
     partial class OrderProductTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,14 +102,17 @@ namespace AmazooApp.Migrations
                     b.Property<string>("CreationDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Customer")
-                        .HasColumnType("int");
+                    b.Property<string>("Customer")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DeliveryDate")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("TotalPaid")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -129,9 +132,12 @@ namespace AmazooApp.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("AmazooApp.Models.Product", b =>
