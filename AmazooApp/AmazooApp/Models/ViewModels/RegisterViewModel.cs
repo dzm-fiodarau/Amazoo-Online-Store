@@ -26,5 +26,20 @@ namespace AmazooApp.Models.ViewModels
         [Display(Name ="Role")]
         public string Role { get; set; }
 
+        [Display(Name ="City")]
+        [Required]
+        public string City { get; set; }
+        [Display(Name = "Province")]
+        [Required]
+        public string Province { get; set; }
+        [Display(Name = "Zip")]
+   
+        public string Zipcode { get; set; }
+
+
+        [Display(Name = "Address")]
+        [Required]
+        public string Address { get; set; }
+
     }
 }
