@@ -1,5 +1,109 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
+@model IEnumerable<AmazooApp.Models.Order>;
+
 @{
+    ViewData["Title"] = "My Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (signInManager.IsSignedIn(User))
+    {
+
+        @if (Model.Count() >= 0)
+        {
+            <div style="text-align: center; margin: 30px 0 30px 0;">
+
+                <h1>Present Orders</h1>
+            </div>
+
+            <table class="table table-bordered" style="margin-top: 20px">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Status</th>
+                        <th>Creation Date</th>
+                        <th>Delivery Date</th>
+                        <th>Number of Items</th>
+                        <th>Total Paid</th>
+                        <th>View Details</th>
+                        <th>Cancel Order</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        if (order.Status == "In Process")
+                        {
+                            <tr>
+                                <td style="width:12.5%;">@order.Id</td>
+                                <td style="width:12.5%;">@order.Status</td>
+                                <td style="width:12.5%;">@order.CreationDate</td>
+                                <td style="width:12.5%;">@order.DeliveryDate</td>
+                                <td style="width:12.5%;">@ViewBag.OrderNbrItems[order.Id]</td>
+                                <td style="width:12.5%;">@order.TotalPaid $</td>
+                                <td style="width:12.5%;">
+                                    <a asp-controller="" asp-action="" asp-route-Id="" class="btn btn-primary">View Details</a>
+                                </td>
+                                <td style="width:12.5%;">
+                                    <a asp-controller="" asp-action="" asp-route-Id="" class="btn btn-danger">Cancel Order</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <div style="text-align: center; margin: 30px 0 30px 0;">
+                <br />
+                <br />
+                <h1>Past Orders</h1>
+            </div>
+
+            <table class="table table-bordered" style="margin-top: 20px">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Status</th>
+                        <th>Creation Date</th>
+                        <th>Delivery Date</th>
+                        <th>Number of Items</th>
+                        <th>Total Paid</th>
+                        <th>View Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        if (order.Status == "Delivered" || order.Status == "Canceled")
+                        {
+                            <tr>
+                                <td style="width:12.5%;">@order.Id</td>
+                                <td style="width:12.5%;">@order.Status</td>
+                                <td style="width:12.5%;">@order.CreationDate</td>
+                                <td style="width:12.5%;">@order.DeliveryDate</td>
+                                <td style="width:12.5%;">@ViewBag.OrderNbrItems[order.Id]</td>
+                                <td style="width:12.5%;">@order.TotalPaid $</td>
+                                <td style="width:12.5%;">
+                                    <a asp-controller="" asp-action="" asp-route-Id="" class="btn btn-primary">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+        }
+
+    }
+    else
+    {
+        <div style="text-align: center; margin-top: 30px;">
+
+            <h1>Please log in before accessing this page.</h1>
+
+        </div>
+    }
 }

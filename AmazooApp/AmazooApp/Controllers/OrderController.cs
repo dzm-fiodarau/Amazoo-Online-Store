@@ -63,9 +63,39 @@ namespace AmazooApp.Controllers
             return View(allOrders);
         }
 
-        public IActionResult MyOrders()
+        public async Task<IActionResult> MyOrdersAsync()
         {
-            return View();
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var allOrders = from order in _db.Orders
+                            where order.Customer == currentUser.Id
+                            select order;
+
+            List<int> orderIds = new List<int>();
+            foreach (var order in allOrders)
+            {
+                orderIds.Add(order.Id);
+            }
+
+            Hashtable orderNbrProducts = new Hashtable();
+            var allOrderProducts = _db.OrderProducts;
+            int nbrItems = 0;
+            foreach(int orderId in orderIds)
+            {
+                nbrItems = 0;
+                foreach(var orderProduct in allOrderProducts)
+                {
+                    if(orderId == orderProduct.OrderId)
+                    {
+                        nbrItems += orderProduct.Quantity;
+                    }
+                    if (nbrItems > 0 && orderId != orderProduct.OrderId)
+                        break;
+                }
+                orderNbrProducts.Add(orderId, nbrItems);
+            }
+            ViewBag.OrderNbrItems = orderNbrProducts;
+
+            return View(allOrders);
         }
 
         public IActionResult ViewDetails(int? id)
