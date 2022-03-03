@@ -20,6 +20,23 @@ namespace AmazooApp.Controllers
         {
             _db = db;
             _userManager = userManager;
+
+            var allInProcessOrders = from order in _db.Orders
+                                     where order.Status == "In Process"
+                                     select order;
+
+            DateTime today = DateTime.Today;
+
+            foreach(var order in allInProcessOrders)
+            {
+                int compared = DateTime.Compare(order.DeliveryDate, today);
+                if (compared <= 0)
+                {
+                    order.Status = "Delivered";
+                    _db.Orders.Update(order);
+                }
+            }
+            _db.SaveChanges();
         }
 
         public IActionResult AdminOrderList()
