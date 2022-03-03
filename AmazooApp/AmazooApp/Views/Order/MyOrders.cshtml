@@ -43,10 +43,10 @@
                                 <td style="width:12.5%;">@ViewBag.OrderNbrItems[order.Id]</td>
                                 <td style="width:12.5%;">@order.TotalPaid $</td>
                                 <td style="width:12.5%;">
-                                    <a asp-controller="" asp-action="" asp-route-Id="" class="btn btn-primary">View Details</a>
+                                    <a asp-controller="Order" asp-action="ViewMyOrderDetails" asp-route-Id="@order.Id" class="btn btn-primary">View Details</a>
                                 </td>
                                 <td style="width:12.5%;">
-                                    <a asp-controller="" asp-action="" asp-route-Id="" class="btn btn-danger">Cancel Order</a>
+                                    <a asp-controller="Order" asp-action="" asp-route-Id="" class="btn btn-danger">Cancel Order</a>
                                 </td>
                             </tr>
                         }
@@ -85,7 +85,7 @@
                                 <td style="width:12.5%;">@ViewBag.OrderNbrItems[order.Id]</td>
                                 <td style="width:12.5%;">@order.TotalPaid $</td>
                                 <td style="width:12.5%;">
-                                    <a asp-controller="" asp-action="" asp-route-Id="" class="btn btn-primary">View Details</a>
+                                    <a asp-controller="Order" asp-action="ViewMyOrderDetails" asp-route-Id="@order.Id" class="btn btn-primary">View Details</a>
                                 </td>
                             </tr>
                         }

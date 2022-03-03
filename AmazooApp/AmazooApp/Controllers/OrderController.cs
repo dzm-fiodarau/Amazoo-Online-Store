@@ -128,5 +128,35 @@ namespace AmazooApp.Controllers
 
             return View(products);
         }
+
+        public async Task<IActionResult> ViewMyOrderDetailsAsync(int? id)
+        {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.CurrentUserId = currentUser.Id;
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var order = _db.Orders.Find(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Order = order;
+
+            Hashtable productQuantity = new Hashtable();
+            var orderProducts = from oP in _db.OrderProducts
+                                where oP.OrderId == order.Id
+                                select oP;
+            foreach (var oP in orderProducts)
+            {
+                productQuantity.Add(oP.ProductId, oP.Quantity);
+            }
+            ViewBag.ProductQuantity = productQuantity;
+
+            var products = _db.Products;
+
+            return View(products);
+        }
     }
 }
