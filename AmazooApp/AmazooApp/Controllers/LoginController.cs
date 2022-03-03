@@ -10,14 +10,12 @@ namespace AmazooApp.Controllers
     public class LoginController : Controller
     {
 
-        private readonly AmazooAppDbContext _db;
         UserManager<ApplicationUser> _userManager;
         SignInManager<ApplicationUser> _signInManager;
 
-        public LoginController(AmazooAppDbContext db, UserManager<ApplicationUser> userManager,
+        public LoginController(UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager)
         {
-            _db = db;
             _userManager = userManager; ;
             _signInManager = signInManager;
         }
