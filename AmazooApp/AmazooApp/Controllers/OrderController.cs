@@ -189,7 +189,9 @@ namespace AmazooApp.Controllers
             return View(products);
         }
 
-
+        /*
+         * Cancels a specific order and updates the products in stock
+         */
         public IActionResult Cancel(int? id)
         {
             if (id == null || id == 0)
@@ -208,6 +210,28 @@ namespace AmazooApp.Controllers
             orderToCancel.DeliveryDate = new DateTime(1111, 1, 1);
             orderToCancel.TotalPaid = 0.0f;
             _db.Orders.Update(orderToCancel);
+
+            Hashtable productQuantity = new Hashtable();
+            var orderProduct = from oP in _db.OrderProducts
+                               where oP.OrderId == id
+                               select oP;
+            foreach(var oP in orderProduct)
+            {
+                productQuantity.Add(oP.ProductId, oP.Quantity);
+            }
+
+            var allProducts = _db.Products;
+
+            foreach(DictionaryEntry prodQuant in productQuantity)
+            {
+                var product = allProducts.Find(prodQuant.Key);
+                if (product == null)
+                    continue;
+
+                product.QuantityInStock = product.QuantityInStock + (int)prodQuant.Value;
+                _db.Products.Update(product);
+            }
+
             _db.SaveChanges();
 
             return RedirectToAction("MyOrders");
