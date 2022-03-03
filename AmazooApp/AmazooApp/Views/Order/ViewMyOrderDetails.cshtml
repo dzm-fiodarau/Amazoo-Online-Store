@@ -39,7 +39,7 @@
                         @if (ViewBag.Order.Status == "In Process")
                         {
                             <td style="width: 14.2%;">
-                                <a asp-controller="" asp-action="" asp-route-Id="" class="btn btn-danger">Cancel Order</a>
+                                <a asp-controller="Order" asp-action="Cancel" asp-route-Id="@ViewBag.Order.Id" class="btn btn-danger">Cancel Order</a>
                             </td>
                         }
                     </tr>

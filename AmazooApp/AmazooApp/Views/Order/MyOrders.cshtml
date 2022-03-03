@@ -46,7 +46,7 @@
                                     <a asp-controller="Order" asp-action="ViewMyOrderDetails" asp-route-Id="@order.Id" class="btn btn-primary">View Details</a>
                                 </td>
                                 <td style="width:12.5%;">
-                                    <a asp-controller="Order" asp-action="" asp-route-Id="" class="btn btn-danger">Cancel Order</a>
+                                    <a asp-controller="Order" asp-action="Cancel" asp-route-Id="@order.Id" class="btn btn-danger">Cancel Order</a>
                                 </td>
                             </tr>
                         }
