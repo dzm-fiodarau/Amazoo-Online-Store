@@ -63,9 +63,39 @@ namespace AmazooApp.Controllers
             return View(allOrders);
         }
 
-        public IActionResult MyOrders()
+        public async Task<IActionResult> MyOrdersAsync()
         {
-            return View();
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var allOrders = from order in _db.Orders
+                            where order.Customer == currentUser.Id
+                            select order;
+
+            List<int> orderIds = new List<int>();
+            foreach (var order in allOrders)
+            {
+                orderIds.Add(order.Id);
+            }
+
+            Hashtable orderNbrProducts = new Hashtable();
+            var allOrderProducts = _db.OrderProducts;
+            int nbrItems = 0;
+            foreach(int orderId in orderIds)
+            {
+                nbrItems = 0;
+                foreach(var orderProduct in allOrderProducts)
+                {
+                    if(orderId == orderProduct.OrderId)
+                    {
+                        nbrItems += orderProduct.Quantity;
+                    }
+                    if (nbrItems > 0 && orderId != orderProduct.OrderId)
+                        break;
+                }
+                orderNbrProducts.Add(orderId, nbrItems);
+            }
+            ViewBag.OrderNbrItems = orderNbrProducts;
+
+            return View(allOrders);
         }
 
         public IActionResult ViewDetails(int? id)
@@ -94,6 +124,36 @@ namespace AmazooApp.Controllers
             }
             ViewBag.ProductQuantity = productQuantity;
             
+            var products = _db.Products;
+
+            return View(products);
+        }
+
+        public async Task<IActionResult> ViewMyOrderDetailsAsync(int? id)
+        {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.CurrentUserId = currentUser.Id;
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var order = _db.Orders.Find(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Order = order;
+
+            Hashtable productQuantity = new Hashtable();
+            var orderProducts = from oP in _db.OrderProducts
+                                where oP.OrderId == order.Id
+                                select oP;
+            foreach (var oP in orderProducts)
+            {
+                productQuantity.Add(oP.ProductId, oP.Quantity);
+            }
+            ViewBag.ProductQuantity = productQuantity;
+
             var products = _db.Products;
 
             return View(products);
