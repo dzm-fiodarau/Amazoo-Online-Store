@@ -4,14 +4,16 @@ using AmazooApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AmazooApp.Migrations
 {
     [DbContext(typeof(AmazooAppDbContext))]
-    partial class AmazooAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220301205437_QuantityOrderProduct")]
+    partial class QuantityOrderProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,8 +102,8 @@ namespace AmazooApp.Migrations
                     b.Property<string>("CreationDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Customer")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Customer")
+                        .HasColumnType("int");
 
                     b.Property<string>("DeliveryDate")
                         .HasColumnType("nvarchar(max)");
@@ -135,7 +137,7 @@ namespace AmazooApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OrderProducts");
+                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("AmazooApp.Models.Product", b =>

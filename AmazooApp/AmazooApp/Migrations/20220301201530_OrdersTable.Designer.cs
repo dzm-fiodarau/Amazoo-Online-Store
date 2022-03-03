@@ -4,14 +4,16 @@ using AmazooApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AmazooApp.Migrations
 {
     [DbContext(typeof(AmazooAppDbContext))]
-    partial class AmazooAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220301201530_OrdersTable")]
+    partial class OrdersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,8 +102,8 @@ namespace AmazooApp.Migrations
                     b.Property<string>("CreationDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Customer")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Customer")
+                        .HasColumnType("int");
 
                     b.Property<string>("DeliveryDate")
                         .HasColumnType("nvarchar(max)");
@@ -109,33 +111,9 @@ namespace AmazooApp.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("TotalPaid")
-                        .HasColumnType("real");
-
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("AmazooApp.Models.OrderProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("AmazooApp.Models.Product", b =>
