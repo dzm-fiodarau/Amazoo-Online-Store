@@ -38,15 +38,15 @@
                             <tr>
                                 <td style="width:12.5%;">@order.Id</td>
                                 <td style="width:12.5%;">@order.Status</td>
-                                <td style="width:12.5%;">@order.CreationDate</td>
-                                <td style="width:12.5%;">@order.DeliveryDate</td>
+                                <td style="width:12.5%;">@order.CreationDate.ToString().Split(" ")[0]</td>
+                                <td style="width:12.5%;">@order.DeliveryDate.ToString().Split(" ")[0]</td>
                                 <td style="width:12.5%;">@ViewBag.OrderNbrItems[order.Id]</td>
                                 <td style="width:12.5%;">@order.TotalPaid $</td>
                                 <td style="width:12.5%;">
                                     <a asp-controller="Order" asp-action="ViewMyOrderDetails" asp-route-Id="@order.Id" class="btn btn-primary">View Details</a>
                                 </td>
                                 <td style="width:12.5%;">
-                                    <a asp-controller="Order" asp-action="" asp-route-Id="" class="btn btn-danger">Cancel Order</a>
+                                    <a asp-controller="Order" asp-action="Cancel" asp-route-Id="@order.Id" class="btn btn-danger">Cancel Order</a>
                                 </td>
                             </tr>
                         }
@@ -80,8 +80,8 @@
                             <tr>
                                 <td style="width:12.5%;">@order.Id</td>
                                 <td style="width:12.5%;">@order.Status</td>
-                                <td style="width:12.5%;">@order.CreationDate</td>
-                                <td style="width:12.5%;">@order.DeliveryDate</td>
+                                <td style="width:12.5%;">@order.CreationDate.ToString().Split(" ")[0]</td>
+                                <td style="width:12.5%;">@order.DeliveryDate.ToString().Split(" ")[0]</td>
                                 <td style="width:12.5%;">@ViewBag.OrderNbrItems[order.Id]</td>
                                 <td style="width:12.5%;">@order.TotalPaid $</td>
                                 <td style="width:12.5%;">

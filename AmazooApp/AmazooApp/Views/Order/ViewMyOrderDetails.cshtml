@@ -33,13 +33,13 @@
                     <tr>
                         <td style="width: 14.2%;">@ViewBag.Order.Id</td>
                         <td style="width: 14.2%;">@ViewBag.Order.Status</td>
-                        <td style="width: 14.2%;">@ViewBag.Order.CreationDate</td>
-                        <td style="width: 14.2%;">@ViewBag.Order.DeliveryDate</td>
+                        <td style="width: 14.2%;">@ViewBag.Order.CreationDate.ToString().Split(" ")[0]</td>
+                        <td style="width: 14.2%;">@ViewBag.Order.DeliveryDate.ToString().Split(" ")[0]</td>
                         <td style="width: 14.2%;">@ViewBag.Order.TotalPaid</td>
                         @if (ViewBag.Order.Status == "In Process")
                         {
                             <td style="width: 14.2%;">
-                                <a asp-controller="" asp-action="" asp-route-Id="" class="btn btn-danger">Cancel Order</a>
+                                <a asp-controller="Order" asp-action="Cancel" asp-route-Id="@ViewBag.Order.Id" class="btn btn-danger">Cancel Order</a>
                             </td>
                         }
                     </tr>
