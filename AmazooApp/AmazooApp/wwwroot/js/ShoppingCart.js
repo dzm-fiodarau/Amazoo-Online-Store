@@ -43,69 +43,7 @@ function openNav() {
 let carts = document.querySelectorAll('.add-cart');
 
 //LIST OF ALL PRODUCTS START//
-let products = [
-    {
-        name: 'Jeans',
-        tag: 'Jeans',
-        price: 24.99,
-        inCart: 0
-    },
-    {
-        name: 'Joggings',
-        tag: 'Joggings',
-        price: 18.99,
-        inCart: 0
-    },
-    {
-        name: 'TShirt Set',
-        tag: 'Tshirt Set',
-        price: 30,
-        inCart: 0
-    },
-    {
-        name: 'Liquid Hand Soap',
-        tag: 'Liquid Hand Soap',
-        price: 5,
-        inCart: 0
-    },
-    {
-        name: 'Moisture Shampoo',
-        tag: 'Moisture Shampoo',
-        price: 3.99,
-        inCart: 0
-    },
-    {
-        name: 'Shampoo',
-        tag: 'Shampoo',
-        price: 2.66,
-        inCart: 0
-    },
-    {
-        name: 'Toothbrush',
-        tag: 'Toothbrush',
-        price: 8.97,
-        inCart: 0
-    },
-    {
-        name: 'Toothbrush Set',
-        tag: 'Toothbrush Set',
-        price: 13.13,
-        inCart: 0
-    },
-    {
-        name: 'Mario',
-        tag: 'Mario',
-        price: 89.99,
-        inCart: 0
-    },
-    {
-        name: 'Spiderman',
-        tag: 'Spiderman',
-        price: 77.99,
-        inCart: 0
-    }
-];
-
+let products = JSON.parse(localStorage.getItem('itemsList'));
 
 //SEARCH THROUGH EACH BUTTON FOR MATCHING PRODUCT ON "CLICK" EVENT OF BUTTONS WITH CLASS=".add-cart"//
 carts.forEach(carts => {
@@ -190,7 +128,7 @@ function displayCart(){
     if(productContainer && cartItems) {     
         productContainer.innerHTML = '';
         var i;
-        for(i=0; i<Object.values(cartItems).length; i++) {         
+        for (i = 0; i < Object.values(cartItems).length; i++) {        
             productContainer.innerHTML += `                                                                                       
                                     <td class="name">${Object.values(cartItems)[i].name}</td>
                                     <td class="price">${Math.round((Object.values(cartItems)[i].price) * 100) / 100}</td>
