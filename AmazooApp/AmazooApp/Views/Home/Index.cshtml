@@ -5,57 +5,75 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div style="text-align: center;">
-    <div style=" margin:30px 0 30px 0">
-        <form asp-action="Index" asp-controller="Home">
-            <input type="search" name="searchEntry" id="search_bar" placeholder="Enter what you are looking for..." value="@ViewBag.SearchEntry"/>
+
+    <div style="text-align: center;">
+        <div style=" margin:30px 0 30px 0">
+            <form asp-action="Index" asp-controller="Home">
+                <input type="search" name="searchEntry" id="search_bar" placeholder="Enter what you are looking for..." value="@ViewBag.SearchEntry" />
 
 
-            <input type="checkbox" id="Clothes" name="b1" value="Clothes" />
-            <label for="Clothes">Clothes</label>
-            <input type="checkbox" id="Personal_Care" name="b2" value="Personal Care" />
-            <label for="Personal Care">Personal Care</label>
-            <input type="checkbox" id="Video_Games" name="b3" value="Video Games" />
-            <label for="Video Games">Video Games</label>
-            <input type="checkbox" id="In_Stock" name="b4" value="In Stock" />
-            <label for="In Stock">In Stock</label>
-            <button type="submit" style="height:40px;">Search</button><br />
+                <input type="checkbox" id="Clothes" name="b1" value="Clothes" />
+                <label for="Clothes">Clothes</label>
+                <input type="checkbox" id="Personal_Care" name="b2" value="Personal Care" />
+                <label for="Personal Care">Personal Care</label>
+                <input type="checkbox" id="Video_Games" name="b3" value="Video Games" />
+                <label for="Video Games">Video Games</label>
+                <input type="checkbox" id="In_Stock" name="b4" value="In Stock" />
+                <label for="In Stock">In Stock</label>
+                <button type="submit" style="height:40px;">Search</button><br />
 
 
-        </form>
-    </div>
-    <div id="products_container">
-        @{
-            if (Model.Count() > 0)
-            {
-                foreach (var product in Model)
+            </form>
+        </div>
+        <div id="products_container">
+            @{
+                if (Model.Count() > 0)
                 {
-                    <div class="product_elem">
-                        <button class="but">
-                            <img src="@product.Image" alt="@product.ProductName" />
-                        </button>
-                        <h2 style="font-size: calc(12px + 0.6vw);">@product.ProductName</h2>
-                        <span style="float:left; margin-left: 0.2vw">@product.Price $</span>
-                        <span style="float:right; margin-right:0.2vw"><strong>Brand:</strong> @product.Brand</span>
-                        <br />
-                        @if (product.QuantityInStock > 0)
-                        {
-                            <pre style="background-color:darkgreen; color:white; font-size:calc(6px + 0.4vw)">In Stock</pre>
-                            <button style="display: inline; font-size:calc(8px + 0.7vw)">Add to Cart</button>
-                        }
-                        else
-                        {
-                            <pre style="background-color:darkred; color:white; font-size:calc(6px + 0.4vw)">Out of Stock</pre>
-                            <button style="display: inline; font-size:calc(8px + 0.7vw); text-decoration: line-through">Add to Cart</button>
-                        }
-                    </div>
+
+                    foreach (var product in Model)
+                    {
+                        <div class="product_elem">
+                            <button class="but">
+                                <img src="@product.Image" alt="@product.ProductName" />
+                            </button>
+                            <h2 style="font-size: calc(12px + 0.6vw);">@product.ProductName</h2>
+                            <span style="float:left; margin-left: 0.2vw">@product.Price $</span>
+                            <span style="float:right; margin-right:0.2vw"><strong>Brand:</strong> @product.Brand</span>
+                            <br />
+                            @if (product.QuantityInStock > 0)
+                            {
+                                <pre style="background-color:darkgreen; color:white; font-size:calc(6px + 0.4vw)">In Stock</pre>
+                                <button class="add-cart" type="button" data-target="@product.ProductName" title="@product.Price" style="display: inline; font-size:calc(8px + 0.7vw)">Add to Cart</button>
+                            }
+                            else
+                            {
+                                <pre style="background-color:darkred; color:white; font-size:calc(6px + 0.4vw)">Out of Stock</pre>
+                                <button style="display: inline; font-size:calc(8px + 0.7vw); text-decoration: line-through">Add to Cart</button>
+                            }
+                        </div>
+
+
+                    }
+                }
+                else
+                {
+                    <h1 style="margin-top:30px;">There is no available products at the moment.</h1>
                 }
             }
-            else
-            {
-                <h1 style="margin-top:30px;">There is no available products at the moment.</h1>
-            }
-        }
 
+        </div>
     </div>
-</div>
+
+
+    <script type="text/javascript">
+        var listProducts = []
+        let list = document.querySelectorAll('.add-cart');
+        list.forEach(product => listProducts.push({ name: product.getAttribute("data-target"), tag: product.getAttribute("data-target"), price: product.getAttribute("title"), inCart: 0 }));
+        window.localStorage.setItem('itemsList', JSON.stringify(listProducts));
+    </script>
+
+
+
+
+   
+
