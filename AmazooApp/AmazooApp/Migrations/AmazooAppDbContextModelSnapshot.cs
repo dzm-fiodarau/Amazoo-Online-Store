@@ -109,14 +109,14 @@ namespace AmazooApp.Migrations
                     .HasColumnType("int")
                     .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("CreationDate")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("Date");
 
                 b.Property<string>("Customer")
                     .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("DeliveryDate")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("Date");
 
                 b.Property<string>("Status")
                     .HasColumnType("nvarchar(max)");

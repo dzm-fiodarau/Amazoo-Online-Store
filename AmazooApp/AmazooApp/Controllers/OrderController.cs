@@ -20,8 +20,29 @@ namespace AmazooApp.Controllers
         {
             _db = db;
             _userManager = userManager;
+
+            //Order Status Update (Delivered or Not)
+            var allInProcessOrders = from order in _db.Orders
+                                     where order.Status == "In Process"
+                                     select order;
+
+            DateTime today = DateTime.Today;
+
+            foreach(var order in allInProcessOrders)
+            {
+                int compared = DateTime.Compare(order.DeliveryDate, today);
+                if (compared <= 0)
+                {
+                    order.Status = "Delivered";
+                    _db.Orders.Update(order);
+                }
+            }
+            _db.SaveChanges();
         }
 
+        /*
+         * Admin page that outputs all orders from the system to a table
+         */
         public IActionResult AdminOrderList()
         {
             Hashtable idName = new Hashtable();
@@ -63,6 +84,9 @@ namespace AmazooApp.Controllers
             return View(allOrders);
         }
 
+        /*
+         * Orders page that outputs past and present orders of the logged in user
+         * */
         public async Task<IActionResult> MyOrdersAsync()
         {
             ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
@@ -98,6 +122,9 @@ namespace AmazooApp.Controllers
             return View(allOrders);
         }
 
+        /*
+         * Details page for each order viewed through the administrator page
+         */
         public IActionResult ViewDetails(int? id)
         {
             if (id == null || id == 0)
@@ -129,6 +156,9 @@ namespace AmazooApp.Controllers
             return View(products);
         }
 
+        /*
+         * Details page for each order viewed through the My Orders page of a logged in user
+         */
         public async Task<IActionResult> ViewMyOrderDetailsAsync(int? id)
         {
             ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
@@ -157,6 +187,54 @@ namespace AmazooApp.Controllers
             var products = _db.Products;
 
             return View(products);
+        }
+
+        /*
+         * Cancels a specific order and updates the products in stock
+         */
+        public IActionResult Cancel(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var orderToCancel = _db.Orders.Find(id);
+
+            if (orderToCancel == null)
+            {
+                return NotFound();
+            }
+
+            orderToCancel.Status = "Canceled";
+            orderToCancel.DeliveryDate = new DateTime(1111, 1, 1);
+            orderToCancel.TotalPaid = 0.0f;
+            _db.Orders.Update(orderToCancel);
+
+            Hashtable productQuantity = new Hashtable();
+            var orderProduct = from oP in _db.OrderProducts
+                               where oP.OrderId == id
+                               select oP;
+            foreach(var oP in orderProduct)
+            {
+                productQuantity.Add(oP.ProductId, oP.Quantity);
+            }
+
+            var allProducts = _db.Products;
+
+            foreach(DictionaryEntry prodQuant in productQuantity)
+            {
+                var product = allProducts.Find(prodQuant.Key);
+                if (product == null)
+                    continue;
+
+                product.QuantityInStock = product.QuantityInStock + (int)prodQuant.Value;
+                _db.Products.Update(product);
+            }
+
+            _db.SaveChanges();
+
+            return RedirectToAction("MyOrders");
         }
     }
 }
