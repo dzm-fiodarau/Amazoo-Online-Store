@@ -34,7 +34,7 @@ function closeNav() {
 
 function openNav() {
     displayCart2();
-    document.getElementById("mySidenav").style.width = "420px";
+    document.getElementById("mySidenav").style.width = "500px";
   }
 
 
@@ -208,17 +208,17 @@ function displayCart2(){
           <tr>
               <th> QST </th>
               <th class="qst">
-              ${Math.round((qstTax()) * 100) / 100}
+              ${Math.round((qstTax()) * 100) / 100} $
               </th>
           </tr>
           <tr> <th> GST </th>
             <th>
-            ${Math.round((gstTax()) * 100) / 100}
+            ${Math.round((gstTax()) * 100) / 100} $
             </th>
         </tr>
         <tr> <th> Total </th>
             <th>
-            ${Math.round((qstTax()+gstTax()+totalCost) * 100) / 100}
+            ${Math.round((qstTax()+gstTax()+totalCost) * 100) / 100} $
             </th>
         </tr>
         <tr>  
@@ -263,6 +263,23 @@ function deleteItem(itemName){
 }
 
 
+//Checks for Quantity in stock, returns boolean
+function quantityInStock(itemName) {
+    let cartItems = localStorage.getItem("productsInCart");
+    cartItems = JSON.parse(cartItems);
+    for (i = 0; i < Object.values(cartItems).length; i++) {
+        if (itemName.id == Object.values(cartItems)[i].name) {
+            for (y = 0; y < products.length; y++) {
+                if (Object.values(cartItems)[i].name == products[y].name) {
+                    if (Object.values(cartItems)[i].inCart < products[y].QuantityInStock) { 
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
 
 //ADDS SELECT ITEM TO THE LOCAL STORAGE//
 function addItem(itemName) {
@@ -270,10 +287,14 @@ function addItem(itemName) {
     let cartItems=localStorage.getItem("productsInCart");
     cartItems = JSON.parse(cartItems);
     for(i=0; i<Object.values(cartItems).length; i++) { 
-        if (itemName.id==Object.values(cartItems)[i].name)  {
-            Object.values(cartItems)[i].inCart += 1
-            
-            localStorage.setItem('productsInCart', JSON.stringify(cartItems));
+        if (itemName.id == Object.values(cartItems)[i].name) {
+            if (quantityInStock(itemName)) {
+                Object.values(cartItems)[i].inCart += 1
+                localStorage.setItem('productsInCart', JSON.stringify(cartItems));
+            }
+            else {
+                alert("Item out of stock")
+            }
         }
     }
     onAction();
@@ -356,7 +377,7 @@ function placeOrder(){
     //    error: () => console.log("data error ")
     //});
 
-    window.location.replace("/Billing/Billing");
+   //window.location.replace("/Billing/Billing");
 }
 
 
