@@ -53,4 +53,4 @@ jobs:
     - name: Install dependencies
       run: dotnet build AmazooApp/AmazooApp.sln
     - name: Unit Tests
-      run: dotnet test AmazooApp/AmazooApp/AmazooAppTest.csproj --configuration Release --no-restore
+      run: dotnet test AmazooApp/AmazooAppTest/AmazooAppTest.csproj --configuration Release --no-restore
