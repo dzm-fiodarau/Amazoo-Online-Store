@@ -388,10 +388,10 @@ function gstTax() {
 }
 
 //CLEARS THE LOCAL STORAGE ON ORDER PLACED//
-function placeOrder(){
+function placeOrder() {
     alert("Order has been accepted");
     localStorage.clear();
-    /*location.reload();*/
+    location.reload();
     //$.ajax({
     //    url: "/Billing/Billing",
     //    type: "post",
