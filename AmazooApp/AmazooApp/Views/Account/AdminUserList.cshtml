@@ -26,7 +26,6 @@
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
-                            <th>Role</th>
                             <th>Address</th>
                             <th>City</th>
                             <th>Province</th>
@@ -34,7 +33,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        @foreach (var userAccount in Model)
+                        {
+                        <tr>
+                            <td style="width: 12.5%;">@userAccount.Id</td>
+                            <td style="width: 12.5%;">@userAccount.FirstName</td>
+                            <td style="width: 12.5%;">@userAccount.LastName</td>
+                            <td style="width: 12.5%;">@userAccount.Email</td>
+                            <td style="width: 12.5%;">@userAccount.Address</td>
+                            <td style="width: 12.5%;">@userAccount.City</td>
+                            <td style="width: 12.5%;">@userAccount.Province</td>
+                            <td style="width: 12.5%;">@userAccount.Zipcode</td>
+                        </tr>
+                        }
                     </tbody>
                 </table>
             }

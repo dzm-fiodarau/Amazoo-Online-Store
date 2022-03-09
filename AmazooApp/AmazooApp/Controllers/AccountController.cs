@@ -32,6 +32,7 @@ namespace AmazooApp.Controllers
         public IActionResult AdminUserList()
         {
             var allUsers = _db.Users;
+            
 
             return View(allUsers);
         }
