@@ -39,23 +39,7 @@
                     color: #f1f1f1;
                 }
 
-            /* Position and style the close button (top right corner) */
-            .sidenav .closebtn {
-                position: absolute;
-                top: 0;
-                right: 25px;
-                font-size: 36px;
-                margin-left: 50px;
-            }
-
-        div.absolute {
-            position: absolute;
-            top: 120px;
-            right: 0;
-            width: 100px;
-            height: 100px;
-        }
-
+        /* Position and style the close button (top right corner) */
         div.content {
             width: 100%;
             margin: auto;
@@ -63,6 +47,26 @@
             border-collapse: collapse;
             table-layout: auto;
         }
+        div.absolute {
+            position: absolute;
+            top: 120px;
+            right: 0;
+            width: 100px;
+            height: 100px;
+        }
+        .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+
+
+            /* Position and style the close button (top right corner) */
+
+
+    
         /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
         #main {
             transition: margin-left .5s;
@@ -96,6 +100,26 @@
                 @inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
 
                 @{
+                    <!--SHOPPING CART NAV-BAR-->
+                    <div class="nav_elem">
+                        <div class="">
+                            <button style="font-size:30px;cursor:pointer" onclick="openNav()" class="shoppingCart" href="" style="color:black;"><i class="fas fa-shopping-cart"></i> <span> 0 </span> </button>
+                        </div>
+                    </div>
+                    <div id="mySidenav" class="sidenav">
+                        <div class="topNav">
+                            <img class="YourCart" src="/media/Amazoo-logos_black.png" alt="Your Cart">
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        </div>
+                        <div class="table-responsive-sm">
+                            <div class="content">
+                                <table class="table table-striped" id="dropDownCart">
+                                    <!--Table Insert From JS-->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Shopping Cart-->
 
                     bool loggedIn = signInManager.IsSignedIn(User);
                     if (loggedIn)
@@ -106,8 +130,10 @@
                             <img src="~/media/blank_profile.jpg" alt="blank_profile_img" />
                         </button>
 
+
                         if (isAdmin)
                         {
+
                             <button id="menu_but" class="nav_elem" onclick="showMenuAdmin()">
                                 <img src="~/media/menu_logo.png" alt="menu_img" id="menu_img" />
                             </button>
@@ -116,11 +142,13 @@
                     }
                     else
                     {
+
                         <button id="menu_but" class="nav_elem" onclick="showMenu()">
                             <img src="~/media/menu_logo.png" alt="menu_img" id="menu_img" />
                         </button>
                     }
                 }
+
 
 
                 <div id="container">
@@ -172,25 +200,7 @@
             </div>
         </footer>
     </div>
-    <!--SHOPPING CART NAV-BAR-->
-    <div class="relative">
-        <div class="absolute">
-            <button style="font-size:30px;cursor:pointer" onclick="openNav()" class="shoppingCart" href="" style="color:black;"><i class="fas fa-shopping-cart"></i> <span> 0 </span> </button>
-        </div>
-    </div>
-    <div id="mySidenav" class="sidenav">
-        <div class="topNav">
-            <img class="YourCart" src="/media/Amazoo-logos_black.png" alt="Your Cart">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        </div>
-        <div class="table-responsive-sm">
-            <div class="content">
-                <table class="table table-striped" id="dropDownCart">
-                    <!--Table Insert From JS-->
-                </table>
-            </div>
-        </div>
-    </div>
+   
     <script src="~/js/ShoppingCart.js" type="text/javascript"></script>
     @RenderSection("scripts", required: false)
 </body>
