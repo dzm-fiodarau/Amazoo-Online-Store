@@ -60,6 +60,16 @@ namespace AmazooApp.Controllers
 
             return View(await products.ToListAsync());
         }
+        
+        public IActionResult ProductPage(int id)
+        {
+            var obj = _db.Products.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
