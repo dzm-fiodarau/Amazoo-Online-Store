@@ -12,8 +12,16 @@ namespace AmazooApp.Controllers
     {
         UserManager<ApplicationUser> _userManager;
 
-        public IActionResult MyAccount()
+        public AccountController(UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> MyAccountAsync()
+        {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            ViewBag.CurrentUser = currentUser;
 
             return View();
         }

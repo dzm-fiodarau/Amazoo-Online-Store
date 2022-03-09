@@ -15,30 +15,37 @@
 
         <table class="table table-bordered" style="margin-top: 20px">
             <tr>
-                <th>First Name</th>
-                <td></td>
-                <th>Last Name</th>
-                <td></td>
+                <th><br />First Name</th>
+                <td><br />@ViewBag.CurrentUser.FirstName</td>
+                <th><br />Last Name</th>
+                <td><br />@ViewBag.CurrentUser.LastName</td>
             </tr>
             <tr>
-                <th>Email</th>
-                <td></td>
+                <th><br />Email</th>
+                <td colspan="3"><br />@ViewBag.CurrentUser.Email</td>
             </tr>
             <tr>
-                <th>Role</th>
-                <td></td>
+                <th><br />Role</th>
+               @if (User.IsInRole("Admin"))
+                {
+                <td colspan="3"><br />Administrator</td>
+                }
+                else if (User.IsInRole("Customer")) 
+                { 
+                <td colspan="3"><br />Customer</td>
+                }
             </tr>
             <tr>
-                <th>Address</th>
-                <td></td>
-                <th>City</th>
-                <td></td>
+                <th><br />Address</th>
+                <td><br />@ViewBag.CurrentUser.Address</td>
+                <th><br />City</th>
+                <td><br />@ViewBag.CurrentUser.City</td>
             </tr>
             <tr>
-                <th>Province</th>
-                <td></td>
-                <th>ZIP</th>
-                <td></td>
+                <th><br />Province</th>
+                <td><br />@ViewBag.CurrentUser.Province</td>
+                <th><br />Zip Code</th>
+                <td><br />@ViewBag.CurrentUser.Zipcode</td>
             </tr>
         </table>
 
