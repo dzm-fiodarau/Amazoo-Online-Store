@@ -17,8 +17,9 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    name: AmazooApp
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -26,13 +27,30 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: Setup .NET v5.0
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: '6.0.x'
           
       - name: Restore App
         run: dotnet build AmazooApp/AmazooApp.sln
         
       - name: Build App
         run: dotnet build AmazooApp/AmazooApp/AmazooApp.csproj --configuration Release --no-restore
+    
+  # Build and run unit tests for CI    
+  unittests:
+    needs: build
+    name:  Unit Testing
+    #the project will run on windows environment 
+    runs-on: windows-latest
+    steps: 
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: '6.0.x'
+    - name: Install dependencies
+      run: dotnet build AmazooApp/AmazooApp.sln
+    - name: Unit Tests
+      run: dotnet test AmazooApp/AmazooApp/AmazooAppTest.csproj --configuration Release --no-restore
