@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.1.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="99.0.4844.5100" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="98.0.4758.10200" />
     <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
     <PackageReference Include="SpecFlow.xUnit" Version="3.9.52" />
     <PackageReference Include="xunit" Version="2.4.1" />

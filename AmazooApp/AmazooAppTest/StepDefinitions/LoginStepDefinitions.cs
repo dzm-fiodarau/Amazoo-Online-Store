@@ -12,7 +12,6 @@ namespace AmazooAppTest.StepDefinitions
     public class LoginStepDefinitions
     {
         IWebDriver webDriver = new ChromeDriver();
-       // IWebDriver webDriver = new FirefoxDriver();
 
         LoginPage loginPage = null;
         [Given(@"I launch the Application")]
@@ -44,7 +43,7 @@ namespace AmazooAppTest.StepDefinitions
         [Then(@"I should see the home page")]
         public void ThenIShouldSeeTheHomePage()
         {
-            Assert.True(webDriver.Url.ToLower().Contains("https://localhost:5001/"));
+            Assert.Contains("https://localhost:5001/", webDriver.Url.ToLower());
             webDriver.Dispose();
         }
     }
