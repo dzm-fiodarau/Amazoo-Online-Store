@@ -208,17 +208,17 @@ function displayCart2(){
           <tr>
               <th> QST </th>
               <th class="qst">
-              ${Math.round((qstTax()) * 100) / 100}
+              ${Math.round((qstTax()) * 100) / 100} $
               </th>
           </tr>
           <tr> <th> GST </th>
             <th>
-            ${Math.round((gstTax()) * 100) / 100}
+            ${Math.round((gstTax()) * 100) / 100} $
             </th>
         </tr>
         <tr> <th> Total </th>
             <th>
-            ${Math.round((qstTax()+gstTax()+totalCost) * 100) / 100}
+            ${Math.round((qstTax()+gstTax()+totalCost) * 100) / 100} $
             </th>
         </tr>
         <tr>  
@@ -356,7 +356,7 @@ function placeOrder(){
     //    error: () => console.log("data error ")
     //});
 
-    window.location.replace("/Billing/Billing");
+   //window.location.replace("/Billing/Billing");
 }
 
 
