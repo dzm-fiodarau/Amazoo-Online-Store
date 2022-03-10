@@ -28,5 +28,7 @@ namespace AmazooApp.Models
 
         public string Brand { get; set; }
 
+        public byte[] ImageTest { get; set; }
+
     }
 }

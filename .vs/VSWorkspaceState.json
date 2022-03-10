@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AmazooApp",
+    "\\AmazooApp\\AmazooApp",
+    "\\AmazooApp\\AmazooApp\\Models"
   ],
+  "SelectedNode": "\\AmazooApp\\AmazooApp\\Models\\Product.cs",
   "PreviewInSolutionExplorer": false
 }
