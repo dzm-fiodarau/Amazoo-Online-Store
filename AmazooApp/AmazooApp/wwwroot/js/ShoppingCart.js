@@ -26,7 +26,7 @@
 ----------------------------------------------------------------------------------------*/
 
 console.log("running");
-
+removeSpaces();
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
@@ -34,7 +34,7 @@ function closeNav() {
 
 function openNav() {
     displayCart2();
-    document.getElementById("mySidenav").style.width = "420px";
+    document.getElementById("mySidenav").style.width = "500px";
   }
 
 
@@ -49,7 +49,7 @@ let products = JSON.parse(localStorage.getItem('itemsList'));
 carts.forEach(carts => {
     carts.addEventListener('click', event => {
         for(x=0; x<products.length;x++){
-            if (carts.getAttribute("data-target")==products[x].tag){
+            if (carts.getAttribute("data-target")==products[x].name){
                 console.log("ADDED", products[x], carts.getAttribute("data-target") )
                 cartProducts(products[x]); 
                 totalCost(products[x])
@@ -59,6 +59,29 @@ carts.forEach(carts => {
     });
  });
 
+
+//Remove Spaces from item names tag
+function removeSpaces() {
+    let productsInCart = localStorage.getItem("productsInCart");
+    let itemsList = localStorage.getItem("itemsList");
+    itemsList = JSON.parse(itemsList);
+    if (localStorage.getItem("productsInCart") != null) {
+        productsInCart = JSON.parse(productsInCart);
+        for (i = 0; i < Object.values(productsInCart).length; i++) {
+            var stringVal = Object.values(productsInCart)[i].tag;
+            var newStringVal = stringVal.replace(/ /g, "");
+            Object.values(productsInCart)[i].tag = newStringVal;
+        }
+    }
+    for (i = 0; i < Object.values(itemsList).length; i++) {
+        var stringVal = Object.values(itemsList)[i].tag;
+        var newStringVal = stringVal.replace(/ /g, "");
+        Object.values(itemsList)[i].tag = newStringVal;  
+    }
+    localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
+    localStorage.setItem('itemsList', JSON.stringify(itemsList));
+
+}
 
 
 //KEEP TRACK OF ALL PRODUCTS IN CART (as a #) AND DISPLAY RESULT TO FIRST CLASS=".shoppingCart" WITH SPAN//
@@ -133,13 +156,13 @@ function displayCart(){
                                     <td class="name">${Object.values(cartItems)[i].name}</td>
                                     <td class="price">${Math.round((Object.values(cartItems)[i].price) * 100) / 100}</td>
                                     <td class="quantity">
-                                            <button class="btn" type="button" id="addItem" ><i class="fas fa-plus-square" onclick="addItem(${Object.values(cartItems)[i].name})" ></i></button> 
+                                            <button class="btn" type="button" id="addItem" ><i class="fas fa-plus-square" onclick="addItem(${Object.values(cartItems)[i].tag})" ></i></button> 
                                             ${Object.values(cartItems)[i].inCart} 
-                                            <button class="btn" type="button" id="subItem" ><i class="fas fa-minus-square" onclick="subItem(${Object.values(cartItems)[i].name})"></i></button>
+                                            <button class="btn" type="button" id="subItem" ><i class="fas fa-minus-square" onclick="subItem(${Object.values(cartItems)[i].tag})"></i></button>
                                     </td>
                                     <td >${Math.round((Object.values(cartItems)[i].price)*(Object.values(cartItems)[i].inCart) * 100) / 100}</td> 
                                     <td >
-                                        <button class="btn btn-primary" id="${Object.values(cartItems)[i].name}" type="button" aria-expanded="false" aria-controls="contentId"  onclick="deleteItem(${Object.values(cartItems)[i].name})">
+                                        <button class="btn btn-primary" id="${Object.values(cartItems)[i].tag}" type="button" aria-expanded="false" aria-controls="contentId"  onclick="deleteItem(${Object.values(cartItems)[i].tag})">
                                         <i class="fas fa-trash-alt" ></i> 
                                         </button>
                                     </td>                                                                                                                                                                               
@@ -185,13 +208,13 @@ function displayCart2(){
                                     <td class="name">${Object.values(cartItems)[i].name}</td>
                                     <td class="price">${Math.round((Object.values(cartItems)[i].price) * 100) / 100}</td>
                                     <td class="quantity">
-                                            <button class="btn" type="button" id="addItem" ><i class="fas fa-plus-square" onclick="addItem(${Object.values(cartItems)[i].name})" ></i></button> 
+                                            <button class="btn" type="button" id="addItem" ><i class="fas fa-plus-square" onclick="addItem(${Object.values(cartItems)[i].tag})" ></i></button>
                                             ${Object.values(cartItems)[i].inCart} 
-                                            <button class="btn" type="button" id="subItem" ><i class="fas fa-minus-square" onclick="subItem(${Object.values(cartItems)[i].name})"></i></button>
+                                            <button class="btn" type="button" id="subItem" ><i class="fas fa-minus-square" onclick="subItem(${Object.values(cartItems)[i].tag})"></i></button>
                                     </td>
                                     <td >${Math.round((Object.values(cartItems)[i].price)*(Object.values(cartItems)[i].inCart) * 100) / 100}</td> 
                                     <td >
-                                        <button class="btn btn-primary" id="${Object.values(cartItems)[i].name}" type="button" aria-expanded="false" aria-controls="contentId"  onclick="deleteItem(${Object.values(cartItems)[i].name})">
+                                        <button class="btn btn-primary" id="${Object.values(cartItems)[i].tag}" type="button" aria-expanded="false" aria-controls="contentId"  onclick="deleteItem(${Object.values(cartItems)[i].tag})">
                                         <i class="fas fa-trash-alt"></i> 
                                         </button>
                                     </td>      
@@ -208,17 +231,17 @@ function displayCart2(){
           <tr>
               <th> QST </th>
               <th class="qst">
-              ${Math.round((qstTax()) * 100) / 100}
+              ${Math.round((qstTax()) * 100) / 100} $
               </th>
           </tr>
           <tr> <th> GST </th>
             <th>
-            ${Math.round((gstTax()) * 100) / 100}
+            ${Math.round((gstTax()) * 100) / 100} $
             </th>
         </tr>
         <tr> <th> Total </th>
             <th>
-            ${Math.round((qstTax()+gstTax()+totalCost) * 100) / 100}
+            ${Math.round((qstTax()+gstTax()+totalCost) * 100) / 100} $
             </th>
         </tr>
         <tr>  
@@ -242,7 +265,7 @@ function displayCart2(){
 
 
 //DELETES SELECT ITEM FROM THE LOCAL STORAGE//
-function deleteItem(itemName){
+function deleteItem(itemName) {
     let cartItems=localStorage.getItem("productsInCart");
     cartItems = JSON.parse(cartItems);
     var cartItems3=[Object.values(cartItems).length];
@@ -252,7 +275,7 @@ function deleteItem(itemName){
 
     var i;
     for(i=0; i<Object.values(cartItems).length; i++) { 
-        if (itemName.id==Object.values(cartItems)[i].name)  {
+        if (itemName.id==Object.values(cartItems)[i].tag)  {
             console.log(Object.values(cartItems)[i].tag);
          cartItems3.splice(i,1);
          console.log(Object.values(cartItems)[i]);
@@ -263,6 +286,23 @@ function deleteItem(itemName){
 }
 
 
+//Checks for Quantity in stock, returns boolean
+function quantityInStock(itemName) {
+    let cartItems = localStorage.getItem("productsInCart");
+    cartItems = JSON.parse(cartItems);
+    for (i = 0; i < Object.values(cartItems).length; i++) {
+        if (itemName.id == Object.values(cartItems)[i].tag) {
+            for (y = 0; y < products.length; y++) {
+                if (Object.values(cartItems)[i].tag == products[y].tag) {
+                    if (Object.values(cartItems)[i].inCart < products[y].QuantityInStock) { 
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
 
 //ADDS SELECT ITEM TO THE LOCAL STORAGE//
 function addItem(itemName) {
@@ -270,10 +310,14 @@ function addItem(itemName) {
     let cartItems=localStorage.getItem("productsInCart");
     cartItems = JSON.parse(cartItems);
     for(i=0; i<Object.values(cartItems).length; i++) { 
-        if (itemName.id==Object.values(cartItems)[i].name)  {
-            Object.values(cartItems)[i].inCart += 1
-            
-            localStorage.setItem('productsInCart', JSON.stringify(cartItems));
+        if (itemName.id == Object.values(cartItems)[i].tag) {
+            if (quantityInStock(itemName)) {
+                Object.values(cartItems)[i].inCart += 1
+                localStorage.setItem('productsInCart', JSON.stringify(cartItems));
+            }
+            else {
+                alert("Item out of stock")
+            }
         }
     }
     onAction();
@@ -311,7 +355,7 @@ function subItem(itemName){
     let cartItems=localStorage.getItem("productsInCart");
     cartItems = JSON.parse(cartItems);
     for(i=0; i<Object.values(cartItems).length; i++) { 
-        if (itemName.id==Object.values(cartItems)[i].name)  {
+        if (itemName.id==Object.values(cartItems)[i].tag)  {
             if (Object.values(cartItems)[i].inCart>1){
                 Object.values(cartItems)[i].inCart -= 1
              }
@@ -344,10 +388,10 @@ function gstTax() {
 }
 
 //CLEARS THE LOCAL STORAGE ON ORDER PLACED//
-function placeOrder(){
+function placeOrder() {
     alert("Order has been accepted");
     localStorage.clear();
-    /*location.reload();*/
+    location.reload();
     //$.ajax({
     //    url: "/Billing/Billing",
     //    type: "post",
@@ -356,12 +400,13 @@ function placeOrder(){
     //    error: () => console.log("data error ")
     //});
 
-    window.location.replace("/Billing/Billing");
+   //window.location.replace("/Billing/Billing");
 }
 
 
   //LIST OF FUNCTIONS TO RUN ON PAGE ACTION//
-function onAction(){
+function onAction() {
+    removeSpaces()
     totalCost()
     displayCart()
     productInCart()
@@ -372,6 +417,7 @@ function onAction(){
 
   //LIST OF FUNCTIONS TO RUN ON PAGE REFRESH//
   productInCart();
+  removeSpaces();
   totalCost();
   displayCart();
   displayCart2();
