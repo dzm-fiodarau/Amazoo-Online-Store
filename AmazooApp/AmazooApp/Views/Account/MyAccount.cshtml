@@ -1,0 +1,61 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
+
+@{
+    ViewData["Title"] = "My Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (signInManager.IsSignedIn(User))
+    {
+
+        <div style="text-align: center; margin: 30px 0 30px 0;">
+            <h1>My Account</h1>
+        </div>
+
+        <table class="table table-bordered" style="margin-top: 20px">
+            <tr>
+                <th><br />First Name</th>
+                <td><br />@ViewBag.CurrentUser.FirstName</td>
+                <th><br />Last Name</th>
+                <td><br />@ViewBag.CurrentUser.LastName</td>
+            </tr>
+            <tr>
+                <th><br />Email</th>
+                <td colspan="3"><br />@ViewBag.CurrentUser.Email</td>
+            </tr>
+            <tr>
+                <th><br />Role</th>
+               @if (User.IsInRole("Admin"))
+                {
+                <td colspan="3"><br />Administrator</td>
+                }
+                else if (User.IsInRole("Customer")) 
+                { 
+                <td colspan="3"><br />Customer</td>
+                }
+            </tr>
+            <tr>
+                <th><br />Address</th>
+                <td><br />@ViewBag.CurrentUser.Address</td>
+                <th><br />City</th>
+                <td><br />@ViewBag.CurrentUser.City</td>
+            </tr>
+            <tr>
+                <th><br />Province</th>
+                <td><br />@ViewBag.CurrentUser.Province</td>
+                <th><br />Zip Code</th>
+                <td><br />@ViewBag.CurrentUser.Zipcode</td>
+            </tr>
+        </table>
+
+    }
+    else
+    {
+        <div style="text-align: center; margin-top: 30px;">
+
+            <h1>Please log in before accessing this page.</h1>
+
+        </div>
+    }
+}
