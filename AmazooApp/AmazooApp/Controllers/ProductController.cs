@@ -1,5 +1,6 @@
 ﻿using AmazooApp.Data;
 using AmazooApp.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -45,16 +46,16 @@ namespace AmazooApp.Controllers
 
         public IActionResult Delete(int? id)
         {
-            if (id == null || id==0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
             var obj = _db.Products.Find(id);
-            if (obj==null)
+            if (obj == null)
             {
                 return NotFound();
             }
-            
+
             return View(obj);
         }
 
@@ -64,7 +65,7 @@ namespace AmazooApp.Controllers
         public IActionResult DeletePost(int? id)
         {
             var obj = _db.Products.Find(id);
-         if (obj == null)
+            if (obj == null)
             {
                 return NotFound();
             }
@@ -74,7 +75,37 @@ namespace AmazooApp.Controllers
             return RedirectToAction("Index");
         }
 
+        //GET-Edit
 
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _db.Products.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
 
+            return View(obj);
+        }
+
+        //POST-Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Product obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Products.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+    
+    
     }
-}
+    }

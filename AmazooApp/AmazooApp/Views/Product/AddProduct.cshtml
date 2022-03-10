@@ -5,7 +5,7 @@
 
 @model AmazooApp.Models.Product
 
-<form method="post" asp-action="AddProduct">
+<form method="post" asp-action="AddProduct" enctype="multipart/form-data">
     <div class="border p-3">
         <div class="form-group row">
             <h2 class="text-black-50 pl-3">Add Product</h2>
@@ -29,7 +29,7 @@
                         <label asp-for="Category"></label>
                     </div>
                     <div class="col-2">
-                        <label asp-for="Image"></label>
+                        <label asp-for="ImageTest"></label>
                     </div>
                     <div class="col-2">
                         <label asp-for="Brand"></label>
@@ -52,7 +52,7 @@
                         <input asp-for="Category" class="form-control" />
                     </div>
                     <div class="col-2">                       
-                        <input asp-for="Image" class="btn" type="file" />                                                                 
+                        <input asp-for="ImageTest" class="btn" type="file" />                                                                 
                     </div>
                     <div class="col-2">
                         <input asp-for="Brand" class="form-control" />
