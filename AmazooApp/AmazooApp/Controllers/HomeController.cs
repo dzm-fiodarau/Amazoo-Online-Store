@@ -15,11 +15,13 @@ namespace AmazooApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly AmazooAppDbContext _db;
-
+        public IEnumerable<Product>  products;
         public HomeController(ILogger<HomeController> logger, AmazooAppDbContext db)
         {
             _logger = logger;
             _db = db;
+            products = from p in _db.Products
+                       select p;
         }
 
         public async Task<IActionResult> Index(String searchEntry, String b1, String b2, String b3, String b4)
@@ -60,6 +62,35 @@ namespace AmazooApp.Controllers
 
             return View(await products.ToListAsync());
         }
+
+        public async Task<IActionResult> Filter(String chckBox1, String chckBox2, String chckBox3, String chckBox4)
+        {
+            if (!(chckBox1 == null))
+            {
+                Console.WriteLine(chckBox1);
+                products = products.Where(p => p.Category.Contains(chckBox1));
+            }
+            if (!(chckBox2 == null))
+            {
+                Console.WriteLine(chckBox2);
+                products = products.Where(p => p.Category.Contains(chckBox2));
+            }
+            if (!(chckBox3 == null))
+            {
+                Console.WriteLine(chckBox3);
+                products = products.Where(p => p.Category.Contains(chckBox3));
+            }
+            if (!(chckBox4 == null))
+            {
+                Console.WriteLine(chckBox4);
+                products = products.Where(p => p.QuantityInStock > 0);
+            }
+
+            return View("Index",products);
+        }
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
