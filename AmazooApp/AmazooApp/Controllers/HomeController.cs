@@ -1,5 +1,6 @@
 ﻿using AmazooApp.Data;
 using AmazooApp.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -63,33 +64,13 @@ namespace AmazooApp.Controllers
             return View(await products.ToListAsync());
         }
 
-        public async Task<IActionResult> Filter(String chckBox1, String chckBox2, String chckBox3, String chckBox4)
+
+        public async Task<IActionResult> Filter(IFormCollection formCollection)
         {
-            if (!(chckBox1 == null))
-            {
-                Console.WriteLine(chckBox1);
-                products = products.Where(p => p.Category.Contains(chckBox1));
-            }
-            if (!(chckBox2 == null))
-            {
-                Console.WriteLine(chckBox2);
-                products = products.Where(p => p.Category.Contains(chckBox2));
-            }
-            if (!(chckBox3 == null))
-            {
-                Console.WriteLine(chckBox3);
-                products = products.Where(p => p.Category.Contains(chckBox3));
-            }
-            if (!(chckBox4 == null))
-            {
-                Console.WriteLine(chckBox4);
-                products = products.Where(p => p.QuantityInStock > 0);
-            }
-
-            return View("Index",products);
+            var actions = formCollection.TryGetValue("chckBox", out var filterValues);
+            var selected = products.Where(p => filterValues.Any(chck => chck.Equals(p.Category)));
+            return View("Index", selected);
         }
-
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
