@@ -1,6 +1,6 @@
 ﻿Feature: Login
 	Login to AmazooApp
-@ignore
+@ignore 
 Scenario: AmazooApp should navigate to the login page given that user is not logged in
 	Given I launch the Application
 	And I click login link
