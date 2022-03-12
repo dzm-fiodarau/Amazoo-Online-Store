@@ -65,15 +65,15 @@
 
 #products_container {
     margin-top: 15px;
-    margin-left: 0.5vw;
     height: fit-content;
-    width: 98vw;
     border: dashed;
     border-color: black;
     border-width: 2px;
     text-align: center;
     padding-bottom: 30px;
 }
+/*width: 98vw;
+margin-left: 0.5vw;*/
 
 .product_elem {
     width: 25vw;

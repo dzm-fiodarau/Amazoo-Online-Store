@@ -65,6 +65,9 @@ namespace AmazooApp
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
+                    name: "home",
+                    pattern: "{controller=Home}/{action=Filter}/{id?}");
+                endpoints.MapControllerRoute(
                    name: "Login",
                    pattern: "{controller=Login}/{action=Login}/{id?}");
                 endpoints.MapControllerRoute(
