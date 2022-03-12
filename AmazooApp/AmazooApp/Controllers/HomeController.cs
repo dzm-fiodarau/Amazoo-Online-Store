@@ -65,11 +65,12 @@ namespace AmazooApp.Controllers
         }
 
 
-        public async Task<IActionResult> Filter(IFormCollection formCollection)
+        public IActionResult Filter(IFormCollection formCollection)
         {
             var actions = formCollection.TryGetValue("chckBox", out var filterValues);
             var selected = products.Where(p => filterValues.Any(chck => chck.Equals(p.Category) || chck.Equals(p.Brand)));
-            return View("Index", selected);
+            IEnumerable < Product > checkedList = filterValues.Count == 0 ? products : selected;
+            return View("Index", checkedList);
         }
 
 
