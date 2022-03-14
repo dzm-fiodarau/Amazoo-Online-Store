@@ -1,21 +1,26 @@
 ﻿using AmazooApp.Data;
 using AmazooApp.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace AmazooApp.Controllers
 {
     public class ProductController : Controller
     {
         private readonly AmazooAppDbContext _db;
+        private IHostingEnvironment _environment;
 
-        public ProductController(AmazooAppDbContext db)
+        public ProductController(AmazooAppDbContext db, IHostingEnvironment environment)
         {
             _db = db;
+            _environment = environment;
         }
 
         public IActionResult Index()
@@ -33,9 +38,22 @@ namespace AmazooApp.Controllers
         //POST-Add
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddProduct(Product obj)
+        public IActionResult AddProduct(Product obj, IFormFile postedFile)
         {
-            _db.Products.Add(obj);
+            var objectToSave = obj;
+            if (postedFile != null)
+            {
+                string fileName = System.IO.Path.GetFileName(postedFile.FileName);
+
+                string path = Path.Combine(this._environment.WebRootPath, "media");
+
+                using (var fileStream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    postedFile.CopyTo(fileStream);
+                }
+                objectToSave.Image = "/media/" + fileName;
+            }
+            _db.Products.Add(objectToSave);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -95,11 +113,25 @@ namespace AmazooApp.Controllers
         //POST-Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Product obj)
+        public IActionResult Edit(Product obj, IFormFile postedFile)
         {
             if (ModelState.IsValid)
             {
-                _db.Products.Update(obj);
+                var objectToSave = obj;
+
+                if (postedFile != null)
+                {
+                    string fileName = System.IO.Path.GetFileName(postedFile.FileName);
+
+                    string path = Path.Combine(this._environment.WebRootPath, "media");
+
+                    using (var fileStream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                    {
+                        postedFile.CopyTo(fileStream);
+                    }
+                    objectToSave.Image = "/media/" + fileName;
+                }
+                _db.Products.Update(objectToSave);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
