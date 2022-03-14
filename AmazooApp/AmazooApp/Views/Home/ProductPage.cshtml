@@ -8,38 +8,39 @@
 <div class="container p-3" style="border-radius: 5%; box-shadow: 0 0 20px rgba(0,0,0,0.5); margin-top: 5%">
     <div class="row pt-2">
         <div class="col-6">
-            <img src="@Model.Image" alt="@Model.ProductName" style="margin: auto; max-width: 100%"/>
+            <img src="@Model.Image" alt="@Model.ProductName" style="max-height: 50vh; max-width: 40vw"/>
         </div>
         <div class="col-6">
             <table style="width: 100%; text-align: center; margin-top: 15%">
                 <tr>
                     <th>
-                        <h2>@Model.ProductName</h2>
+                        <h2 style="font-size: 2vw">@Model.ProductName</h2>
                     </th>
                     <th>
-                        <h2>@Model.Price $</h2>
+                        <h2 style="font-size: 2vw">@Model.Price$</h2>
                     </th>
                     <th>
-                        <h2>@Model.Brand</h2>
+                        <h2 style="font-size: 2vw">@Model.Brand</h2>
                     </th>
                 </tr>
                 <tr style="color: gray">
                     <td>
-                        <h4>Product</h4>
+                        <h4 style="font-size: 2vw">Product</h4>
                     </td>
                     <td>
-                        <h4>Price</h4>
+                        <h4 style="font-size: 2vw">Price</h4>
                     </td>
                     <td>
-                        <h4>Brand</h4>
+                        <h4 style="font-size: 2vw">Brand</h4>
                     </td>
                 </tr>
             </table>
-            <div style="margin-top: 20%">
-                
+            <div style="margin-top: 10%; text-align:center">
+                @Model.Description
+            </div>
+            <div style="margin-top: 10%">
                 @if (@Model.QuantityInStock > 0)
                 {
-                    @*This does nothing right now, needs to be updated to link with the cart*@
                     <button class="btn-primary" style="margin:0 auto; display: block; border-radius: 6px; font-size: 25px">Add to Cart</button>
                 }
                 else
