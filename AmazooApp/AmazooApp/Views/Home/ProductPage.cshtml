@@ -1,7 +1,7 @@
 @model AmazooApp.Models.Product
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Product Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,31 +11,28 @@
             <img src="@Model.Image" alt="@Model.ProductName" style="max-height: 50vh; max-width: 40vw"/>
         </div>
         <div class="col-6">
+            <div style="text-align:center;">
+                <h2 style="font-size: calc(20px + 1.2vw)">@Model.ProductName</h2>
+            </div>
             <table style="width: 100%; text-align: center; margin-top: 15%">
                 <tr>
                     <th>
-                        <h2 style="font-size: 2vw">@Model.ProductName</h2>
+                        <h2 style="font-size: calc(18px + 0.9vw)">@Model.Price$</h2>
                     </th>
                     <th>
-                        <h2 style="font-size: 2vw">@Model.Price$</h2>
-                    </th>
-                    <th>
-                        <h2 style="font-size: 2vw">@Model.Brand</h2>
+                        <h2 style="font-size: calc(18px + 0.9vw)">@Model.Brand</h2>
                     </th>
                 </tr>
                 <tr style="color: gray">
                     <td>
-                        <h4 style="font-size: 2vw">Product</h4>
+                        <h4 style="font-size: calc(14px + 0.8vw)">Price</h4>
                     </td>
                     <td>
-                        <h4 style="font-size: 2vw">Price</h4>
-                    </td>
-                    <td>
-                        <h4 style="font-size: 2vw">Brand</h4>
+                        <h4 style="font-size: calc(14px + 0.8vw)">Brand</h4>
                     </td>
                 </tr>
             </table>
-            <div style="margin-top: 10%; text-align:center">
+            <div style="margin-top: 10%; text-align: center; font-size: calc(10px + 0.5vw)">
                 @Model.Description
             </div>
             <div style="margin-top: 10%">
@@ -44,7 +41,7 @@
                     <button class="btn-primary" style="margin:0 auto; display: block; border-radius: 6px; font-size: 25px">Add to Cart</button>
                 }
                 else
-                {   
+                {
                     <h3 style="background-color:darkred; color:white; text-align: center">OUT OF STOCK</h3>
                 }
             </div>
