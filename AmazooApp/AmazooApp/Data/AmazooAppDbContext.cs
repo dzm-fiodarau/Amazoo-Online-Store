@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AmazooApp.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using AmazooApp.Models.Checkout;
 
 namespace AmazooApp.Data
 {
@@ -21,5 +22,7 @@ namespace AmazooApp.Data
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderProduct> OrderProducts { get; set; }
+
+        public DbSet<AmazooApp.Models.Checkout.CheckoutViewModel> CheckoutViewModel { get; set; }
     }
 }

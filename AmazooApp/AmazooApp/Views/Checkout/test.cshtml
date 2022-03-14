@@ -1,0 +1,77 @@
+﻿
+
+
+
+@inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
+
+@model IEnumerable<AmazooApp.Models.Checkout.CheckoutViewModel>
+
+@{
+    ViewData["Title"] = "Shipping Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    <h1>Shipping address detail information: </h1>
+    <br>
+    <h4 style="color:purple">
+        <b>Current user:</b>    @ViewBag.current_user.FirstName  @ViewBag.current_user.LastName  <br />
+        <b>Street address:</b>    @ViewBag.current_user.Address <br />
+        <b>City:</b>  @ViewBag.current_user.City <br />
+        <b>Province:</b>  @ViewBag.current_user.Province <br />
+        <b>Zipcode:</b>  @ViewBag.current_user.Zipcode<br />
+        <b>Test:</b>  @ViewBag.test<br />
+        <br>
+        <b>Use alternate address:</b> @ViewBag.Addon
+    </h4>
+    <hr />
+    <h3><b>Shipping Address</b></h3>
+
+    <h5><b>Please enter your shipping address information if you want to use a different address</b></h5>
+    <form action="ShippingAddress" method="post">
+        <table>
+            <tr>
+                <td>Enter street address: </td>
+                <td><input type="text" name="current_user" /></td>
+            </tr>
+
+            <tr>
+                <td>Enter city: </td>
+                <td><input type="text" name="current_user.City" /></td>
+            </tr>
+
+            <label for="membership">Choose a province:</label>
+            <select name="membership" id="membership">
+                <option value="free">Free</option>
+                <option value="bronze">Bronze</option>
+                <option value="silver" selected>Silver</option>
+                <option value="Gold">Gold</option>
+            </select>
+            <tr>
+                <td>Enter zipcode: </td>
+                <td><input type="text" name="current_user.Zipcode" /></td>
+            </tr>
+            <tr>
+                <td>Enter test: </td>
+                <td><input type="text" name="test" /></td>
+            </tr>
+
+            <tr>
+                <td>Use this address instead: </td>
+                <td><input type="checkbox" name="Addon" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Update address information" /></td>
+            </tr>
+            <tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Continue to billing" /></td>
+            </tr>
+        </table>
+    </form>
+
+    <button onclick="myFunction()">Continue to billing</button>
+
+
+
+
+}

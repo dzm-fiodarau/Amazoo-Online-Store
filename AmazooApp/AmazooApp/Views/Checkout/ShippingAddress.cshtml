@@ -1,0 +1,79 @@
+﻿@model AmazooApp.Models.Checkout.CheckoutViewModel
+
+<form class="form container" method="post" asp-action="ShippingAddress" asp-controller="Checkout">
+
+    <h2 class="mb-5 text-center">Shipping address information</h2>
+    <br>
+
+    <h4 style="color:black">
+        <b>Current user:</b>    @ViewBag.tempUser.FirstName  @ViewBag.tempUser.LastName  <br />
+        <b>Street address:</b>    @ViewBag.tempUser.Address <br />
+        <b>City:</b>  @ViewBag.tempUser.City <br />
+        <b>Province:</b>  @ViewBag.tempUser.Province <br />
+        <b>Zipcode:</b>  @ViewBag.tempUser.Zipcode<br />
+
+        <br>
+
+
+    </h4>
+
+
+    <bd>Use another address: </bd>
+    <bd><input type="checkbox" name="chkAddon" /></bd>
+
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for=FirstName></label>
+            <input type="text" class="form-control" asp-for="FirstName" placeholder="Jane" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label class="form-label" for="typeEmailX-2" asp-for="LastName"></label>
+            <input type="text" id="typeEmailX-2" class="form-control" asp-for="LastName" placeholder="Doe" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="Address"></label>
+        <input type="text" class="form-control" asp-for="Address" placeholder="123 Guy" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="form-label" asp-for="City"></label>
+            <input type="text" class="form-control" asp-for="City" />
+
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label class="form-label" asp-for="Province"> </label>
+            <select class="form-control" asp-items="@AmazooApp.Utility.ProvinceHelper.GetProvincesForDropDown()" asp-for="Province"></select>
+            <span asp-validation-for="Province" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">Zip</label>
+            <input type="text" class="form-control" asp-for="Zipcode" />
+            <span asp-validation-for="Zipcode" class="text-danger"></span>
+        </div>
+    </div>
+
+    <button onclick="myFunction()">Update shipping info</button>
+
+    <button type="button" onclick="location.href='@Url.Action("BillingInfo","Checkout")'"> Proceed to billing</button>
+
+
+    <br />
+    <b>Debug :<br />
+    <b>Checkbox:</b> @ViewBag.useAlternateAddress<br />
+    <b>Addon:</b> @ViewBag.Addon<br />
+
+
+</form>
+
+
+
+    }
