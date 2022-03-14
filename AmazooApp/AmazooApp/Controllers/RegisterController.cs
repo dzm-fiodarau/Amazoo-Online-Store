@@ -23,8 +23,21 @@ namespace AmazooApp.Controllers
             _signInManager = signInManager;
            _roleManager = roleManager;
         }
+
+        /**
+         * This Method Is the entry point for the registartion page
+         * When a user reaches the registartion page, this method will check if the roles 
+         * for the admin and customer exists and will ceate them if necessary.
+         * 
+         * **/
         public async Task<IActionResult> Register()
         {
+            //in case the user is already logged in 
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (!_roleManager.RoleExistsAsync(Utility.RoleHelper.Customer).GetAwaiter().GetResult())
             {
                await  _roleManager.CreateAsync(new IdentityRole(Utility.RoleHelper.Customer));
@@ -46,6 +59,12 @@ namespace AmazooApp.Controllers
                     LastName = model.LastName,
                     Email = model.Email,
                     UserName= model.FirstName,
+                    Address=model.Address,
+                    City= model.City,
+                    Province = model.Province,
+                    Zipcode = model.Zipcode
+
+                    
                 };
 
                 var result = await _userManager.CreateAsync(user,model.Password);
