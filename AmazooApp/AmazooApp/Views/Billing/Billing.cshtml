@@ -9,93 +9,117 @@
 @{
     if (signInManager.IsSignedIn(User))
     {
-    <form class="container" method="post" asp-action="Index" asp-controller="Billing">
+    <form class="container" method="post" asp-action="Summary" asp-controller="Billing">
         <div style="text-align: center; margin: 30px 0 30px 0;">
             <h1>Billing</h1>
         </div>
+        <div style="text-align: center; margin: 30px 0 30px 0; color: red;">
+            <p>@ViewBag.Warning</p>
+        </div>
         <h3 style="color: gray;">Personal Information</h3>
         <div asp-validation-summary="All" class="row text-danger"></div>
+
         <div class="form-row">
+
             <div class="form-group col-md-6">
                 <label style="font-weight: bold"> First Name</label>
-                <input type="text" class="form-control" placeholder="Jane" value="@ViewBag.CurrentUser.FirstName" />
+                <input type="text" class="form-control" placeholder="Jane" name="firstName" value="@ViewBag.CurrentUser.FirstName" />
                 @*    <span asp-validation-for="FirstName" class="text-danger"></span>*@
             </div>
+
             <div class="form-group col-md-6">
                 <label style="font-weight: bold" class="form-label" for="typeEmailX-2">Last Name</label>
-                <input type="text" id="typeEmailX-2" class="form-control" placeholder="Doe" value="@ViewBag.CurrentUser.LastName" />
+                <input type="text" id="typeEmailX-2" class="form-control" name="lastName" placeholder="Doe" value="@ViewBag.CurrentUser.LastName" />
                 @*       <span asp-validation-for="LastName" class="text-danger"></span>*@
             </div>
+
         </div>
+
         <div class="form-group">
             <label class="form-label" style="font-weight: bold">Email</label>
-            <input type="email" class="form-control form-control-lg" placeholder="Email@email.ca" value="@ViewBag.CurrentUser.Email" />
+            <input type="email" class="form-control form-control-lg" name="email" placeholder="Email@email.ca" value="@ViewBag.CurrentUser.Email" />
             @*     <span asp-validation-for=Email class="text-danger"></span>*@
         </div>
+
         <br />
+
         <h3 style="color: gray;">Delivery Address Information</h3>
         <div class="form-group">
             <label class="form-label" style="font-weight: bold">Address</label>
-            <input type="text" class="form-control" placeholder="123 Guy St." value="@ViewBag.CurrentUser.Address" />
+            <input type="text" class="form-control" name="address" placeholder="123 Guy St." value="@ViewBag.CurrentUser.Address" />
             @*         <span asp-validation-for="Address" class="text-danger"></span>*@
         </div>
+
         <div class="form-row">
+
             <div class="form-group col-md-6">
                 <label class="form-label" style="font-weight: bold">City</label>
-                <input type="text" class="form-control" value="@ViewBag.CurrentUser.City" />
+                <input type="text" class="form-control" name="city" value="@ViewBag.CurrentUser.City" />
 
                 @*            <span asp-validation-for="City" class="text-danger"></span>*@
             </div>
+
             <div class="form-group col-md-4">
                 <label class="form-label" style="font-weight: bold">Province</label>
 
-                <select class="form-control" asp-items="@AmazooApp.Utility.ProvinceHelper.GetProvincesForDropDown()"></select>
-                @* <span asp-validation-for="Province" class="text-danger"></span>*@
+                <select name="province" class="form-control" asp-items="@AmazooApp.Utility.ProvinceHelper.GetProvincesForDropDown()"></select>
             </div>
+
             <div class="form-group col-md-2">
                 <label class="form-label" style="font-weight: bold">Zip</label>
-                <input type="text" class="form-control" value="@ViewBag.CurrentUser.Zipcode" />
+                <input type="text" class="form-control" name="zipcode" value="@ViewBag.CurrentUser.Zipcode" />
                 @*      <span asp-validation-for="Zipcode" class="text-danger"></span>*@
             </div>
+
         </div>
+
         <br />
+
         <h3 style="color: gray;">Payment Information</h3>
         <div class="row">
+
             <div class="col-md-6 mb-3">
                 <label for="cc-name" style="font-weight: bold">Name on Card</label>
-                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                <input type="text" class="form-control" name="cc_name" id="cc-name" placeholder="Jane Doe" required="">
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">
                     Name on card is required
                 </div>
             </div>
+
             <div class="col-md-6 mb-3">
                 <label for="cc-number" style="font-weight: bold">Credit Card Number</label>
-                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                <input type="text" class="form-control" name="cc_number" id="cc-number" placeholder="1111 1111 1111 1111" required="">
                 <div class="invalid-feedback">
                     Credit card number is required
                 </div>
             </div>
 
         </div>
+
         <div class="row">
             <div class="col-md-3 mb-3">
                 <label for="cc-expiration" style="font-weight: bold">Expiration Date</label>
-                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                <input type="text" class="form-control" name="cc_expiration" id="cc-expiration" placeholder="MMYYYY" required="">
                 <div class="invalid-feedback">
                     Expiration date required
                 </div>
             </div>
+
             <div class="col-md-3 mb-3">
                 <label for="cc-expiration" style="font-weight: bold">CVV</label>
-                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                <input type="text" class="form-control" name="cc_cvv" id="cc-cvv" placeholder="111" required="">
                 <div class="invalid-feedback">
                     CVV required
                 </div>
             </div>
+
         </div>
+
         <br />
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay <strong>$100</strong></button>
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue</button>
+
     </form>
 
         @section scripts{
