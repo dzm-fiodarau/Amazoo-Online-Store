@@ -392,15 +392,15 @@ function placeOrder() {
     alert("Order has been accepted");
     localStorage.clear();
     location.reload();
-    $.ajax({
-        url: "/Checkout/ShippingAddress,
-        type: "post",
-        data: { "data": window.localStorage.getItem("productsInCart") },
-        success: () => console.log("data transfer success "),
-        error: () => console.log("data error ")
-    });
+    //$.ajax({
+    //    url: "/Billing/Billing",
+    //    type: "post",
+    //    data: { "data": window.localStorage.getItem("productsInCart") },
+    //    success: () => console.log("data transfer success "),
+    //    error: () => console.log("data error ")
+    //});
 
-   window.location.replace("/Checkout/ShippingAddress");
+   //window.location.replace("/Billing/Billing");
 }
 
 
