@@ -70,7 +70,17 @@ namespace AmazooApp.Controllers
                 return RedirectToAction("Billing", new { error = "*One or more errors detected. Please enter your information again." });
             }
 
-            ViewBag.FirstName = cc_name;
+            ViewBag.FirstName = firstName;
+            ViewBag.LastName = lastName;
+            ViewBag.Email = email;
+            ViewBag.Address = address;
+            ViewBag.City = city;
+            ViewBag.Province = province;
+            ViewBag.Zipcode = zipcode;
+            ViewBag.CCName = cc_name;
+            ViewBag.CCNumber = cc_number;
+            ViewBag.CCExpiration = cc_expiration;
+            ViewBag.CVV = cc_cvv;
 
             return View();
         }

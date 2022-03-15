@@ -4,7 +4,65 @@
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
+    if (signInManager.IsSignedIn(User))
+    {
 
-<div style="text-align: center; margin: 30px 0 30px 0;">
-    <h1>@ViewBag.FirstName</h1>
-</div>
+        <div style="text-align: center; margin: 30px 0 30px 0;">
+            <h1>Confirm Order</h1>
+        </div>
+
+        <form>
+            <table class="table table-bordered" style="margin-top: 20px">
+                <tr>
+                    <th><br />First Name</th>
+                    <td><br />@ViewBag.FirstName</td>
+                    <th><br />Last Name</th>
+                    <td><br />@ViewBag.LastName</td>
+                </tr>
+                <tr>
+                    <th><br />Email</th>
+                    <td colspan="3"><br />@ViewBag.Email</td>
+                </tr>
+                <tr>
+                    <th><br />Address</th>
+                    <td><br />@ViewBag.Address</td>
+                    <th><br />City</th>
+                    <td><br />@ViewBag.City</td>
+                </tr>
+                <tr>
+                    <th><br />Province</th>
+                    <td><br />@ViewBag.Province</td>
+                    <th><br />Zip Code</th>
+                    <td><br />@ViewBag.Zipcode</td>
+                </tr>
+                <tr>
+                    <th><br />Name on Credit Card</th>
+                    <td><br />@ViewBag.CCName</td>
+                    <th><br />Credit Card Number</th>
+                    <td><br />@ViewBag.CCNumber</td>
+                </tr>
+                <tr>
+                    <th><br />Expiration Date</th>
+                    <td><br />@ViewBag.CCExpiration</td>
+                    <th><br />CVV</th>
+                    <td><br />@ViewBag.CVV</td>
+                </tr>
+            </table>
+            <br />
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Pass Order</button>
+        </form>
+        <br />
+        <div style="text-align:center">
+        <a class="btn btn-success" asp-area="" asp-controller="Billing" asp-action="Billing">Go Back</a>
+        </div>
+    }
+    else
+    {
+        <div style="text-align: center; margin-top: 30px;">
+
+            <h1>Please log in before accessing this page.</h1>
+
+        </div>
+    }
+}
