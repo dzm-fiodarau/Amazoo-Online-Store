@@ -1,4 +1,5 @@
 ﻿@inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
+@model IEnumerable<AmazooApp.Models.Product>;
 
 @{
     ViewData["Title"] = "Checkout";
@@ -50,11 +51,50 @@
                 </tr>
             </table>
             <br />
+            <br />
+            <div style="text-align:center">
+                <h3 style="color: gray;">Order Summary</h3>
+            </div>
+            @if (Model.Count() >= 0)
+            {
+                <table class="table table-bordered" style="margin-top: 20px">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Image</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+                                <td style="width:20%;">@product.ProductName</td>
+                                <td style="width:20%;">@product.Category</td>
+                                <td style="width:20%;">@product.Brand</td>
+                                <td style="width:20%; text-align: center;">
+                                    <img src="@product.Image" style="max-width: 10vw; height: 5vw;" />
+                                </td>
+                                <td style="width:12.5%;">@ViewBag.IdQnt[product.Id]</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <div style="text-align:center">
+                    <h4>Total Cost:</h4>
+                    <p>@ViewBag.Cost $</p>
+                </div>
+            }
+            <br />
+            <br />
             <button class="btn btn-primary btn-lg btn-block" type="submit">Pass Order</button>
         </form>
         <br />
         <div style="text-align:center">
-        <a class="btn btn-success" asp-area="" asp-controller="Billing" asp-action="Billing">Go Back</a>
+            <a class="btn btn-success" asp-area="" asp-controller="Billing" asp-action="Billing">Go Back</a>
         </div>
     }
     else

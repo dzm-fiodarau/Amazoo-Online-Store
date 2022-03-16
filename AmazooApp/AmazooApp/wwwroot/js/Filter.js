@@ -20,7 +20,7 @@ const load = () => {
 window.addEventListener('load', load);
 
 const Save = () => {
-    localStorage.clear();
+    //localStorage.clear();
     var checkbox = document.getElementsByName('chckBox');
     for (let i = 0; i < checkbox.length; i++) {
         console.log("The checkbox value is ", checkbox[i]);
@@ -30,7 +30,7 @@ const Save = () => {
 
 $(document).ready(function () {
     const Save = () => {
-        localStorage.clear();
+        //localStorage.clear();
         var checkbox = document.getElementsByName('chckBox');
         for (let i = 0; i < checkbox.length; i++) {
             console.log("The checkbox value is ", checkbox[i]);

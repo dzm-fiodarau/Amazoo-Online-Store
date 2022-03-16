@@ -160,7 +160,7 @@ function displayCart(){
                                             ${Object.values(cartItems)[i].inCart} 
                                             <button class="btn" type="button" id="subItem" ><i class="fas fa-minus-square" onclick="subItem(${Object.values(cartItems)[i].tag})"></i></button>
                                     </td>
-                                    <td >${Math.round((Object.values(cartItems)[i].price)*(Object.values(cartItems)[i].inCart) * 100) / 100}</td> 
+                                    <td >${Math.round((Object.values(cartItems)[i].price)*(Object.values(cartItems)[i].inCart) * 100) / 100}$</td> 
                                     <td >
                                         <button class="btn btn-primary" id="${Object.values(cartItems)[i].tag}" type="button" aria-expanded="false" aria-controls="contentId"  onclick="deleteItem(${Object.values(cartItems)[i].tag})">
                                         <i class="fas fa-trash-alt" ></i> 
@@ -212,7 +212,7 @@ function displayCart2(){
                                             ${Object.values(cartItems)[i].inCart} 
                                             <button class="btn" type="button" id="subItem" ><i class="fas fa-minus-square" onclick="subItem(${Object.values(cartItems)[i].tag})"></i></button>
                                     </td>
-                                    <td >${Math.round((Object.values(cartItems)[i].price)*(Object.values(cartItems)[i].inCart) * 100) / 100}</td> 
+                                    <td >${Math.round((Object.values(cartItems)[i].price)*(Object.values(cartItems)[i].inCart) * 100) / 100}$</td> 
                                     <td >
                                         <button class="btn btn-primary" id="${Object.values(cartItems)[i].tag}" type="button" aria-expanded="false" aria-controls="contentId"  onclick="deleteItem(${Object.values(cartItems)[i].tag})">
                                         <i class="fas fa-trash-alt"></i> 
@@ -389,18 +389,18 @@ function gstTax() {
 
 //CLEARS THE LOCAL STORAGE ON ORDER PLACED//
 function placeOrder() {
-    alert("Order has been accepted");
-    localStorage.clear();
-    location.reload();
-    //$.ajax({
-    //    url: "/Billing/Billing",
-    //    type: "post",
-    //    data: { "data": window.localStorage.getItem("productsInCart") },
-    //    success: () => console.log("data transfer success "),
-    //    error: () => console.log("data error ")
-    //});
+    //alert("Order has been accepted");
+    //localStorage.clear();
+    //location.reload();
+    $.ajax({
+        url: "/Billing/Billing",
+        type: "post",
+        data: { "data": window.localStorage.getItem("productsInCart") },
+        success: () => console.log("data transfer success "),
+        error: () => console.log("data error ")
+    });
 
-   //window.location.replace("/Billing/Billing");
+   window.location.replace("/Billing/Billing");
 }
 
 

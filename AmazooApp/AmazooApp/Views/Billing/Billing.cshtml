@@ -118,7 +118,39 @@
 
         <br />
 
+        <input style="background-color: rgba(0, 0, 0, 0); color: white; border: none; outline: none;"
+               type="text" name="productIds" id="productIds" value="" readonly />
+        <input style="background-color: rgba(0, 0, 0, 0); color: white; border: none; outline: none;"
+               type="text" name="productQnts" id="productQnts" value="" readonly />
+        <input style="background-color: rgba(0, 0, 0, 0); color: white; border: none; outline: none;"
+               type="text" name="cost" id="cost" value="" readonly />
+
+        <script type="text/javascript">
+            var ids = document.getElementById('productIds');
+            var quantities = document.getElementById('productQnts');
+            var cost = document.getElementById('cost');
+            let inCart = JSON.parse(localStorage.getItem('productsInCart'));
+            let totalCost = JSON.parse(localStorage.getItem('totalCost2'));
+
+            let totCost = totalCost.toString();
+            let totCost2 = parseFloat(totCost).toFixed(2);
+            
+
+            var productIds = "";
+            var productQnts = "";
+            for (i = 0; i < Object.values(inCart).length; i++) {
+                var stringIds = Object.values(inCart)[i].productID + ";";
+                productIds += stringIds;
+                var stringQnts = Object.values(inCart)[i].inCart + ";";
+                productQnts += stringQnts;
+            }
+
+            ids.value = productIds;
+            quantities.value = productQnts;
+            cost.value = totCost2.toString();
+        </script>
         <button class="btn btn-primary btn-lg btn-block" type="submit">Continue</button>
+
 
     </form>
 

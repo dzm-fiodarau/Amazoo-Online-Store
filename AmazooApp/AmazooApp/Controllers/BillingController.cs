@@ -5,6 +5,10 @@ using AmazooApp.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System;
+using AmazooApp.Data;
+using System.Collections;
 
 namespace AmazooApp.Controllers
 {
@@ -12,6 +16,7 @@ namespace AmazooApp.Controllers
     public class BillingController : Controller
     {
         UserManager<ApplicationUser> _userManager;
+        private readonly AmazooAppDbContext _db;
 
         private bool VerifyInfo(string firstName, string lastName, string email, string address, string city, string province, string zipcode,
             string cc_name, string cc_number, string cc_expiration, string cc_cvv)
@@ -37,9 +42,10 @@ namespace AmazooApp.Controllers
             return true;
         }
 
-        public BillingController(UserManager<ApplicationUser> userManager)
+        public BillingController(UserManager<ApplicationUser> userManager, AmazooAppDbContext db)
         {
             _userManager = userManager;
+            _db = db;
         }
 
         public async Task<IActionResult> BillingAsync(string? error)
@@ -63,8 +69,13 @@ namespace AmazooApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Summary(string firstName, string lastName, string email, string address, string city, string province, string zipcode,
-            string cc_name, string cc_number, string cc_expiration, string cc_cvv)
+            string cc_name, string cc_number, string cc_expiration, string cc_cvv, string? productIds, string productQnts, string cost)
         {
+            if(productIds == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (!VerifyInfo(firstName, lastName, email, address, city, province, zipcode,cc_name, cc_number, cc_expiration, cc_cvv))
             {
                 return RedirectToAction("Billing", new { error = "*One or more errors detected. Please enter your information again." });
@@ -82,7 +93,28 @@ namespace AmazooApp.Controllers
             ViewBag.CCExpiration = cc_expiration;
             ViewBag.CVV = cc_cvv;
 
-            return View();
+            string[] itemIds = productIds.Split(";");
+            string[] itemQnts = productQnts.Split(";");
+
+            List<Product> productLst = new List<Product>();
+            Hashtable idQnt = new Hashtable();
+
+            int counter = 0;
+            foreach(var id in itemIds)
+            {
+                if (!(id == null) && !(id==""))
+                { 
+                    int intId = Int32.Parse(id);
+                    productLst.Add(_db.Products.Find(intId));
+
+                    idQnt.Add(intId, itemQnts[counter]);
+                }
+                counter++;
+            }
+
+            ViewBag.IdQnt = idQnt;
+            ViewBag.Cost = cost;
+            return View(productLst);
         }
     }
 }
