@@ -45,8 +45,12 @@ namespace AmazooApp.Controllers
 
         public IActionResult Filter(IFormCollection formCollection)
         {
-            var actions = formCollection.TryGetValue("chckBox", out var filterValues);
+            var actionsChckbox = formCollection.TryGetValue("chckBox", out var filterValues);
+            var actionsRadio = formCollection.TryGetValue("chckBox", out var filterRadioValues);
+
+            //Filter the checkboxes
             var selected = products.Where(p => filterValues.Any(chck => chck.Equals(p.Category) || chck.Equals(p.Brand)));
+
             IEnumerable < Product > checkedList = filterValues.Count == 0 ? products : selected;
             return View("Index", checkedList);
         }

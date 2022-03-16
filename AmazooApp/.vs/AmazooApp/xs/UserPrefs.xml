@@ -1,27 +1,29 @@
 ﻿<Properties StartupConfiguration="{2092F7A2-4EBA-4932-B315-07F6DBAF68F7}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="AmazooApp/Controllers/LoginController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AmazooApp/wwwroot/js/Filter.js">
     <Files>
       <File FileName="AmazooApp/Views/Shared/_Filter.cshtml" Line="1" Column="16" />
       <File FileName="AmazooApp/Startup.cs" />
-      <File FileName="AmazooApp/Controllers/HomeController.cs" Line="68" Column="29" />
+      <File FileName="AmazooApp/Controllers/HomeController.cs" />
       <File FileName="AmazooApp/Controllers/LoginController.cs" Line="1" Column="1" />
+      <File FileName="AmazooApp/wwwroot/js/Filter.js" Line="39" Column="6" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="AmazooApp" expanded="True">
             <Node name="AmazooApp" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="LoginController.cs" selected="True" />
-              </Node>
-              <Node name="Views" expanded="True">
-                <Node name="Shared" expanded="True" />
-              </Node>
               <Node name="wwwroot" expanded="True">
-                <Node name="js" expanded="True" />
+                <Node name="js" expanded="True">
+                  <Node name="Filter.js" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="AmazooApp" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
