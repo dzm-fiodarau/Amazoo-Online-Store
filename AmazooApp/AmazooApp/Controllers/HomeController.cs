@@ -41,6 +41,21 @@ namespace AmazooApp.Controllers
 
             return View(await products.ToListAsync());
         }
+        
+        public IActionResult ProductPage(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var obj = _db.Products.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+        }
 
 
         public IActionResult Filter(IFormCollection formCollection)

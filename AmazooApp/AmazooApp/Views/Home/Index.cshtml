@@ -21,13 +21,10 @@
             @{
                 if (Model.Count() > 0)
                 {
-
                     foreach (var product in Model)
                     {
                         <div class="product_elem">
-                            <button class="but">
-                                <img src="@product.Image" alt="@product.ProductName" />
-                            </button>
+                            <a asp-action="ProductPage" asp-route-id="@product.Id" class="but"><img src="@product.Image" alt="@product.ProductName" /></a>
                             <h2 style="font-size: calc(12px + 0.6vw);">@product.ProductName</h2>
                             <span style="float:left; margin-left: 0.2vw">@product.Price $</span>
                             <span style="float:right; margin-right:0.2vw"><strong>Brand:</strong> @product.Brand</span>
@@ -43,8 +40,6 @@
                                 <button style="display: inline; font-size:calc(8px + 0.7vw); text-decoration: line-through">Add to Cart</button>
                             }
                         </div>
-
-
                     }
                 }
                 else
@@ -52,20 +47,17 @@
                     <h1 style="margin-top:30px;">There is no available products at the moment.</h1>
                 }
             }
+
+
+
         </div>
     </div>
+
+    <script type="text/javascript">
+        var listProducts = []
+        let list = document.querySelectorAll('.add-cart');
+        list.forEach(product => listProducts.push({ name: product.getAttribute("data-target"), tag: product.getAttribute("data-target"), price: product.getAttribute("title"), inCart: 0, QuantityInStock: product.getAttribute("value") }));
+        window.localStorage.setItem('itemsList', JSON.stringify(listProducts));
+    </script>
+
 </div>
-
-
-<script type="text/javascript">
-    var listProducts = []
-    let list = document.querySelectorAll('.add-cart');
-    list.forEach(product => listProducts.push({ name: product.getAttribute("data-target"), tag: product.getAttribute("data-target"), price: product.getAttribute("title"), inCart: 0, QuantityInStock: product.getAttribute("value") }));
-    window.localStorage.setItem('itemsList', JSON.stringify(listProducts));
-</script>
-
-
-
-
-
-
