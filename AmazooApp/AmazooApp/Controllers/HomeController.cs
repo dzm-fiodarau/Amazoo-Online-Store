@@ -25,13 +25,10 @@ namespace AmazooApp.Controllers
                        select p;
         }
 
-        public async Task<IActionResult> Index(String searchEntry, String b1, String b2, String b3, String b4)
+        public async Task<IActionResult> Index(String searchEntry)
         {
             //Console.WriteLine("HELLO");
-            //Console.WriteLine(b1==null);
-            //Console.WriteLine(b2 == null);
-            //Console.WriteLine(b3 == null);
-            //Console.WriteLine(b4 == null);
+
 
             ViewBag.SearchEntry = searchEntry;
 
@@ -41,34 +38,34 @@ namespace AmazooApp.Controllers
             {
                 products = products.Where(p => p.ProductName.Contains(searchEntry) || p.Brand.Contains(searchEntry));
             }
-            if (!(b1 == null)){
-                Console.WriteLine(b1);
-                products = products.Where(p => p.Category.Contains(b1));
-            }
-            if (!(b2 == null))
-            {
-                Console.WriteLine(b2);
-                products = products.Where(p => p.Category.Contains(b2));
-            }
-            if (!(b3 == null))
-            {
-                Console.WriteLine(b3);
-                products = products.Where(p => p.Category.Contains(b3));
-            }
-            if (!(b4 == null))
-            {
-                Console.WriteLine(b4);
-                products = products.Where(p => p.QuantityInStock>0);
-            }
 
             return View(await products.ToListAsync());
+        }
+        
+        public IActionResult ProductPage(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var obj = _db.Products.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
         }
 
 
         public IActionResult Filter(IFormCollection formCollection)
         {
-            var actions = formCollection.TryGetValue("chckBox", out var filterValues);
+            var actionsChckbox = formCollection.TryGetValue("chckBox", out var filterValues);
+            var actionsRadio = formCollection.TryGetValue("chckBox", out var filterRadioValues);
+
+            //Filter the checkboxes
             var selected = products.Where(p => filterValues.Any(chck => chck.Equals(p.Category) || chck.Equals(p.Brand)));
+
             IEnumerable < Product > checkedList = filterValues.Count == 0 ? products : selected;
             return View("Index", checkedList);
         }
