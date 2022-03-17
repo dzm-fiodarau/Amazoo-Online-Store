@@ -154,7 +154,7 @@ function displayCart(){
         for (i = 0; i < Object.values(cartItems).length; i++) {        
             productContainer.innerHTML += `                                                                                       
                                     <td class="name">${Object.values(cartItems)[i].name}</td>
-                                    <td class="price">${Math.round((Object.values(cartItems)[i].price) * 100) / 100}</td>
+                                    <td class="price">${Math.round((Object.values(cartItems)[i].price) * 100) / 100}$</td>
                                     <td class="quantity">
                                             <button class="btn" type="button" id="addItem" ><i class="fas fa-plus-square" onclick="addItem(${Object.values(cartItems)[i].tag})" ></i></button> 
                                             ${Object.values(cartItems)[i].inCart} 
@@ -206,7 +206,7 @@ function displayCart2(){
              
                     <tbody class="productNav">                                                                             
                                     <td class="name">${Object.values(cartItems)[i].name}</td>
-                                    <td class="price">${Math.round((Object.values(cartItems)[i].price) * 100) / 100}</td>
+                                    <td class="price">${Math.round((Object.values(cartItems)[i].price) * 100) / 100}$</td>
                                     <td class="quantity">
                                             <button class="btn" type="button" id="addItem" ><i class="fas fa-plus-square" onclick="addItem(${Object.values(cartItems)[i].tag})" ></i></button>
                                             ${Object.values(cartItems)[i].inCart} 

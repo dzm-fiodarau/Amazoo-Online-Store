@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using AmazooApp.Data;
 using System.Collections;
+using System.Linq;
 
 namespace AmazooApp.Controllers
 {
@@ -115,6 +116,120 @@ namespace AmazooApp.Controllers
             ViewBag.IdQnt = idQnt;
             ViewBag.Cost = cost;
             return View(productLst);
+        }
+
+        //POST-OrderConfirmation
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OrderConfirmationAsync(string? productIds, string productQnts, string cost)
+        {
+            if (productIds == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            DateTime today = DateTime.Today;
+            DateTime deliveryDate = DateTime.Today.AddDays(7);
+
+            
+            Order newOrder = new Order();
+            newOrder.Customer = currentUser.Id;
+            newOrder.Status = "In Process";
+            newOrder.DeliveryDate = deliveryDate;
+            newOrder.CreationDate = today;
+            newOrder.TotalPaid = float.Parse(cost);
+
+            _db.Orders.Add(newOrder);
+            _db.SaveChanges();
+
+            ViewBag.DeliveryDate = deliveryDate;
+
+            var savedOrder = from o in _db.Orders
+                             where (o.Customer == newOrder.Customer && o.Status == newOrder.Status && o.CreationDate == newOrder.CreationDate &&
+                             o.DeliveryDate == newOrder.DeliveryDate && o.TotalPaid == newOrder.TotalPaid)
+                             select o;
+
+
+            Order myNewOrder = new Order();
+
+            int counter = 0;
+            foreach(var savOrd in savedOrder)
+            {
+                if(savOrd != null) {
+                    if(counter == 0)
+                    {
+                        myNewOrder = savOrd;
+                    }
+                    else
+                    {
+                        _db.Orders.Remove(savOrd);
+                    }
+                    counter++;
+                }
+            }
+            _db.SaveChanges();
+
+            ViewBag.DeliveryDate = deliveryDate;
+
+            string[] itemIds = productIds.Split(";");
+            string[] itemQnts = productQnts.Split(";");
+            counter = 0;
+            foreach (var id in itemIds)
+            {
+                if (!(id == null) && !(id == ""))
+                {
+                    int intId = Int32.Parse(id);
+                    int intQnt = Int32.Parse(itemQnts[counter]);
+                    OrderProduct orderProduct = new OrderProduct();
+                    orderProduct.OrderId = myNewOrder.Id;
+                    orderProduct.ProductId = intId;
+                    orderProduct.Quantity = intQnt;
+                    _db.OrderProducts.Add(orderProduct);
+                }
+
+                counter++;
+            }
+
+            _db.SaveChanges();
+
+            counter = 0;
+            foreach (var id in itemIds)
+            {
+                if (!(id == null) && !(id == ""))
+                {
+                    int intId = Int32.Parse(id);
+                    int intQnt = Int32.Parse(itemQnts[counter]);
+
+                    var savedOrderProduct = from oP in _db.OrderProducts
+                                            where (oP.OrderId == myNewOrder.Id && oP.ProductId == intId && oP.Quantity == intQnt)
+                                            select oP;
+
+                    int counter2 = 0;
+                    foreach (var savOrd in savedOrderProduct)
+                    {
+                        if (savOrd != null)
+                        {
+                            if (!(counter2 == 0))
+                            {
+                                _db.OrderProducts.Remove(savOrd);
+
+
+                            }
+                            counter2++;
+                        }
+                    }
+
+                    var product = _db.Products.Find(intId);
+                    product.QuantityInStock -= intQnt;
+                    _db.Products.Update(product);
+                    _db.SaveChanges();
+                }
+
+                counter++;
+            }
+
+            return View();
         }
     }
 }
