@@ -22,6 +22,11 @@ namespace AmazooApp.Controllers
 
         public IActionResult Login()
         {
+            //in case the user is already logged in 
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -38,12 +43,27 @@ namespace AmazooApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user  =  _userManager.FindByEmailAsync(model.Email).GetAwaiter().GetResult();
-                var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                //in case the user is already logged in 
+                if (User.Identity.IsAuthenticated)
                 {
                     return RedirectToAction("Index", "Home");
                 }
+
+                ApplicationUser user  =  _userManager.FindByEmailAsync(model.Email).GetAwaiter().GetResult();
+
+                if(user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Email or Password! Please Try again");
+                }
+                else
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
             return View("Login",model);
