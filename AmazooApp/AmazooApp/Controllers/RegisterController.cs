@@ -63,8 +63,6 @@ namespace AmazooApp.Controllers
                     City= model.City,
                     Province = model.Province,
                     Zipcode = model.Zipcode
-
-                    
                 };
 
                 var result = await _userManager.CreateAsync(user,model.Password);

@@ -1,140 +1,169 @@
-﻿
- @inject Microsoft.AspNetCore.Identity.UserManager<AmazooApp.Models.ApplicationUser> userManager
-@*<div class="row">*@
-    <form class="container" method="post" asp-action="Index" asp-controller="Billing">
-        <h3 class="mb-5 text-center">Billing</h3>
-        <h4> Please Enter the Payment Information </h4>
+﻿@inject Microsoft.AspNetCore.Identity.UserManager<AmazooApp.Models.ApplicationUser> userManager
+@inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
+
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (signInManager.IsSignedIn(User))
+    {
+    <form class="container" method="post" asp-action="Summary" asp-controller="Billing">
+        <div style="text-align: center; margin: 30px 0 30px 0;">
+            <h1>Billing</h1>
+        </div>
+        <div style="text-align: center; margin: 30px 0 30px 0; color: red;">
+            <p>@ViewBag.Warning</p>
+        </div>
+        <h3 style="color: gray;">Personal Information</h3>
         <div asp-validation-summary="All" class="row text-danger"></div>
+
         <div class="form-row">
+
             <div class="form-group col-md-6">
-                <label> FirstName</label>
-                <input type="text" class="form-control" placeholder="Jane" />
+                <label style="font-weight: bold"> First Name</label>
+                <input type="text" class="form-control" placeholder="Jane" name="firstName" value="@ViewBag.CurrentUser.FirstName" />
                 @*    <span asp-validation-for="FirstName" class="text-danger"></span>*@
             </div>
+
             <div class="form-group col-md-6">
-                <label class="form-label" for="typeEmailX-2">LastName></label>
-                <input type="text" id="typeEmailX-2" class="form-control" placeholder="Doe" />
+                <label style="font-weight: bold" class="form-label" for="typeEmailX-2">Last Name</label>
+                <input type="text" id="typeEmailX-2" class="form-control" name="lastName" placeholder="Doe" value="@ViewBag.CurrentUser.LastName" />
                 @*       <span asp-validation-for="LastName" class="text-danger"></span>*@
             </div>
+
         </div>
+
         <div class="form-group">
-            <label class="form-label"> Email</label>
-            <input type="email" class="form-control form-control-lg" placeholder="Email@email.ca" />
+            <label class="form-label" style="font-weight: bold">Email</label>
+            <input type="email" class="form-control form-control-lg" name="email" placeholder="Email@email.ca" value="@ViewBag.CurrentUser.Email" />
             @*     <span asp-validation-for=Email class="text-danger"></span>*@
         </div>
+
+        <br />
+
+        <h3 style="color: gray;">Delivery Address Information</h3>
         <div class="form-group">
-            <label class="form-label"> Address</label>
-            <input type="text" class="form-control" placeholder="123 Guy" />
+            <label class="form-label" style="font-weight: bold">Address</label>
+            <input type="text" class="form-control" name="address" placeholder="123 Guy St." value="@ViewBag.CurrentUser.Address" />
             @*         <span asp-validation-for="Address" class="text-danger"></span>*@
         </div>
+
         <div class="form-row">
+
             <div class="form-group col-md-6">
-                <label class="form-label">City</label>
-                <input type="text" class="form-control" />
+                <label class="form-label" style="font-weight: bold">City</label>
+                <input type="text" class="form-control" name="city" value="@ViewBag.CurrentUser.City" />
 
                 @*            <span asp-validation-for="City" class="text-danger"></span>*@
             </div>
+
             <div class="form-group col-md-4">
-                <label class="form-label">Province </label>
-                
-                 <select class="form-control">QC</select>
-                   @* <span asp-validation-for="Province" class="text-danger"></span>*@
+                <label class="form-label" style="font-weight: bold">Province</label>
+
+                <select name="province" class="form-control" asp-items="@AmazooApp.Utility.ProvinceHelper.GetProvincesForDropDown()"></select>
             </div>
+
             <div class="form-group col-md-2">
-                <label class="form-label">Zip</label>
-                <input type="text" class="form-control" />
+                <label class="form-label" style="font-weight: bold">Zip</label>
+                <input type="text" class="form-control" name="zipcode" value="@ViewBag.CurrentUser.Zipcode" />
                 @*      <span asp-validation-for="Zipcode" class="text-danger"></span>*@
             </div>
+
         </div>
-        <h4 class="mb-3">Payment</h4>
+
+        <br />
+
+        <h3 style="color: gray;">Payment Information</h3>
         <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="cc-name">Name on card</label>
-                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+
+            <div class="col-md-6 mb-3">
+                <label for="cc-name" style="font-weight: bold">Name on Card</label>
+                <input type="text" class="form-control" name="cc_name" id="cc-name" placeholder="Jane Doe" required="">
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">
-                  Name on card is required
+                    Name on card is required
                 </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="cc-number">Credit card number</label>
-                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-                <div class="invalid-feedback">
-                  Credit card number is required
-                </div>
-              </div>
+            </div>
 
-            </div>
-            <div class="row">
-              <div class="col-md-3 mb-3">
-                <label for="cc-expiration">Expiration</label>
-                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+            <div class="col-md-6 mb-3">
+                <label for="cc-number" style="font-weight: bold">Credit Card Number</label>
+                <input type="text" class="form-control" name="cc_number" id="cc-number" placeholder="1111 1111 1111 1111" required="">
                 <div class="invalid-feedback">
-                  Expiration date required
+                    Credit card number is required
                 </div>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="cc-expiration">CVV</label>
-                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-                <div class="invalid-feedback">
-                  Security code required
-                </div>
-              </div>
             </div>
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay <strong>$100</strong></button>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label for="cc-expiration" style="font-weight: bold">Expiration Date</label>
+                <input type="text" class="form-control" name="cc_expiration" id="cc-expiration" placeholder="MMYYYY" required="">
+                <div class="invalid-feedback">
+                    Expiration date required
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="cc-expiration" style="font-weight: bold">CVV</label>
+                <input type="text" class="form-control" name="cc_cvv" id="cc-cvv" placeholder="111" required="">
+                <div class="invalid-feedback">
+                    CVV required
+                </div>
+            </div>
+
+        </div>
+
+        <br />
+
+        <input style="background-color: rgba(0, 0, 0, 0); color: white; border: none; outline: none;"
+               type="text" name="productIds" id="productIds" value="" readonly />
+        <input style="background-color: rgba(0, 0, 0, 0); color: white; border: none; outline: none;"
+               type="text" name="productQnts" id="productQnts" value="" readonly />
+        <input style="background-color: rgba(0, 0, 0, 0); color: white; border: none; outline: none;"
+               type="text" name="cost" id="cost" value="" readonly />
+
+        <script type="text/javascript">
+            var ids = document.getElementById('productIds');
+            var quantities = document.getElementById('productQnts');
+            var cost = document.getElementById('cost');
+            let inCart = JSON.parse(localStorage.getItem('productsInCart'));
+            let totalCostNew = JSON.parse(localStorage.getItem('totalCost2'));
+
+            let totCost = totalCostNew.toString();
+            let totCost2 = parseFloat(totCost).toFixed(2);
+            
+
+            var productIds = "";
+            var productQnts = "";
+            for (i = 0; i < Object.values(inCart).length; i++) {
+                var stringIds = Object.values(inCart)[i].productID + ";";
+                productIds += stringIds;
+                var stringQnts = Object.values(inCart)[i].inCart + ";";
+                productQnts += stringQnts;
+            }
+
+            ids.value = productIds;
+            quantities.value = productQnts;
+            cost.value = totCost2.toString();
+        </script>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue</button>
+
+
     </form>
-    @*<div class="col-md-4">
-         <h4> Your cart</h4>
-            <ul class= "list-group mb-3">
-			<li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Product name</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$12</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Second product</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$5</span>
-            </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$5</span>
-            </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$5</span>
-            </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (CAD)</span>
-              <strong>$100</strong>
-            </li>
-          </ul>
-    </div>*@
-@*</div>*@
-@section scripts{
-<partial name="_ValidationScriptsPartial" />
+
+        @section scripts{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }
+    else
+    {
+        <div style="text-align: center; margin-top: 30px;">
+
+            <h1>Please log in before accessing this page.</h1>
+
+        </div>
+    }
 }

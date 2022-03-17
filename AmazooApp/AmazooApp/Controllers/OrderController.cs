@@ -149,6 +149,9 @@ namespace AmazooApp.Controllers
             {
                 productQuantity.Add(oP.ProductId, oP.Quantity);
             }
+
+            _db.SaveChanges();
+
             ViewBag.ProductQuantity = productQuantity;
             
             var products = _db.Products;

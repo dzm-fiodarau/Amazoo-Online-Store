@@ -32,7 +32,7 @@
                             @if (product.QuantityInStock > 0)
                             {
                                 <pre style="background-color:darkgreen; color:white; font-size:calc(6px + 0.4vw)">In Stock</pre>
-                                <button class="add-cart" type="button" data-target="@product.ProductName" title="@product.Price" value="@product.QuantityInStock" style="display: inline; font-size:calc(8px + 0.7vw)">Add to Cart</button>
+                                <button class="add-cart" type="button" data-target="@product.ProductName" title="@product.Price" value="@product.QuantityInStock" id="@product.Id" style="display: inline; font-size:calc(8px + 0.7vw)">Add to Cart</button>
                             }
                             else
                             {
@@ -53,11 +53,12 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        var listProducts = []
-        let list = document.querySelectorAll('.add-cart');
-        list.forEach(product => listProducts.push({ name: product.getAttribute("data-target"), tag: product.getAttribute("data-target"), price: product.getAttribute("title"), inCart: 0, QuantityInStock: product.getAttribute("value") }));
-        window.localStorage.setItem('itemsList', JSON.stringify(listProducts));
-    </script>
+
+<script type="text/javascript">
+    var listProducts = []
+    let list = document.querySelectorAll('.add-cart');
+    list.forEach(product => listProducts.push({ name: product.getAttribute("data-target"), tag: product.getAttribute("data-target"), price: product.getAttribute("title"), inCart: 0, QuantityInStock: product.getAttribute("value"), productID: product.getAttribute("id") }));
+    window.localStorage.setItem('itemsList', JSON.stringify(listProducts));
+</script>
 
 </div>
