@@ -6,9 +6,7 @@ const load = () => {
 
         for (let j = 0; j < checkbox.length; j++) {
             let t = myArray[i].split("=");
-            //console.log("The id before eval ", t[0], t[1], checkbox[i].id);
             if ((t[1] === "true") && checkbox[j].id === t[0].trim()) {
-                console.log("The id found "+ checkbox[j].id+ " truth val "+t[1]);
                 document.getElementById(checkbox[j].id).checked = true;
             }
         }
@@ -17,6 +15,11 @@ const load = () => {
 
 }
 
+/**
+ * Load Cookies for the filter system,
+ * if the home page is loaded clear the cookies for the filter
+ * 
+ * */
 const preload = () => {
     var url = document.baseURI
     if (url.includes("Filter")) {
@@ -32,8 +35,11 @@ const preload = () => {
 
 window.addEventListener('load', preload);
 
+/**
+ * Save the Filter options in the cookies 
+ * 
+ * */
 const Save = () => {
-    localStorage.clear();
     var checkbox = document.getElementsByName('chckBox');
     for (let i = 0; i < checkbox.length; i++) {
         console.log("The checkbox value is ", checkbox[i]);
@@ -43,7 +49,6 @@ const Save = () => {
 
 $(document).ready(function () {
     const Save = () => {
-        localStorage.clear();
         var checkbox = document.getElementsByName('chckBox');
         for (let i = 0; i < checkbox.length; i++) {
             console.log("The checkbox value is ", checkbox[i]);
