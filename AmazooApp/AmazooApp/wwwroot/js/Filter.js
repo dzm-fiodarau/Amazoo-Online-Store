@@ -1,6 +1,7 @@
 ﻿
 const load = () => {
     var checkbox = document.getElementsByName('chckBox');
+    var radioBtn = document.getElementsByName('type');
     const myArray = document.cookie.split(";");
     for (let i = 0; i < myArray.length; i++) {
 
@@ -8,6 +9,12 @@ const load = () => {
             let t = myArray[i].split("=");
             if ((t[1] === "true") && checkbox[j].id === t[0].trim()) {
                 document.getElementById(checkbox[j].id).checked = true;
+            }
+        }
+        for (let j = 0; j < radioBtn.length; j++) {
+            let t = myArray[i].split("=");
+            if ((t[1] === "true") && radioBtn[j].id === t[0].trim()) {
+                document.getElementById(radioBtn[j].id).checked = true;
             }
         }
 
@@ -41,9 +48,14 @@ window.addEventListener('load', preload);
  * */
 const Save = () => {
     var checkbox = document.getElementsByName('chckBox');
+    var radioBtn = document.getElementsByName('type');
     for (let i = 0; i < checkbox.length; i++) {
         console.log("The checkbox value is ", checkbox[i]);
         document.cookie= checkbox[i].id + "=" + checkbox[i].checked;
+    }
+    for (let i = 0; i < radioBtn.length; i++) {
+        console.log("The checkbox value is ", radioBtn[i]);
+        document.cookie = radioBtn[i].id + "=" + radioBtn[i].checked;
     }
 }
 
