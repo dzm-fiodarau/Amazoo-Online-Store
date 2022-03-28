@@ -49,14 +49,39 @@ namespace AmazooApp.Controllers
                 return NotFound();
             }
 
-            var obj = _db.Products.Find(id);
-            if (obj == null)
+            var product = _db.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(obj);
+
+            ViewBag.Product = product;
+
+            IEnumerable<Review> reviews = from review in _db.Reviews
+                                          where review.ProductId == id
+                                          select review;
+
+            if (reviews == null)
+            {
+                return NotFound();
+            }
+
+            if(reviews.Count() > 6)
+            {
+                reviews = reviews.Take<Review>(6);
+            }
+
+            ViewBag.Id = id;
+
+            return View(reviews);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AllReviews(int id)
+        {
+            return View();
+        }
 
         public IActionResult Filter(IFormCollection formCollection)
         {
