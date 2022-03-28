@@ -78,9 +78,26 @@ namespace AmazooApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AllReviews(int id)
+        public IActionResult AllReviews(int? id)
         {
-            return View();
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var product = _db.Products.Find(id);
+            ViewBag.Product = product;
+
+            IEnumerable<Review> reviews = from review in _db.Reviews
+                                          where review.ProductId == id
+                                          select review;
+
+            if (reviews == null)
+            {
+                return NotFound();
+            }
+
+            return View(reviews);
         }
 
         public IActionResult Filter(IFormCollection formCollection)
