@@ -115,6 +115,11 @@ namespace AmazooApp.Controllers
 
             ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
+            if(currentUser == null)
+            {
+                return RedirectToAction("ProductPage", new { id = id});
+            }
+
             var hasPurchased = false;
 
             IEnumerable<Order> pastDeliveredOrders = from order in _db.Orders
@@ -141,6 +146,28 @@ namespace AmazooApp.Controllers
             }
 
             ViewBag.HasPurchased = hasPurchased;
+            ViewBag.Id = id;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReviewStoredAsync(int? id, string? description)
+        {
+            if (id == null || id == 0 || description == null || description.Equals(""))
+                return RedirectToAction("ProductPage", new { id = id });
+
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            Review reviewToStore = new Review();
+            reviewToStore.Customer = currentUser.FirstName + " " + currentUser.LastName;
+            reviewToStore.Description = description;
+            reviewToStore.ProductId = (int)id;
+            reviewToStore.Rating = 0; //TO BE IMPLEMENTED BY THOSE WORKING ON RATING
+
+            _db.Reviews.Add(reviewToStore);
+            _db.SaveChanges();
 
             return View();
         }

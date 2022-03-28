@@ -10,7 +10,7 @@
     {
         if (ViewBag.HasPurchased)
         {
-            <form method="post" asp-action="">
+            <form method="post" asp-action="ReviewStored" asp-controller="Home" asp-route-id="@ViewBag.Id">
                 <div class="border p-3">
                     <div class="form-group row text-center">
                         <h2 class="pl-3">Leave Review</h2>
