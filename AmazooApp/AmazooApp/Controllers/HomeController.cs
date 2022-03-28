@@ -1,6 +1,7 @@
 ﻿using AmazooApp.Data;
 using AmazooApp.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -17,10 +18,13 @@ namespace AmazooApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly AmazooAppDbContext _db;
         public IEnumerable<Product>  products;
-        public HomeController(ILogger<HomeController> logger, AmazooAppDbContext db)
+        UserManager<ApplicationUser> _userManager;
+
+        public HomeController(ILogger<HomeController> logger, AmazooAppDbContext db, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _db = db;
+            _userManager = userManager;
             products = from p in _db.Products
                        select p;
         }
@@ -102,12 +106,41 @@ namespace AmazooApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult LeaveReview(int? id)
+        public async Task<IActionResult> LeaveReviewAsync(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
+
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            var hasPurchased = false;
+
+            IEnumerable<Order> pastDeliveredOrders = from order in _db.Orders
+                                                     where order.Customer.Equals(currentUser.Id) && order.Status.Equals("Delivered")
+                                                     select order;
+
+            List<Order> pastDeliveredOrdersList = new List<Order>();
+            foreach(Order order in pastDeliveredOrders)
+            {
+                pastDeliveredOrdersList.Add(order);
+            }
+
+            foreach(Order order in pastDeliveredOrdersList)
+            {
+                IEnumerable<OrderProduct> orderProducts = from oP in _db.OrderProducts
+                                                          where oP.OrderId == order.Id && oP.ProductId == id
+                                                          select oP;
+
+                if (orderProducts.Any())
+                {
+                    hasPurchased = true;
+                    break;
+                }
+            }
+
+            ViewBag.HasPurchased = hasPurchased;
 
             return View();
         }
