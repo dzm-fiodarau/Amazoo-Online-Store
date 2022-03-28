@@ -100,6 +100,18 @@ namespace AmazooApp.Controllers
             return View(reviews);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult LeaveReview(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            return View();
+        }
+
         public IActionResult Filter(IFormCollection formCollection)
         {
             var actionsChckbox = formCollection.TryGetValue("chckBox", out var filterValues);

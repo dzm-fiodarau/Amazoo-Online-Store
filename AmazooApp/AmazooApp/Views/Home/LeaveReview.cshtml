@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Leave Review";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="">
+    <div class="border p-3">
+        <div class="form-group row text-center">
+            <h2 class="pl-3">Leave Review</h2>
+        </div>
+        <div style="text-align:center">
+            <textarea name="description" class="bg-light w-75" style="height:100px" placeholder="This product is ..." ></textarea>
+        </div>
+        <br />
+        <div style="text-align:center">
+            <button type="submit" class="btn btn-primary btn-lg">Leave Review</button>
+        </div>
+    </div>
+</form>
