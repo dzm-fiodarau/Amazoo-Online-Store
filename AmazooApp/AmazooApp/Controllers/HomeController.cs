@@ -1,6 +1,7 @@
 ﻿using AmazooApp.Data;
 using AmazooApp.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -17,10 +18,13 @@ namespace AmazooApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly AmazooAppDbContext _db;
         public IEnumerable<Product>  products;
-        public HomeController(ILogger<HomeController> logger, AmazooAppDbContext db)
+        UserManager<ApplicationUser> _userManager;
+
+        public HomeController(ILogger<HomeController> logger, AmazooAppDbContext db, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _db = db;
+            _userManager = userManager;
             products = from p in _db.Products
                        select p;
         }
@@ -49,14 +53,124 @@ namespace AmazooApp.Controllers
                 return NotFound();
             }
 
-            var obj = _db.Products.Find(id);
-            if (obj == null)
+            var product = _db.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(obj);
+
+            ViewBag.Product = product;
+
+            IEnumerable<Review> reviews = from review in _db.Reviews
+                                          where review.ProductId == id
+                                          select review;
+
+            if (reviews == null)
+            {
+                return NotFound();
+            }
+
+            if(reviews.Count() > 6)
+            {
+                reviews = reviews.Take<Review>(6);
+            }
+
+            ViewBag.Id = id;
+
+            return View(reviews);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AllReviews(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var product = _db.Products.Find(id);
+            ViewBag.Product = product;
+
+            IEnumerable<Review> reviews = from review in _db.Reviews
+                                          where review.ProductId == id
+                                          select review;
+
+            if (reviews == null)
+            {
+                return NotFound();
+            }
+
+            return View(reviews);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LeaveReviewAsync(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            if(currentUser == null)
+            {
+                return RedirectToAction("ProductPage", new { id = id});
+            }
+
+            var hasPurchased = false;
+
+            IEnumerable<Order> pastDeliveredOrders = from order in _db.Orders
+                                                     where order.Customer.Equals(currentUser.Id) && order.Status.Equals("Delivered")
+                                                     select order;
+
+            List<Order> pastDeliveredOrdersList = new List<Order>();
+            foreach(Order order in pastDeliveredOrders)
+            {
+                pastDeliveredOrdersList.Add(order);
+            }
+
+            foreach(Order order in pastDeliveredOrdersList)
+            {
+                IEnumerable<OrderProduct> orderProducts = from oP in _db.OrderProducts
+                                                          where oP.OrderId == order.Id && oP.ProductId == id
+                                                          select oP;
+
+                if (orderProducts.Any())
+                {
+                    hasPurchased = true;
+                    break;
+                }
+            }
+
+            ViewBag.HasPurchased = hasPurchased;
+            ViewBag.Id = id;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReviewStoredAsync(int? id, string? description)
+        {
+            if (id == null || id == 0 || description == null || description.Equals(""))
+                return RedirectToAction("ProductPage", new { id = id });
+
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            Review reviewToStore = new Review();
+            reviewToStore.Customer = currentUser.FirstName + " " + currentUser.LastName;
+            reviewToStore.Description = description;
+            reviewToStore.ProductId = (int)id;
+            reviewToStore.Rating = 0; //TO BE IMPLEMENTED BY THOSE WORKING ON RATING
+
+            _db.Reviews.Add(reviewToStore);
+            _db.SaveChanges();
+
+            return View();
+        }
 
         public IActionResult Filter(IFormCollection formCollection)
         {

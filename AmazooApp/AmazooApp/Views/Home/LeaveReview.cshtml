@@ -1,0 +1,45 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<AmazooApp.Models.ApplicationUser> signInManager
+
+@{
+    ViewData["Title"] = "Leave Review";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (signInManager.IsSignedIn(User))
+    {
+        if (ViewBag.HasPurchased)
+        {
+            <form method="post" asp-action="ReviewStored" asp-controller="Home" asp-route-id="@ViewBag.Id">
+                <div class="border p-3">
+                    <div class="form-group row text-center">
+                        <h2 class="pl-3">Leave Review</h2>
+                    </div>
+                    <div style="text-align:center">
+                        <textarea name="description" class="bg-light w-75" style="height:100px" placeholder="This product is ..."></textarea>
+                    </div>
+                    <br />
+                    <div style="text-align:center">
+                        <button type="submit" class="btn btn-primary btn-lg">Leave Review</button>
+                    </div>
+                </div>
+            </form>
+        }
+        else
+        {
+            <div style="text-align: center; margin-top: 30px;">
+                <h3>It seems you have not yet purchased or not yet received this item. You, therefore, cannot leave a review for this item.</h3>
+                <br />
+                Thank you for your comprehension.
+            </div>
+        }
+    }
+    else
+    {
+        <div style="text-align: center; margin-top: 30px;">
+            <h1>Please log in before accessing this page.</h1>
+        </div>
+    }
+
+    <h1>@ViewBag.Something</h1>
+}
