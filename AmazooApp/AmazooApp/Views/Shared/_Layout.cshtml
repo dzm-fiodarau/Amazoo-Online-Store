@@ -89,6 +89,25 @@
         }
 
         /* The side navigation menu END */
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            float: right;
+            font-size: calc(30px + 2.5vw);
+            color: lightgrey;
+            margin: 0 5px;
+        }
+
+        .rating label:before {
+            content: '★';
+        }
+
+        .rating input:checked ~ label {
+            color: gold;
+        }
     </style>
 </head>
 
