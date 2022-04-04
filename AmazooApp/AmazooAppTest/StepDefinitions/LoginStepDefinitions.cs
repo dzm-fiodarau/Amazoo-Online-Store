@@ -17,7 +17,7 @@ namespace AmazooAppTest.StepDefinitions
         [Given(@"I launch the Application")]
         public void GivenILaunchTheApplication()
         {
-            webDriver.Navigate().GoToUrl("https://localhost:5001/");
+            webDriver.Navigate().GoToUrl("https://amazooapp.azurewebsites.net/");
             loginPage = new LoginPage(webDriver);
         }
 
@@ -43,8 +43,9 @@ namespace AmazooAppTest.StepDefinitions
         [Then(@"I should see the home page")]
         public void ThenIShouldSeeTheHomePage()
         {
-            Assert.Contains("https://localhost:5001/", webDriver.Url.ToLower());
+            Assert.Contains("https://amazooapp.azurewebsites.net/", webDriver.Url.ToLower());
             webDriver.Dispose();
+            
         }
     }
 }

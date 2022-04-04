@@ -80,13 +80,14 @@ namespace AmazooAppTest.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="AmazooApp should navigate to the login page given that user is not logged in", Skip="Ignored")]
+        [Xunit.SkippableFactAttribute(DisplayName="AmazooApp should navigate to the login page given that user is not logged in")]
         [Xunit.TraitAttribute("FeatureTitle", "Login")]
         [Xunit.TraitAttribute("Description", "AmazooApp should navigate to the login page given that user is not logged in")]
+        [Xunit.TraitAttribute("Category", "unitTest")]
         public virtual void AmazooAppShouldNavigateToTheLoginPageGivenThatUserIsNotLoggedIn()
         {
             string[] tagsOfScenario = new string[] {
-                    "ignore"};
+                    "unitTest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("AmazooApp should navigate to the login page given that user is not logged in", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 4
