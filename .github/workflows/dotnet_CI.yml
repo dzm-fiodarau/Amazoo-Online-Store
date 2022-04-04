@@ -6,7 +6,7 @@ name: .NET CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ,Beta ]
+    branches: [ main ,Beta ,Testing]
   pull_request:
     branches: [ main ,Beta ]
 
@@ -17,7 +17,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    name: AmazooApp
+    name: Build AmazooApp
     # The type of runner that the job will run on
     runs-on: windows-latest
 
@@ -41,7 +41,7 @@ jobs:
   # Build and run unit tests for CI    
   unittests:
     needs: build
-    name:  Unit Testing
+    name:  Run Tests
     #the project will run on windows environment 
     runs-on: windows-latest
     steps: 

@@ -14,15 +14,39 @@ namespace AmazooAppTest.StepDefinitions
         IWebDriver webDriver = new ChromeDriver();
 
         LoginPage loginPage = null;
-        [Given(@"I launch the Application")]
-        public void GivenILaunchTheApplication()
+
+        [Given(@"I am at the Home page")]
+        public void GivenIAmAtTheHomePage()
         {
-            webDriver.Navigate().GoToUrl("https://localhost:5001/");
+            webDriver.Navigate().GoToUrl("https://amazooapp.azurewebsites.net/");
+            loginPage = new LoginPage(webDriver);
+
+        }
+        [Given(@"I Navigate to the Login page")]
+        public void GivenINavigateToTheLoginPage()
+        {
+            loginPage.ClickLogin();
+        }
+
+
+        [Then(@"I should navigate the home page")]
+        public void ThenIShouldNavigateTheHomePage()
+        {
+             Assert.Contains("https://amazooapp.azurewebsites.net/", webDriver.Url.ToLower());
+            webDriver.Dispose();
+        }
+
+
+
+        [Given(@"I am the Home Page")]
+        public void GivenIAmTheHomePage()
+        {
+            webDriver.Navigate().GoToUrl("https://amazooapp.azurewebsites.net/");
             loginPage = new LoginPage(webDriver);
         }
 
-        [Given(@"I click login link")]
-        public void GivenIClickLoginLink()
+        [Given(@"I Go to the Login page")]
+        public void GivenIGoToTheLoginPage()
         {
             loginPage.ClickLogin();
         }
@@ -37,14 +61,44 @@ namespace AmazooAppTest.StepDefinitions
         [Given(@"I click the login button")]
         public void GivenIClickTheLoginButton()
         {
-            loginPage.ClickLoginButton();
+            loginPage.ClickLogin();
+        }
+        [Then(@"I should see the Login Page")]
+        public void ThenIShouldSeeTheLoginPage()
+        {
+            Assert.Contains("https://amazooapp.azurewebsites.net/", webDriver.Url.ToLower());
+            webDriver.Dispose();
+
         }
 
-        [Then(@"I should see the home page")]
-        public void ThenIShouldSeeTheHomePage()
+        [When(@"I enter <Email> and <Password>")]
+        public void WhenIEnterEmailAndPassword(Table table)
         {
-            Assert.Contains("https://localhost:5001/", webDriver.Url.ToLower());
+            dynamic data = table.CreateDynamicInstance();
+            loginPage.Login((string)data.Email, (string)data.Password);
+        }
+
+        //[When(@"I enter Email and Password")]
+        //public void WhenIEnterEmailAndPassword(Table table)
+        //{
+        //    dynamic data = table.CreateDynamicInstance();
+        //    loginPage.Login((string)data.Email, (string)data.Password);
+        //}
+
+        [When(@"I click the login button")]
+        public void WhenIClickTheLoginButton()
+        {
+            loginPage.ClickLogin();
+        }
+
+
+        [Then(@"I should Navigate the Login Page")]
+        public void ThenIShouldNavigateTheLoginPage()
+        {
+            Assert.Contains("https://amazooapp.azurewebsites.net/login/login", webDriver.Url.ToLower());
             webDriver.Dispose();
         }
+
+
     }
 }
