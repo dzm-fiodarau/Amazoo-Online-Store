@@ -70,6 +70,16 @@ namespace AmazooApp.Controllers
                 return NotFound();
             }
 
+            float average = 0;
+            foreach(Review review in reviews)
+            {
+                average += review.Rating;
+            }
+
+            average /= reviews.Count();
+            average = (float)Math.Round(average * 100f) / 100f;
+            ViewBag.AverageRating = average;
+
             if(reviews.Count() > 6)
             {
                 reviews = reviews.Take<Review>(6);
