@@ -41,7 +41,7 @@ jobs:
   # Build and run unit tests for CI    
   unittests:
     needs: build
-    name:  Unit Testing
+    name:  Run Tests
     #the project will run on windows environment 
     runs-on: windows-latest
     steps: 
