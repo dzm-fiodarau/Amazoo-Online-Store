@@ -70,6 +70,16 @@ namespace AmazooApp.Controllers
                 return NotFound();
             }
 
+            float average = 0;
+            foreach(Review review in reviews)
+            {
+                average += review.Rating;
+            }
+
+            average /= reviews.Count();
+            average = (float)Math.Round(average * 100f) / 100f;
+            ViewBag.AverageRating = average;
+
             if(reviews.Count() > 6)
             {
                 reviews = reviews.Take<Review>(6);
@@ -153,9 +163,9 @@ namespace AmazooApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ReviewStoredAsync(int? id, string? description)
+        public async Task<IActionResult> ReviewStoredAsync(int? id, string? description, string? rating)
         {
-            if (id == null || id == 0 || description == null || description.Equals(""))
+            if (id == null || id == 0 || description == null || description.Equals("") || rating == null || rating.Equals(""))
                 return RedirectToAction("ProductPage", new { id = id });
 
             ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
@@ -164,7 +174,7 @@ namespace AmazooApp.Controllers
             reviewToStore.Customer = currentUser.FirstName + " " + currentUser.LastName;
             reviewToStore.Description = description;
             reviewToStore.ProductId = (int)id;
-            reviewToStore.Rating = 0; //TO BE IMPLEMENTED BY THOSE WORKING ON RATING
+            reviewToStore.Rating = Int32.Parse(rating); //TO BE IMPLEMENTED BY THOSE WORKING ON RATING
 
             _db.Reviews.Add(reviewToStore);
             _db.SaveChanges();
