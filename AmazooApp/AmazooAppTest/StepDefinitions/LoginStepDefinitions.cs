@@ -78,13 +78,6 @@ namespace AmazooAppTest.StepDefinitions
             loginPage.Login((string)data.Email, (string)data.Password);
         }
 
-        //[When(@"I enter Email and Password")]
-        //public void WhenIEnterEmailAndPassword(Table table)
-        //{
-        //    dynamic data = table.CreateDynamicInstance();
-        //    loginPage.Login((string)data.Email, (string)data.Password);
-        //}
-
         [When(@"I click the login button")]
         public void WhenIClickTheLoginButton()
         {
