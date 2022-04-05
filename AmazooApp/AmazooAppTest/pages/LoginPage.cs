@@ -22,6 +22,9 @@ namespace AmazooApp.Test.pages
         public IWebElement txtEmail => WebDriver.FindElement(By.Name("Email"));
         public IWebElement txtPassword => WebDriver.FindElement(By.Name("Password"));
         public IWebElement btnLogin => WebDriver.FindElement(By.Id("loginBtn_Id"));
+        public IWebElement accountBtn => WebDriver.FindElement(By.Id("account_but"));
+        public IWebElement btnLogout => WebDriver.FindElement(By.Id("menu_item_9"));
+
 
         public void ClickLogin()
         {

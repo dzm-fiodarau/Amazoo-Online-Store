@@ -33,6 +33,7 @@ namespace AmazooAppTest.StepDefinitions
         public void ThenIShouldNavigateTheHomePage()
         {
              Assert.Contains("https://amazooapp.azurewebsites.net/", webDriver.Url.ToLower());
+            webDriver.Quit();
             webDriver.Dispose();
         }
 
@@ -51,6 +52,13 @@ namespace AmazooAppTest.StepDefinitions
             loginPage.ClickLogin();
         }
 
+        [Given(@"I Click to the login page")]
+        public void GivenIClickToTheLoginPage()
+        {
+            loginPage.ClickLogin();
+        }
+
+
         [Given(@"enter the following details")]
         public void GivenEnterTheFollowingDetails(Table table)
         {
@@ -67,6 +75,7 @@ namespace AmazooAppTest.StepDefinitions
         public void ThenIShouldSeeTheLoginPage()
         {
             Assert.Contains("https://amazooapp.azurewebsites.net/", webDriver.Url.ToLower());
+            webDriver.Quit();
             webDriver.Dispose();
 
         }
@@ -78,10 +87,22 @@ namespace AmazooAppTest.StepDefinitions
             loginPage.Login((string)data.Email, (string)data.Password);
         }
 
+        [When(@"I enter '([^']*)' and '([^']*)'")]
+        public void WhenIEnterAnd(string p0, string p1)
+        {
+            loginPage.Login(p0, p1);
+        }
+
+
         [When(@"I click the login button")]
         public void WhenIClickTheLoginButton()
         {
             loginPage.ClickLogin();
+        }
+        [When(@"I login")]
+        public void WhenILogin()
+        {
+            loginPage.btnLogin.Click();
         }
 
 
@@ -89,7 +110,20 @@ namespace AmazooAppTest.StepDefinitions
         public void ThenIShouldNavigateTheLoginPage()
         {
             Assert.Contains("https://amazooapp.azurewebsites.net/login/login", webDriver.Url.ToLower());
+            webDriver.Quit();
             webDriver.Dispose();
+        }
+
+        [When(@"I click my account button")]
+        public void WhenIClickMyAccountButton()
+        {
+            loginPage.accountBtn.Click();
+        }
+
+        [When(@"I click the logout button")]
+        public void WhenIClickTheLogoutButton()
+        {
+            loginPage.btnLogout.Click();
         }
 
 

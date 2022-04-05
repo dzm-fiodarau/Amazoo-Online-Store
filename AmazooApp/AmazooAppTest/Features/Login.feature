@@ -21,4 +21,13 @@ Scenario: Logging in with invalid credentials
 		#| kirat@gmail.com | compsci |
 	And I click the login button 
 	Then I should Navigate the Login Page
-	
+
+@LoginTest
+Scenario: Logout A user 
+	Given I am the Home Page
+	And I Click to the login page
+	When I enter 'a@a.com' and '1qazxsW@'
+	And I login
+	And I click my account button
+	And I click the logout button 
+	Then I should navigate the home page
