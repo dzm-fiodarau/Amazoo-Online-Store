@@ -113,12 +113,12 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
  testRunner.Given("I Navigate at the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "ProductName"});
-                table3.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "jeans"});
 #line 8
- testRunner.When("I enter a valid <ProductName> in the search bar", ((string)(null)), table3, "When ");
+ testRunner.When("I enter a valid <ProductName> in the search bar", ((string)(null)), table4, "When ");
 #line hidden
 #line 11
  testRunner.And("I click the Search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -163,12 +163,12 @@ this.ScenarioInitialize(scenarioInfo);
 #line 16
  testRunner.Given("I Navigate at the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                             "ProductName"});
-                table4.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "hsgdh"});
 #line 17
- testRunner.When("I enter a valid <ProductName> in the search bar", ((string)(null)), table4, "When ");
+ testRunner.When("I enter a valid <ProductName> in the search bar", ((string)(null)), table5, "When ");
 #line hidden
 #line 20
  testRunner.And("I click the Search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

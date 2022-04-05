@@ -22,6 +22,9 @@ namespace AmazooAppTest.pages
 
         public IWebElement noSearcResultId => WebDriver.FindElement(By.Id("noProd_Id"));
 
+        public IWebElement ToothBrushButton => WebDriver.FindElement(By.Id("10"));
+        public ICollection<IWebElement> productList => WebDriver.FindElements(By.ClassName("product_elem")); 
+        public IWebElement cartButton => WebDriver.FindElement(By.Id("cartBtn_Id"));
         public void ClickSearchBtn()
         {
             searchBtn.Click();
@@ -41,6 +44,19 @@ namespace AmazooAppTest.pages
         public string NoMatchingProduct()
         {
             return noSearcResultId.Text;
+        }
+
+        public void AddToCart(string p)
+        {
+            foreach (var item in productList)
+            {
+                var temp = item.FindElement(By.TagName("h2"));
+                if(temp != null && temp.Equals(p))
+                {
+                    item.FindElement(By.TagName("Button")).Click();
+                }
+
+            }
         }
     }
 }

@@ -5,7 +5,12 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmazooApp", "AmazooApp\AmazooApp.csproj", "{2092F7A2-4EBA-4932-B315-07F6DBAF68F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmazooAppTest", "AmazooAppTest\AmazooAppTest.csproj", "{CBB810DC-F90D-4591-9FE0-036D58686C3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmazooAppTest", "AmazooAppTest\AmazooAppTest.csproj", "{CBB810DC-F90D-4591-9FE0-036D58686C3A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEF16D8F-E19B-4ECE-BAAE-DA887B06330C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
