@@ -18,6 +18,7 @@ namespace AmazooApp.Test.pages
 
         public IWebElement menulnk => WebDriver.FindElement(By.Id("menu_but"));
         public IWebElement loginlnk => WebDriver.FindElement(By.Id("menu_item_1"));
+        public IWebElement signUplnk => WebDriver.FindElement(By.Id("menu_item_2"));
         public IWebElement txtEmail => WebDriver.FindElement(By.Name("Email"));
         public IWebElement txtPassword => WebDriver.FindElement(By.Name("Password"));
         public IWebElement btnLogin => WebDriver.FindElement(By.Id("loginBtn_Id"));
@@ -34,9 +35,6 @@ namespace AmazooApp.Test.pages
             txtPassword.SendKeys(Password);
         }
         public void ClickLoginButton() => btnLogin.Click();
-
-        //public bool IsHomePageAvailable() => HomeLnk.Displayed;
-
 
     }
 }

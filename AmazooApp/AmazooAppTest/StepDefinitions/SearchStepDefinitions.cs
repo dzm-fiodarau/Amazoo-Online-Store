@@ -27,8 +27,11 @@ namespace AmazooAppTest.StepDefinitions
         [When(@"I enter a valid <ProductName> in the search bar")]
         public void WhenIEnterAValidProductNameInTheSearchBar(Table table)
         {
-            dynamic data = table.CreateDynamicInstance();
-            homePage.Search((string)data.ProductName);
+            var data = table.CreateDynamicSet();
+            foreach (var item in data)
+            {
+                homePage.Search(item.ProductName);
+            }
         }
 
         [When(@"I click the Search button")]
@@ -53,5 +56,6 @@ namespace AmazooAppTest.StepDefinitions
             webDriver.Dispose();
         }
 
+        
     }
 }

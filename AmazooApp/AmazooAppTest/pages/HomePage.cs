@@ -25,6 +25,10 @@ namespace AmazooAppTest.pages
         public IWebElement ToothBrushButton => WebDriver.FindElement(By.Id("10"));
         public ICollection<IWebElement> productList => WebDriver.FindElements(By.ClassName("product_elem")); 
         public IWebElement cartButton => WebDriver.FindElement(By.Id("cartBtn_Id"));
+        public IWebElement clothingChkbx => WebDriver.FindElement(By.Id("cloth_id"));
+        public IWebElement nintendoChkbx => WebDriver.FindElement(By.Id("nintendo_id"));
+        public IWebElement filterBtn => WebDriver.FindElement(By.Id("filterBtn_Id"));
+        
         public void ClickSearchBtn()
         {
             searchBtn.Click();
@@ -57,6 +61,11 @@ namespace AmazooAppTest.pages
                 }
 
             }
+        }
+
+        public int GetAllProductsCount()
+        {
+            return productList.Count;
         }
     }
 }

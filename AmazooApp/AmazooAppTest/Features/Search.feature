@@ -6,8 +6,8 @@ This will test The search feature
 Scenario: Searching for a valid product
 	Given I Navigate at the Home page
 	When I enter a valid <ProductName> in the search bar
-		| ProductName  | 
-		| jeans		   |
+		| ProductName |
+		| jeans       |
 	And I click the Search button
 	Then I should see a Page with the matching products
 
