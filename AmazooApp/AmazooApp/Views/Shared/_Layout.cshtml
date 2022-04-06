@@ -89,6 +89,25 @@
         }
 
         /* The side navigation menu END */
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            float: right;
+            font-size: calc(30px + 2.5vw);
+            color: lightgrey;
+            margin: 0 5px;
+        }
+
+        .rating label:before {
+            content: '★';
+        }
+
+        .rating input:checked ~ label {
+            color: gold;
+        }
     </style>
 </head>
 
@@ -108,7 +127,7 @@
                     <!--SHOPPING CART NAV-BAR-->
                     <div class="nav_elem">
                         <div class="">
-                            <button style="font-size:30px;cursor:pointer; color:black" onclick="openNav()" class="shoppingCart" href=""><i class="fas fa-shopping-cart"></i> <span> 0 </span> </button>
+                            <button id="cartBtn_Id" style="font-size:30px;cursor:pointer; color:black" onclick="openNav()" class="shoppingCart" href=""><i class="fas fa-shopping-cart"></i> <span> 0 </span> </button>
                         </div>
                     </div>
                     <div id="mySidenav" class="sidenav">

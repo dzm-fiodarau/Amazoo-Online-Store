@@ -1,4 +1,4 @@
-@model AmazooApp.Models.Product
+@model IEnumerable<AmazooApp.Models.Review>
 
 @{
     ViewData["Title"] = "Product Details";
@@ -8,19 +8,19 @@
 <div class="container p-3" style="border-radius: 5%; box-shadow: 0 0 20px rgba(0,0,0,0.5); margin-top: 5%">
     <div class="row pt-2">
         <div class="col-6">
-            <img src="@Model.Image" alt="@Model.ProductName" style="max-height: 50vh; max-width: 40vw"/>
+            <img src="@ViewBag.Product.Image" alt="@ViewBag.Product.ProductName" style="max-height: 50vh; max-width: 40vw"/>
         </div>
         <div class="col-6">
             <div style="text-align:center;">
-                <h2 style="font-size: calc(20px + 1.2vw)">@Model.ProductName</h2>
+                <h2 style="font-size: calc(20px + 1.2vw)"  id="id_+@ViewBag.Product.ProductName">@ViewBag.Product.ProductName</h2>
             </div>
             <table style="width: 100%; text-align: center; margin-top: 15%">
                 <tr>
                     <th>
-                        <h2 style="font-size: calc(18px + 0.9vw)">@Model.Price$</h2>
+                        <h2 style="font-size: calc(18px + 0.9vw)">@ViewBag.Product.Price$</h2>
                     </th>
                     <th>
-                        <h2 style="font-size: calc(18px + 0.9vw)">@Model.Brand</h2>
+                        <h2 style="font-size: calc(18px + 0.9vw)">@ViewBag.Product.Brand</h2>
                     </th>
                 </tr>
                 <tr style="color: gray">
@@ -33,10 +33,10 @@
                 </tr>
             </table>
             <div style="margin-top: 10%; text-align: center; font-size: calc(10px + 0.5vw)">
-                @Model.Description
+                @ViewBag.Product.Description
             </div>
             <div style="margin-top: 10%">
-                @if (@Model.QuantityInStock > 0)
+                @if (@ViewBag.Product.QuantityInStock > 0)
                 {
                     <button class="btn-primary" style="margin:0 auto; display: block; border-radius: 6px; font-size: 25px">Add to Cart</button>
                 }
@@ -47,4 +47,60 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="container p-3" style="border-radius: 5%; box-shadow: 0 0 20px rgba(0,0,0,0.5); margin-top: 5%">
+    <form method="post" asp-action="LeaveReview" asp-controller="Home" asp-route-id="@ViewBag.Id">
+        <button class="btn btn-primary float-right m-2" type="submit">Leave Review</button>
+    </form>
+
+    <br />
+    <br />
+    <br />
+    @if (Model.Count() > 0)
+    {
+        <h1 style="color:gray">Reviews</h1>
+        <br />
+        <div style="text-align: center">
+            <h4>Average: @ViewBag.AverageRating &#9733;</h4>
+        </div>
+        foreach (Review review in Model)
+        {
+            <br />
+            <div class="border p-3">
+                <div class="row col-12">
+                    <div class="col-2" style="text-align:center">
+                        <img alt="Customer" src="~/media/blank_profile.jpg" style="width: calc(50px + 2.5vw); height: calc(50px + 2.5vw); display: block; margin-left:auto; margin-right:auto;" />
+                        <div style="display: block;">
+                            @review.Customer
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        @{
+                            int rating = review.Rating;
+                            for(int i=0; i<rating; i++)
+                            {
+                                <label style="display: inline; font-size: calc(5px + 2.7vw);">&#9733;</label>
+                            }
+                        }
+                    </div>
+
+                    <div class="col-6 bg-light">
+                        @review.Description
+                    </div>
+                </div>
+
+            </div>
+        }
+        <form method="post" asp-action="AllReviews" asp-controller="Home" asp-route-id="@ViewBag.Id">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">View All Reviews</button>
+        </form>
+        <br />
+    }
+    else
+    {
+        <h1 style="color:gray">No Reviews Available</h1>
+    }
+
 </div>
