@@ -19,7 +19,7 @@ namespace AmazooAppTest.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class LoginFeature : object, Xunit.IClassFixture<LoginFeature.FixtureData>, System.IDisposable
+    public partial class FilterFeature : object, Xunit.IClassFixture<FilterFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace AmazooAppTest.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "Login.feature"
+#line 1 "Filter.feature"
 #line hidden
         
-        public LoginFeature(LoginFeature.FixtureData fixtureData, AmazooAppTest_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public FilterFeature(FilterFeature.FixtureData fixtureData, AmazooAppTest_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,8 @@ namespace AmazooAppTest.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Login", "\tLogin to AmazooApp", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Filter", "This Test group will focus on Filter fucntions and \r\nmake sure there is no regres" +
+                    "sion in the future", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,17 +81,17 @@ namespace AmazooAppTest.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Logging in with valid credentials")]
-        [Xunit.TraitAttribute("FeatureTitle", "Login")]
-        [Xunit.TraitAttribute("Description", "Logging in with valid credentials")]
-        [Xunit.TraitAttribute("Category", "LoginTest")]
-        public virtual void LoggingInWithValidCredentials()
+        [Xunit.SkippableFactAttribute(DisplayName="Filter Products by Type")]
+        [Xunit.TraitAttribute("FeatureTitle", "Filter")]
+        [Xunit.TraitAttribute("Description", "Filter Products by Type")]
+        [Xunit.TraitAttribute("Category", "FilterTest")]
+        public virtual void FilterProductsByType()
         {
             string[] tagsOfScenario = new string[] {
-                    "LoginTest"};
+                    "FilterTest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in with valid credentials", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 4
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filter Products by Type", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -110,41 +111,39 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
- testRunner.Given("I am at the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 8
+ testRunner.Given("I am at the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 6
- testRunner.And("I Navigate to the Login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Email",
-                            "Password"});
-                table2.AddRow(new string[] {
-                            "a@a.com",
-                            "1qazxsW@"});
-#line 7
- testRunner.And("enter the following details", ((string)(null)), table2, "And ");
+#line 9
+ testRunner.When("A user click on clothing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
- testRunner.And("I click the login button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("i click on ApplyFIlters button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 11
- testRunner.Then("I should navigate the home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("products should be filtered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Logging in with invalid credentials")]
-        [Xunit.TraitAttribute("FeatureTitle", "Login")]
-        [Xunit.TraitAttribute("Description", "Logging in with invalid credentials")]
-        [Xunit.TraitAttribute("Category", "LoginTest")]
-        public virtual void LoggingInWithInvalidCredentials()
+        [Xunit.SkippableTheoryAttribute(DisplayName="Filter Products by Brand")]
+        [Xunit.TraitAttribute("FeatureTitle", "Filter")]
+        [Xunit.TraitAttribute("Description", "Filter Products by Brand")]
+        [Xunit.TraitAttribute("Category", "FilterTest")]
+        [Xunit.InlineDataAttribute("1", new string[0])]
+        public virtual void FilterProductsByBrand(string count, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "LoginTest"};
+            string[] @__tags = new string[] {
+                    "FilterTest"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in with invalid credentials", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            argumentsOfScenario.Add("count", count);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filter Products by Brand", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -166,41 +165,39 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 15
- testRunner.Given("I am the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am at the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 16
- testRunner.And("I Go to the Login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("A user click on Nintendo", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Email",
-                            "Password"});
-                table3.AddRow(new string[] {
-                            "test@gamil.com",
-                            "password"});
 #line 17
- testRunner.When("I enter <Email> and <Password>", ((string)(null)), table3, "When ");
+ testRunner.And("i click on ApplyFIlters button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 22
- testRunner.And("I click the login button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 23
- testRunner.Then("I should Navigate the Login Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 18
+ testRunner.Then(string.Format("products count will be {0}", count), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Logout A user")]
-        [Xunit.TraitAttribute("FeatureTitle", "Login")]
-        [Xunit.TraitAttribute("Description", "Logout A user")]
-        [Xunit.TraitAttribute("Category", "LoginTest")]
-        public virtual void LogoutAUser()
+        [Xunit.SkippableTheoryAttribute(DisplayName="Filter Products by Brand and Type")]
+        [Xunit.TraitAttribute("FeatureTitle", "Filter")]
+        [Xunit.TraitAttribute("Description", "Filter Products by Brand and Type")]
+        [Xunit.TraitAttribute("Category", "FilterTest")]
+        [Xunit.InlineDataAttribute("4", new string[0])]
+        public virtual void FilterProductsByBrandAndType(string count, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "LoginTest"};
+            string[] @__tags = new string[] {
+                    "FilterTest"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logout A user", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 26
+            argumentsOfScenario.Add("count", count);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filter Products by Brand and Type", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -220,26 +217,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 25
+ testRunner.Given("I am at the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 26
+ testRunner.When("A user click on Nintendo", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
 #line 27
- testRunner.Given("I am the Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.And("A user click on clothing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 28
- testRunner.And("I Click to the login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("i click on ApplyFIlters button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 29
- testRunner.When("I enter \'a@a.com\' and \'1qazxsW@\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 30
- testRunner.And("I login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 31
- testRunner.And("I click my account button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 32
- testRunner.And("I click the logout button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 33
- testRunner.Then("I should navigate the home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("products count will be {0}", count), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -252,12 +243,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                LoginFeature.FeatureSetup();
+                FilterFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                LoginFeature.FeatureTearDown();
+                FilterFeature.FeatureTearDown();
             }
         }
     }

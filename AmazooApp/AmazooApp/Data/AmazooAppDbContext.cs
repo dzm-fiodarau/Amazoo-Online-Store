@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AmazooApp.Data
 {
-   // public class AmazooAppDbContext : DbContext
-          public class AmazooAppDbContext : IdentityDbContext<ApplicationUser>
+      //  public class AmazooAppDbContext : DbContext
+          public class AmazooAppDbContext :  IdentityDbContext<ApplicationUser>
     {
         public AmazooAppDbContext(DbContextOptions<AmazooAppDbContext> options) : base(options)
         {
