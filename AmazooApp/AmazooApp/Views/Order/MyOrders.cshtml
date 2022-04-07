@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var order in Model)
+                    @foreach (Order order in Model)
                     {
                         if (order.Status == "In Process")
                         {
@@ -73,9 +73,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var order in Model)
+                    @foreach (Order order in Model)
                     {
-                        if (order.Status == "Delivered" || order.Status == "Canceled")
+                        if ((order.Status == "Delivered") || (order.Status == "Canceled"))
                         {
                             <tr>
                                 <td style="width:12.5%;">@order.Id</td>

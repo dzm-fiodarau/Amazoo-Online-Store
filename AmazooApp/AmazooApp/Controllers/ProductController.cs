@@ -15,129 +15,150 @@ namespace AmazooApp.Controllers
     public class ProductController : Controller
     {
         private readonly AmazooAppDbContext _db;
-        private IHostingEnvironment _environment;
+        [Obsolete]
+        private readonly IHostingEnvironment _environment;
 
+        // This is a constructor of the ProductController class.
+        [Obsolete]
         public ProductController(AmazooAppDbContext db, IHostingEnvironment environment)
         {
             _db = db;
             _environment = environment;
         }
 
+        // This action outputs a View holding all products stored in the system.
         public IActionResult Index()
         {
-            IEnumerable<Product> productList = _db.Products;
+            var productList = _db.Products;
             return View(productList);
         }
 
-        //GET-Add
+        // GET-Add.
+        // This action outputs a View from which you can add a product to the system.
         public IActionResult AddProduct()
         {
             return View();
         }
 
-        //POST-Add
+        // POST-Add.
+        // This action adds the new product to the system and outputs the Products page View.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Obsolete]
         public IActionResult AddProduct(Product obj, IFormFile postedFile)
         {
-            var objectToSave = obj;
+            var productToSave = obj;
             if (postedFile != null)
             {
                 string fileName = System.IO.Path.GetFileName(postedFile.FileName);
-
                 string path = Path.Combine(this._environment.WebRootPath, "media");
 
                 using (var fileStream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
                 {
                     postedFile.CopyTo(fileStream);
                 }
-                objectToSave.Image = "/media/" + fileName;
+                productToSave.Image = "/media/" + fileName;
             }
-            _db.Products.Add(objectToSave);
+
+            _db.Products.Add(productToSave);
             _db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
 
 
-        //GET-Delete
-
+        // GET-Delete.
+        // This action outputs a View from which you can delete a specific product from the system.
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            var obj = _db.Products.Find(id);
-            if (obj == null)
+            var product = GetProductFromId(id);
+
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(obj);
+            return View(product);
         }
 
-        //POST-Delete
+        // POST-Delete.
+        // This action deletes the specific product from the system and outputs the Products page View.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = _db.Products.Find(id);
-            if (obj == null)
+            var product = GetProductFromId(id);
+
+            if (product == null)
             {
                 return NotFound();
             }
 
-            _db.Products.Remove(obj);
+            _db.Products.Remove(product);
             _db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
-        //GET-Edit
-
+        // GET-Edit.
+        // This action outputs a View from which you can edit a specific product in the system.
         public IActionResult Edit(int? id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            var obj = _db.Products.Find(id);
-            if (obj == null)
+            var product = GetProductFromId(id);
+
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(obj);
+            return View(product);
         }
 
-        //POST-Edit
+        // POST-Edit.
+        // This action edits the specific product in the system and outputs the Products page View.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Obsolete]
         public IActionResult Edit(Product obj, IFormFile postedFile)
         {
             if (ModelState.IsValid)
             {
-                var objectToSave = obj;
+                var productToSave = obj;
 
                 if (postedFile != null)
                 {
                     string fileName = System.IO.Path.GetFileName(postedFile.FileName);
-
                     string path = Path.Combine(this._environment.WebRootPath, "media");
 
                     using (var fileStream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
                     {
                         postedFile.CopyTo(fileStream);
                     }
-                    objectToSave.Image = "/media/" + fileName;
+                    productToSave.Image = "/media/" + fileName;
                 }
-                _db.Products.Update(objectToSave);
+
+                _db.Products.Update(productToSave);
                 _db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             return View(obj);
         }
-    
-    
+
+        // This method verifies the product id is valid and returns the
+        // product associated with it.
+        private Product GetProductFromId(int? id)
+        {
+            if ((id == null) || (id == 0))
+            {
+                return null;
+            }
+
+            var product = _db.Products.Find(id);
+
+            return product;
+        }
     }
-    }
+}

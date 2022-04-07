@@ -91,8 +91,10 @@
                         @foreach (DictionaryEntry order in ViewBag.ProductQuantity)
                         {
                             var product = products.Find(x => x.Id == ((int)order.Key));
+
                             if (product == null)
                                 continue;
+
                             <tr>
                                 <td style="width: 14.2%; text-align: center;">
                                     <img src="@product.Image" style="max-width: 10vw; height: 5vw;" />

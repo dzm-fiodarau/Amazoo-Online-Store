@@ -14,21 +14,25 @@ namespace AmazooApp.Controllers
         private readonly AmazooAppDbContext _db;
         UserManager<ApplicationUser> _userManager;
 
+        // This is a constructor of the AccountController class.
         public AccountController(AmazooAppDbContext db, UserManager<ApplicationUser> userManager)
         {
             _db = db;
             _userManager = userManager;
         }
 
+        // This action outputs a View to the user holding its personal information.
         public async Task<IActionResult> MyAccountAsync()
         {
-            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
             ViewBag.CurrentUser = currentUser;
 
             return View();
         }
 
+        // This action outputs a View to the administrator containing all accounts
+        // registered in the system.
         public IActionResult AdminUserList()
         {
             var allUsers = _db.Users;

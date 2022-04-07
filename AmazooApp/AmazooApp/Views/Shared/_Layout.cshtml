@@ -149,15 +149,14 @@
                     if (loggedIn)
                     {
                         bool isAdmin = User.IsInRole("Admin");
+
                         <p style="color:lightblue;font-size: calc(8px + 1.2vw); width:fit-content;position:relative;display:inline;">  Hi, @User.Identity.Name</p>
                         <button id="account_but" class="nav_elem" onclick="showAccount()">
                             <img src="~/media/blank_profile.jpg" alt="blank_profile_img" />
                         </button>
 
-
                         if (isAdmin)
                         {
-
                             <button id="menu_but" class="nav_elem" onclick="showMenuAdmin()">
                                 <img src="~/media/menu_logo.png" alt="menu_img" id="menu_img" />
                             </button>
@@ -166,7 +165,6 @@
                     }
                     else
                     {
-
                         <button id="menu_but" class="nav_elem" onclick="showMenu()">
                             <img src="~/media/menu_logo.png" alt="menu_img" id="menu_img" />
                         </button>
@@ -201,7 +199,7 @@
         <footer class="footer_whole">
             <div class="footer_row">
                 <div class="footer_column">
-                    </br>
+                    <br />
                     <p><strong>Amazoo Developers:</strong></p>
                     <div style="color:lightgray;">
                         <p>Dzmitry Fiodarau</p>
