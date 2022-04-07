@@ -14,21 +14,21 @@ namespace AmazooApp.Controllers
     public class OrderController : Controller
     {
         private readonly AmazooAppDbContext _db;
-        UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
+        // This is a constructor of the OrderController class.
         public OrderController(AmazooAppDbContext db, UserManager<ApplicationUser> userManager)
         {
             _db = db;
             _userManager = userManager;
 
-            //Order Status Update (Delivered or Not)
-            var allInProcessOrders = from order in _db.Orders
-                                     where order.Status == "In Process"
-                                     select order;
+            var allInProcessOrders = from inProcessOrder in _db.Orders
+                                     where inProcessOrder.Status == "In Process"
+                                     select inProcessOrder;
 
             DateTime today = DateTime.Today;
 
-            foreach(var order in allInProcessOrders)
+            foreach(Order order in allInProcessOrders)
             {
                 int compared = DateTime.Compare(order.DeliveryDate, today);
                 if (compared <= 0)
@@ -40,41 +40,37 @@ namespace AmazooApp.Controllers
             _db.SaveChanges();
         }
 
-        /*
-         * Admin page that outputs all orders from the system to a table
-         */
+        // This action outputs a View holding all orders stored in the system.
         public IActionResult AdminOrderList()
         {
-            Hashtable idName = new Hashtable();
+            Hashtable idName = new();
             var allUsers = _db.Users;
-            foreach(var user in allUsers)
+            foreach(ApplicationUser user in allUsers)
             {
                 idName.Add(user.Id, user.FirstName + " " + user.LastName);
             }
             ViewBag.IdNameHash = idName;
 
-            
-
             var allOrders = _db.Orders;
-            List<int> orderIds = new List<int>();
+            List<int> orderIds = new();
             foreach(var order in allOrders)
             {
                 orderIds.Add(order.Id);
             }
 
-            Hashtable orderNbrProducts = new Hashtable();
+            Hashtable orderNbrProducts = new();
             var allOrderProducts = _db.OrderProducts;
-            int nbrItems = 0;
+            int nbrItems;
             foreach(int orderId in orderIds)
             {
                 nbrItems = 0;
-                foreach(var orderProduct in allOrderProducts)
+                foreach(OrderProduct orderProduct in allOrderProducts)
                 {
                     if(orderId == orderProduct.OrderId)
                     {
                         nbrItems += orderProduct.Quantity;
                     }
-                    if (nbrItems > 0 && orderId != orderProduct.OrderId)
+                    if ((nbrItems > 0) && (orderId != orderProduct.OrderId))
                         break;
                 }
                 orderNbrProducts.Add(orderId, nbrItems);
@@ -84,35 +80,33 @@ namespace AmazooApp.Controllers
             return View(allOrders);
         }
 
-        /*
-         * Orders page that outputs past and present orders of the logged in user
-         * */
+        // This action outputs a View holding all orders associated to the current user's account.
         public async Task<IActionResult> MyOrdersAsync()
         {
             ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var allOrders = from order in _db.Orders
-                            where order.Customer == currentUser.Id
-                            select order;
+            var allOrders = from orderOfCurrentUser in _db.Orders
+                            where orderOfCurrentUser.Customer == currentUser.Id
+                            select orderOfCurrentUser;
 
-            List<int> orderIds = new List<int>();
-            foreach (var order in allOrders)
+            List<int> orderIds = new();
+            foreach (Order order in allOrders)
             {
                 orderIds.Add(order.Id);
             }
 
-            Hashtable orderNbrProducts = new Hashtable();
+            Hashtable orderNbrProducts = new();
             var allOrderProducts = _db.OrderProducts;
-            int nbrItems = 0;
+            int nbrItems;
             foreach(int orderId in orderIds)
             {
                 nbrItems = 0;
-                foreach(var orderProduct in allOrderProducts)
+                foreach(OrderProduct orderProduct in allOrderProducts)
                 {
                     if(orderId == orderProduct.OrderId)
                     {
                         nbrItems += orderProduct.Quantity;
                     }
-                    if (nbrItems > 0 && orderId != orderProduct.OrderId)
+                    if ((nbrItems > 0) && (orderId != orderProduct.OrderId))
                         break;
                 }
                 orderNbrProducts.Add(orderId, nbrItems);
@@ -122,35 +116,29 @@ namespace AmazooApp.Controllers
             return View(allOrders);
         }
 
-        /*
-         * Details page for each order viewed through the administrator page
-         */
+        // This action outputs a View holding all details of a specific
+        // order from administrator list.
         public IActionResult ViewDetails(int? id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            var order = _db.Orders.Find(id);
+            var order = GetOrderFromId(id);
             if (order == null)
             {
                 return NotFound();
             }
+
             ViewBag.Order = order;
 
             string customerName = _db.Users.Find(order.Customer).FirstName +" "+ _db.Users.Find(order.Customer).LastName;
             ViewBag.CustomerName = customerName;
 
-            Hashtable productQuantity = new Hashtable();
-            var orderProducts = from oP in _db.OrderProducts
-                                where oP.OrderId == order.Id
-                                select oP;
-            foreach(var oP in orderProducts)
+            Hashtable productQuantity = new();
+            var orderProducts = from specificOrderOP in _db.OrderProducts
+                                where specificOrderOP.OrderId == order.Id
+                                select specificOrderOP;
+            foreach(OrderProduct oP in orderProducts)
             {
                 productQuantity.Add(oP.ProductId, oP.Quantity);
             }
-
-            _db.SaveChanges();
 
             ViewBag.ProductQuantity = productQuantity;
             
@@ -159,29 +147,26 @@ namespace AmazooApp.Controllers
             return View(products);
         }
 
-        /*
-         * Details page for each order viewed through the My Orders page of a logged in user
-         */
+        // This action outputs a View holding all details of a specific
+        // order from the customer list.
         public async Task<IActionResult> ViewMyOrderDetailsAsync(int? id)
         {
-            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            ViewBag.CurrentUserId = currentUser.Id;
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            var order = _db.Orders.Find(id);
+            var order = GetOrderFromId(id);
             if (order == null)
             {
                 return NotFound();
             }
             ViewBag.Order = order;
 
-            Hashtable productQuantity = new Hashtable();
-            var orderProducts = from oP in _db.OrderProducts
-                                where oP.OrderId == order.Id
-                                select oP;
-            foreach (var oP in orderProducts)
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.CurrentUserId = currentUser.Id;
+
+            Hashtable productQuantity = new();
+            var orderProducts = from specificOrderOP in _db.OrderProducts
+                                where specificOrderOP.OrderId == order.Id
+                                select specificOrderOP;
+
+            foreach (OrderProduct oP in orderProducts)
             {
                 productQuantity.Add(oP.ProductId, oP.Quantity);
             }
@@ -192,17 +177,11 @@ namespace AmazooApp.Controllers
             return View(products);
         }
 
-        /*
-         * Cancels a specific order and updates the products in stock
-         */
+        // This action cancels a specific order and outputs MyOrders View.
         public IActionResult Cancel(int? id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
 
-            var orderToCancel = _db.Orders.Find(id);
+            var orderToCancel = GetOrderFromId(id);
 
             if (orderToCancel == null)
             {
@@ -214,11 +193,11 @@ namespace AmazooApp.Controllers
             orderToCancel.TotalPaid = 0.0f;
             _db.Orders.Update(orderToCancel);
 
-            Hashtable productQuantity = new Hashtable();
+            Hashtable productQuantity = new();
             var orderProduct = from oP in _db.OrderProducts
                                where oP.OrderId == id
                                select oP;
-            foreach(var oP in orderProduct)
+            foreach(OrderProduct oP in orderProduct)
             {
                 productQuantity.Add(oP.ProductId, oP.Quantity);
             }
@@ -231,13 +210,27 @@ namespace AmazooApp.Controllers
                 if (product == null)
                     continue;
 
-                product.QuantityInStock = product.QuantityInStock + (int)prodQuant.Value;
+                product.QuantityInStock += (int)prodQuant.Value;
                 _db.Products.Update(product);
             }
 
             _db.SaveChanges();
 
             return RedirectToAction("MyOrders");
+        }
+
+        // This method verifies the order id is valid and returns the
+        // order associated with it.
+        private Order GetOrderFromId(int? id)
+        {
+            if ((id == null) || (id == 0))
+            {
+                return null;
+            }
+
+            var order = _db.Orders.Find(id);
+
+            return order;
         }
     }
 }

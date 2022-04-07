@@ -9,34 +9,30 @@ namespace AmazooApp.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        UserManager<ApplicationUser> _userManager;
-        SignInManager<ApplicationUser> _signInManager;
-
-        public LoginController(UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager)
+        // This is a constructor of the LoginController class.
+        public LoginController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            _userManager = userManager; ;
+            _userManager = userManager;
             _signInManager = signInManager;
         }
 
+        // This action outputs a View where a user can login into his account.
         public IActionResult Login()
         {
-            //in case the user is already logged in 
+            // In case the user is already logged in, redirects home.
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
+
             return View();
         }
 
-        public IActionResult Check()
-        {
-            return View();
-        }
-
-
-
+        // This action verifies that the entered information is valid for an account, logs the user in and redirects
+        // to home page if successfully logged in.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Check(LoginViewModel model)
@@ -66,8 +62,10 @@ namespace AmazooApp.Controllers
             
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
-            return View("Login",model);
+            return View("Login", model);
         }
+
+        // This action logs the current user out and outputs the home page View.
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
